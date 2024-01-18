@@ -6,7 +6,7 @@ class HelpCommand implements CommnadInterface {
     }
 
     public async execute(..._params: string[]): Promise<void> {
-      console.info(`
+      console.log (`
       Программа для подготовки данных для REST API сервера.
         Пример:
             cli.js --<command> [--arguments]
