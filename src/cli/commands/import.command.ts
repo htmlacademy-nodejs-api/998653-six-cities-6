@@ -5,7 +5,7 @@ class ImportCommand implements CommnadInterface {
     return `--import`;
     }
 
-    public execute(...params: string[]): void {
+    public execute(..._params: string[]): void {
 
     }
 }

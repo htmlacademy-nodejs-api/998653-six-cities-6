@@ -1,5 +1,4 @@
-// import { VersionCommand } from './commands/version.command.js';
-// import { HelpCommand  } from './commands/help.command.js';
+
 import { CommnadInterface } from  './commands/command.interface.js';
 import { CommandParser } from './commands/command.parser.js'
 
@@ -23,7 +22,7 @@ public getDefaultCommand(): CommnadInterface | never {
   return this.commands[this.defaultCommand];
 }
 
- public registerCommand(commandList: CommnadInterface[]): void {
+ public registerCommands(commandList: CommnadInterface[]): void {
   commandList.forEach((commandItem) => {
     if(Object.hasOwn(commandList, commandItem.getName())) {
       throw new Error(`Command ${commandItem.getName()} is already registered`);
