@@ -1,4 +1,4 @@
-import { StatusType } from "./status.type.js";
+import { StatusType } from './status.type.js';
 
 type TUser= {
   name: string;
@@ -7,4 +7,4 @@ type TUser= {
   status: StatusType;
 }
 
-export { TUser }
+export { TUser };

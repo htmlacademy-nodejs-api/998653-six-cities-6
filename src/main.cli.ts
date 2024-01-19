@@ -10,5 +10,4 @@ function bootstrap() {
 
   cliApp.prossesCommand(process.argv);
 }
-
 bootstrap();

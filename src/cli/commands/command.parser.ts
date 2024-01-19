@@ -1,7 +1,3 @@
- // {
-        // '--import': ['./index.ts'],
-    // }
-
 type TCommandParser = Record<string, string[]>;
 
 class CommandParser {
@@ -21,4 +17,4 @@ class CommandParser {
   }
 }
 
-export { CommandParser }
+export { CommandParser };

@@ -8,4 +8,4 @@
   Fridge = 'Fridge',
 }
 
-export { CityType }
+export { CityType };

@@ -3,4 +3,4 @@ type TLocation = {
   longitude: number;
 }
 
-export { TLocation }
+export { TLocation };

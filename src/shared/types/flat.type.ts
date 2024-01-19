@@ -5,4 +5,4 @@ enum FlatType {
   Hotel = 'hotel',
 }
 
-export { FlatType }
+export { FlatType };

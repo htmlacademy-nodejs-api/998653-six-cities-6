@@ -3,4 +3,4 @@ interface CommnadInterface {
     execute(...params: string[]): void
 }
 
-export { CommnadInterface }
+export { CommnadInterface };

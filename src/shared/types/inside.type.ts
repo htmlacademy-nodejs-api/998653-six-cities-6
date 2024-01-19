@@ -8,4 +8,4 @@ enum InsideType {
   Fridge = 'Fridge',
 }
 
-export { InsideType }
+export { InsideType };

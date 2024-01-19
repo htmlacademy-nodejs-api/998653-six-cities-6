@@ -3,4 +3,4 @@
   Pro = 'Pro'
 }
 
-export { StatusType }
+export { StatusType };
