@@ -1,4 +1,3 @@
-
 import { CommnadInterface } from './commands/command.interface.js';
 import { CommandParser } from './commands/command.parser.js';
 
