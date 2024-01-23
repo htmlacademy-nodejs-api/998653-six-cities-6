@@ -25,12 +25,9 @@ export type Offer ={
 
 
 export type TMocksServerData = {
-  categories: string[];
-  titles: string[];
-  descriptions: string[];
-  offerImages: string[];
-  categoryImages: string[];
-  users: string[];
-  emails: string[];
-  avatars: string[];
-  };
+  names: string[];
+  desriptions: string[];
+  cities: string[];
+  email: string[];
+  avatar: string[];
+};
