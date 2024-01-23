@@ -1,0 +1,19 @@
+"api": {
+  "name": string;
+  desription: string;
+  date: Date;
+  city: CityType;
+  prevImg: string;
+  photo: string[];
+  isPremium: boolean;
+  isFavorite: boolean;
+  rating: number;
+  flat: FlatType;
+  rooms: number;
+  adults: number;
+  price : number;
+  inside: InsideType[];
+  user: TUser;
+  comment: number;
+  coords:
+}

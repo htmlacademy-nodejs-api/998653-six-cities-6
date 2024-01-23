@@ -1,5 +1,4 @@
 import { TUser } from './ user.type.js';
-import { CityType } from './city.type.js';
 import { FlatType } from './flat.type.js';
 import { InsideType } from './inside.type.js';
 import { TLocation } from './location.type.js';
@@ -8,9 +7,9 @@ export type Offer ={
   name: string;
   desription: string;
   date: Date;
-  city: CityType;
+  city: 'Paris '| 'Cologne' | 'Amsterdam' | 'Hamburg' | 'Dusseldorf';
   prevImg: string;
-  photo: string[];
+  photo: string;
   isPremium: boolean;
   isFavorite: boolean;
   rating: number;
@@ -23,3 +22,15 @@ export type Offer ={
   comment: number;
   coords: TLocation
 }
+
+
+export type TMocksServerData = {
+  categories: string[];
+  titles: string[];
+  descriptions: string[];
+  offerImages: string[];
+  categoryImages: string[];
+  users: string[];
+  emails: string[];
+  avatars: string[];
+  };
