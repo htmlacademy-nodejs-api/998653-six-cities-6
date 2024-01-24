@@ -1,4 +1,4 @@
-import { TUser } from './ user.type.js';
+import { TUser } from './user.type.js';
 import { FlatType } from './flat.type.js';
 import { InsideType } from './inside.type.js';
 import { TLocation } from './location.type.js';
