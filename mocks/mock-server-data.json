@@ -20,6 +20,35 @@
       "Amsterdam",
       "Hamburg",
       "Dusseldorf"
+    ],
+    "flatTypes" : [
+      "apartment",
+      "house",
+       "room",
+       "hotel"
+    ],
+    "facilities": [
+      "Breakfast",
+      "Air conditioning",
+      "Laptop friendly workspace",
+      "Baby seat",
+      "Washer",
+      "Towels",
+      "Fridge",
+    ],
+    "users": [
+      {
+        "name": "Roman",
+        "email": "roman@mail.ru",
+        "avatar": "https://loremflickr.com/50/50/avatar",
+        "status": "Standart"
+      },
+      {
+        "name": "Nata",
+        "email": "erbet@mail.ru",
+        "avatar": "https://loremflickr.com/50/50/avatar",
+        "status": "Pro"
+      }
     ]
   }
 }

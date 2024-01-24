@@ -28,6 +28,7 @@ export type TMocksServerData = {
   names: string[];
   desriptions: string[];
   cities: string[];
-  email: string[];
-  avatar: string[];
+  flatTypes: string[];
+  facilities: string[];
+  users: string[];
 };
