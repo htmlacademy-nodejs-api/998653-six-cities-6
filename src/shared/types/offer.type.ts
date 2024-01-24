@@ -9,7 +9,7 @@ export type Offer ={
   date: Date;
   city: 'Paris '| 'Cologne' | 'Amsterdam' | 'Hamburg' | 'Dusseldorf';
   prevImg: string;
-  photo: string;
+  photo: string[];
   isPremium: boolean;
   isFavorite: boolean;
   rating: number;
