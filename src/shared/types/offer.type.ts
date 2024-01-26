@@ -1,24 +1,25 @@
 import { TUser } from './user.type.js';
-import { FlatType } from './flat.type.js';
-import { InsideType } from './inside.type.js';
+import { FlatType } from './flat.type.enum.js';
+import { InsideType } from './inside.type.enum.js';
 import { TLocation } from './location.type.js';
+import { CityType } from './city.type.enum.js';
 
-export type Offer ={
+export type TOffer ={
   name: string;
   desription: string;
   date: Date;
-  city: 'Paris '| 'Cologne' | 'Amsterdam' | 'Hamburg' | 'Dusseldorf';
+  city: CityType;
   prevImg: string;
-  photo: string[];
+  photos: string[];
   isPremium: boolean;
   isFavorite: boolean;
   rating: number;
   flat: FlatType;
   rooms: number;
-  adults: number;
+  adult: number;
   price : number;
-  inside: InsideType[];
+  inside: string[];
   user: TUser;
-  comment: number;
+  comments: number;
   coords: TLocation
 }
