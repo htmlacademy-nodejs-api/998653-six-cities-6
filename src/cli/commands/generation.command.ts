@@ -2,10 +2,13 @@
 import got from 'got';
 import { CommnadInterface } from './command.interface.js';
 import { TMocksServerData } from '../../shared/types/index.js';
+import { TSVOfferGenerator } from '../../shared/offer-generator/index.js';
+import { appendFile } from 'node:fs/promises';
 
 class GenerateCommand implements CommnadInterface {
   private readonly name: string = '--generate';
   private initalData: TMocksServerData;
+
 
   private async load(url: string) {
     try {
@@ -14,6 +17,18 @@ class GenerateCommand implements CommnadInterface {
       throw new Error(`Can't load data from ${url}`);
     }
 
+  }
+
+  public async write(filepath: string, offerCount: number) {
+    const tsvOfferGenerator = new TSVOfferGenerator(this.initalData);
+
+    for(let i = 0; i < offerCount; i++) {
+      await appendFile(
+        filepath,
+        `${tsvOfferGenerator.generate()}\n`,
+        {encoding: 'utf-8'}
+      );
+    }
   }
 
   public getName(): string {
@@ -27,6 +42,8 @@ class GenerateCommand implements CommnadInterface {
 
     try {
       await this.load(url);
+      await this.write(filepath, offerCount);
+      console.info(`File ${filepath} was created!`);
     } catch (error: unknown) {
       console.error('Can\'t generate data');
 
@@ -36,5 +53,6 @@ class GenerateCommand implements CommnadInterface {
     }
   }
 }
+
 
 export { GenerateCommand };

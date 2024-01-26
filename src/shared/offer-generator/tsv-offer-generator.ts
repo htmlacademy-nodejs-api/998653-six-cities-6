@@ -24,7 +24,7 @@ const COORD_MAX = 10;
 const FIRST_WEEK_DAY = 1;
 const LAST_WEEK_DAY = 7;
 
-export class TSVOfferGenerator implements OfferGenerator {
+class TSVOfferGenerator implements OfferGenerator {
   constructor(private readonly mockData: TMocksServerData) {}
 
   public generate(): string {
@@ -72,3 +72,5 @@ export class TSVOfferGenerator implements OfferGenerator {
     ]. join('/\t');
   }
 }
+
+export { TSVOfferGenerator };
