@@ -3,7 +3,8 @@ import got from 'got';
 import { CommnadInterface } from './command.interface.js';
 import { TMocksServerData } from '../../shared/types/index.js';
 import { TSVOfferGenerator } from '../../shared/libs/offer-generator/index.js';
-import { appendFile } from 'node:fs/promises';
+import { getErrorMessage } from '../../shared/helpers/index.js';
+import { TSVFileWriter } from '../../shared/libs/file-writer/index.js';
 
 class GenerateCommand implements CommnadInterface {
   private readonly name: string = '--generate';
@@ -22,13 +23,10 @@ class GenerateCommand implements CommnadInterface {
 
   public async write(filepath: string, offerCount: number) {
     const tsvOfferGenerator = new TSVOfferGenerator(this.initalData);
+    const tsvFileWriter = new TSVFileWriter(filepath);
 
     for(let i = 0; i < offerCount; i++) {
-      await appendFile(
-        filepath,
-        `${tsvOfferGenerator.generate()}\n`,
-        {encoding: 'utf-8'}
-      );
+      await tsvFileWriter.write(tsvOfferGenerator.generate());
     }
   }
 
@@ -46,7 +44,7 @@ class GenerateCommand implements CommnadInterface {
       await this.write(filepath, offerCount);
       console.info(`File ${filepath} was created!`);
     } catch (error: unknown) {
-      console.error('Can\'t generate data');
+      console.error(getErrorMessage(error));
 
       if (error instanceof Error) {
         console.error(error.message);
