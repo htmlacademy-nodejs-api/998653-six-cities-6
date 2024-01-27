@@ -1,6 +1,5 @@
 import { TUser } from './user.type.js';
 import { FlatType } from './flat.type.enum.js';
-import { InsideType } from './inside.type.enum.js';
 import { TLocation } from './location.type.js';
 import { CityType } from './city.type.enum.js';
 
