@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { OfferGenerator } from './offer-generator.interface.js';
-import { TMocksServerData} from '../types/index.js';
-import { generateRandomValue, getRandomItem, getRandomItems } from '../helpers/index.js';
+import { TMocksServerData} from '../../types/index.js';
+import { generateRandomValue, getRandomItem, getRandomItems } from '../../helpers/index.js';
 
 const VALUE_MIN = 0;
 const VALUE_MAX = 1;

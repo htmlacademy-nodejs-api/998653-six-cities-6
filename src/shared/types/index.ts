@@ -5,3 +5,4 @@ export * from './city.type.enum.js';
 export * from './flat.type.enum.js';
 export * from './status.type.enum.js';
 export * from './location.type.js';
+export * from './mock-server-data.type.js';

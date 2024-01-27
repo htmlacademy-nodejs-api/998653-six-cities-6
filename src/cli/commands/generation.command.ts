@@ -2,7 +2,7 @@
 import got from 'got';
 import { CommnadInterface } from './command.interface.js';
 import { TMocksServerData } from '../../shared/types/index.js';
-import { TSVOfferGenerator } from '../../shared/offer-generator/index.js';
+import { TSVOfferGenerator } from '../../shared/libs/offer-generator/index.js';
 import { appendFile } from 'node:fs/promises';
 
 class GenerateCommand implements CommnadInterface {
@@ -12,7 +12,8 @@ class GenerateCommand implements CommnadInterface {
 
   private async load(url: string) {
     try {
-      this.initalData = got.get(url).json();
+      this.initalData = await got.get(url).json();
+      console.log(this.initalData);
     } catch {
       throw new Error(`Can't load data from ${url}`);
     }
