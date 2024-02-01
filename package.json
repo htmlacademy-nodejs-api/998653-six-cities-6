@@ -43,8 +43,10 @@
     "dayjs": "1.11.10",
     "dotenv": "16.4.1",
     "got": "13.0.0",
+    "inversify": "6.0.2",
     "pino": "8.17.2",
     "pino-pretty": "10.3.1",
+    "reflect-metadata": "0.2.1",
     "tslib": "2.6.2"
   }
 }
