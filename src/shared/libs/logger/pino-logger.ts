@@ -11,27 +11,37 @@ export class PinoLogger implements Logger {
     const logFilePath = './logs/rest.log';
     const destination = resolve(modulePath, '../../../', logFilePath);
 
-    const fileTransport = transport({
-      target: 'pino/file',
-      options: { destination }
+    const multiTransport = transport({
+      targets: [
+        {
+          target: 'pino/file',
+          options: { destination },
+          level: 'debug'
+        },
+        {
+          target: 'pino/file',
+          level: 'info',
+          options: {},
+        }
+      ],
     });
 
-    this.logger = pino({}, fileTransport);
+    this.logger = pino({}, multiTransport);
   }
 
-  info(message: string, ...args: unknown[]): void {
+  public info(message: string, ...args: unknown[]): void {
     this.logger.info(message, ...args);
   }
 
-  warn(message: string, ...args: unknown[]): void {
+  public warn(message: string, ...args: unknown[]): void {
     this.logger.warn(message, ...args);
   }
 
-  error(message: string, error: Error, ...args: unknown[]): void {
+  public error(message: string, error: Error, ...args: unknown[]): void {
     this.logger.error(message, error, ...args);
   }
 
-  debug(message: string, ...args: unknown[]): void {
+  public debug(message: string, ...args: unknown[]): void {
     this.logger.debug(message, ...args);
   }
 }
