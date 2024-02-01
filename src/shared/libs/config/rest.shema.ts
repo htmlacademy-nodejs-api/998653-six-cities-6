@@ -1,10 +1,10 @@
-import convic from 'convict';
+import convict from 'convict';
 
 export type RestShema ={
   PORT :number
 }
 
-export const configRestShema = convic<RestShema>({
+export const configRestShema = convict<RestShema>({
   PORT: {
     env: 'PORT',
     default: 4000,
