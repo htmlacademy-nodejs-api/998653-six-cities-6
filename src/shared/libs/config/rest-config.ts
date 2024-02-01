@@ -1,10 +1,11 @@
-import { DotenvParseOutput, config } from 'dotenv';
+import { config } from 'dotenv';
 import { Config } from './config.interface.js';
 import { Logger } from '../logger/index.js';
+import { RestShema, configRestShema } from './rest.shema.js';
 
 
-export class RestConfig implements Config {
-  private readonly config: NodeJS.ProcessEnv;
+export class RestConfig implements Config<RestShema> {
+  private readonly config: RestShema;
 
   constructor(
     private readonly logger: Logger
@@ -15,11 +16,14 @@ export class RestConfig implements Config {
       throw new Error('Can\'t read .env file. Perhaps the file does not exists.');
     }
 
-    this.config = <DotenvParseOutput>parsedOut.parsed;
+    configRestShema.load({});
+    configRestShema.validate({ allowed: 'strict', output: this.logger.info });
+
+    this.config = configRestShema.getProperties();
     this.logger.info('.env file found and successfully parsed!');
   }
 
-  public get(key: string): string | undefined {
+  public get<T extends keyof RestShema>(key: T): RestShema[T] {
     return this.config[key];
   }
 }
