@@ -1,24 +1,23 @@
-import { TUser } from './ user.type.js';
-import { CityType } from './city.type.js';
-import { FlatType } from './flat.type.js';
-import { InsideType } from './inside.type.js';
+import { TUser } from './user.type.js';
+import { FlatType } from './flat.type.enum.js';
 import { TLocation } from './location.type.js';
+import { CityType } from './city.type.enum.js';
 
-export type Offer ={
+export type TOffer ={
   name: string;
   desription: string;
   date: Date;
   city: CityType;
   prevImg: string;
-  photo: string[];
+  photos: string[];
   isPremium: boolean;
   isFavorite: boolean;
   rating: number;
   flat: FlatType;
+  inside: string[];
   rooms: number;
-  adults: number;
+  adult: number;
   price : number;
-  inside: InsideType[];
   user: TUser;
   comment: number;
   coords: TLocation
