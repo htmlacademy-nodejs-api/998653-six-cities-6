@@ -1,4 +1,4 @@
-import { StatusType } from './status.type.js';
+import { StatusType } from './index.js';
 
 type TUser= {
   name: string;

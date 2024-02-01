@@ -14,11 +14,11 @@ export type TOffer ={
   isFavorite: boolean;
   rating: number;
   flat: FlatType;
+  inside: string[];
   rooms: number;
   adult: number;
   price : number;
-  inside: string[];
   user: TUser;
-  comments: number;
+  comment: number;
   coords: TLocation
 }

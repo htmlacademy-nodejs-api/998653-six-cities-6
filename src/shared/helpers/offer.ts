@@ -1,4 +1,4 @@
-import { TOffer, CityType, FlatType, TUser, StatusType, TLocation} from'../../shared/types/index.js';
+import { TOffer, CityType, FlatType, StatusType } from'../../shared/types/index.js';
 
 function CreateOffer(OfferData: string): TOffer {
   const [
@@ -12,30 +12,18 @@ function CreateOffer(OfferData: string): TOffer {
     isFavorite,
     rating,
     flat,
+    inside,
     rooms,
     adult,
     price,
-    inside,
     author,
     email,
     avatar,
     status,
-    comments,
+    comment,
     latitude,
     longitude
-  ] = OfferData.replace('\n', '').split(',');
-
-  const user: TUser = {
-    author,
-    email,
-    avatar,
-    status: StatusType[status as 'Standard' | 'Pro'],
-  };
-
-  const coords: TLocation = {
-    latitude: Number(latitude),
-    longitude: Number(longitude),
-  };
+  ] = OfferData.replace('\n', '').split('');
 
   return {
     name,
@@ -48,13 +36,21 @@ function CreateOffer(OfferData: string): TOffer {
     isFavorite: !!isFavorite,
     rating: Number(rating),
     flat: FlatType[flat as 'Room' | 'Apartment' | 'House' | 'Hotel'],
+    inside: inside.split('|'),
     rooms: Number(rooms) ,
     adult:  Number(adult),
     price: Number.parseInt(price, 10),
-    inside: inside.split('|'),
-    user,
-    comments: Number(comments),
-    coords
+    user: {
+      author,
+      email,
+      avatar,
+      status: StatusType[status as keyof typeof StatusType ],
+    },
+    comment: Number(comment),
+    coords: {
+      latitude: Number(latitude),
+      longitude: Number(longitude)
+    },
   };
 }
 
