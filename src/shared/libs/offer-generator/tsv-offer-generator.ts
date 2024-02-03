@@ -4,7 +4,6 @@ import { TMocksServerData} from '../../types/index.js';
 import { generateRandomValue, getRandomItem, getRandomItems } from '../../helpers/index.js';
 import { OfferMap } from '../../../const/const.js';
 
-
 class TSVOfferGenerator implements OfferGenerator {
   constructor(private readonly mockData: TMocksServerData) {}
 
@@ -50,7 +49,7 @@ class TSVOfferGenerator implements OfferGenerator {
       user,
       comments,
       coords
-    ]. join('/\t');
+    ]. join('\t');
   }
 }
 

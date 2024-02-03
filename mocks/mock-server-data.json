@@ -46,13 +46,13 @@
     ],
     "users": [
       {
-        "name": "Roman",
+        "author": "Roman",
         "email": "roman@mail.ru",
         "avatar": "https://loremflickr.com/50/50/avatar",
         "status": "Standart"
       },
       {
-        "name": "Nata",
+        "author": "Nata",
         "email": "erbet@mail.ru",
         "avatar": "https://loremflickr.com/50/50/avatar",
         "status": "Pro"

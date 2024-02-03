@@ -1,7 +1,7 @@
 import { StatusType } from './index.js';
 
 type TUser= {
-  name: string;
+  author: string;
   email: string;
   avatar: string;
   status: StatusType;
