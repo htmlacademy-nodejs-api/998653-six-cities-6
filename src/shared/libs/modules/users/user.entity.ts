@@ -1,9 +1,19 @@
-import { getModelforClass, prop } from '@typegoose/typegoose';
-import { StatusType, User } from '../../../types/index.js';
+import { getModelForClass, prop } from '@typegoose/typegoose';
+import { User } from '../../../types/index.js';
 
-class UserEntery implements User {
- 
+export class UserEntery implements User {
+  @prop({ unique: true, required: true })
+    email: string;
 
+  @prop({ required: false, default: '' })
+    avatarPath: string;
+
+  @prop({ required: true })
+    firstname: string;
+
+  @prop({ required: true })
+    lastname: string;
 }
 
 
+export const UserModel = getModelForClass(UserEntery);
