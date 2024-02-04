@@ -1,7 +1,7 @@
-import { getModelForClass, prop } from '@typegoose/typegoose';
+import { defaultClasses, getModelForClass, prop } from '@typegoose/typegoose';
 import { User } from '../../../types/index.js';
 
-export class UserEntery implements User {
+export class UserEntery extends defaultClasses.TimeStamps implements User{
   @prop({ unique: true, required: true })
     email: string;
 
