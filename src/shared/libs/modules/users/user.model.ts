@@ -1,7 +1,7 @@
 import {Schema, Document, model} from 'mongoose';
-import { TUser } from '../../../types/index.js';
+import { User } from '../../../types/index.js';
 
-export interface UserDocument extends TUser, Document {
+export interface UserDocument extends User, Document {
   createdAt: Date,
   updatedAt: Date,
 }
@@ -25,4 +25,4 @@ const userShema = new Schema({
   lastname: String,
 }, { timestamps: true });
 
-export const userModel = model<UserDocument>('TUser', userShema);
+export const userModel = model<UserDocument>('User', userShema);

@@ -1,8 +1,9 @@
-import { TUser } from '../../../types/index.js';
+import { getModelforClass, prop } from '@typegoose/typegoose';
+import { StatusType, User } from '../../../types/index.js';
 
-export class UserEntity {
-  public email: string;
-  public avatarPath: string;
-  public firstname: string;
-  public lastname: string;
+class UserEntery implements User {
+ 
+
 }
+
+

@@ -1,10 +1,8 @@
-import { StatusType } from './status.type.enum.js';
-
-type TUser= {
-  author: string;
+type User= {
   email: string;
-  avatar: string;
-  status: StatusType;
+  avatarPath: string;
+  firstname: string;
+  lastname: string;
 }
 
-export { TUser };
+export { User };

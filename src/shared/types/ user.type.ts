@@ -1,9 +1,8 @@
-
-type TUser= {
+type User= {
   email: string;
   avatarPath: string;
   firstname: string;
   lastname: string;
 }
 
-export { TUser };
+export { User };

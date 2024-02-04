@@ -1,4 +1,4 @@
-import { TUser } from './user.type.js';
+import { User } from './user.type.js';
 import { FlatType } from './flat.type.enum.js';
 import { TLocation } from './location.type.js';
 import { CityType } from './city.type.enum.js';
@@ -18,7 +18,7 @@ export type TOffer ={
   rooms: number;
   adult: number;
   price : number;
-  user: TUser;
+  user: User;
   comment: number;
   coords: TLocation
 }
