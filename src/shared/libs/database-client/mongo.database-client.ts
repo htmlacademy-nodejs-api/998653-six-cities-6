@@ -20,14 +20,23 @@ export class MongoDatabaseClient implements DatabaseClient {
 
   public async connect(uri: string): Promise<void> {
     if (this.isConnectedToDataBase()) {
-      throw new Error('Method not implemented.');
+      throw new Error('MongoDB client already connected');
+    }
+    this.logger.info('Trying to connect to MongoDB…');
+
+    this.mongoose = await Mongoose.connect(uri);
+    this.isConnected = true;
+
+    this.logger.info('Database connection established.');
+  }
+
+  public async disconnect(): Promise<void> {
+    if (!this.isConnectedToDataBase()) {
+      throw new Error('Not connected to the database');
     }
 
+    await this.mongoose.disconnect?.();
+    this.isConnected = false;
+    this.logger.info('Database connection closed.');
   }
-
-  disconnect(): Promise<void> {
-    throw new Error('Method not implemented.');
-  }
-
-
 }
