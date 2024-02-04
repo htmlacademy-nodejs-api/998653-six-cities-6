@@ -1,9 +1,10 @@
 import { DatabaseClient} from './database-client.interface.js';
 import * as Mongoose from 'mongoose';
-import { inject } from 'inversify';
+import { inject, injectable } from 'inversify';
 import { Logger } from '../logger/index.js';
 import { Component } from '../../types/index.js';
 
+@injectable()
 export class MongoDatabaseClient implements DatabaseClient {
   private mongoose: typeof Mongoose;
   private isConnected: boolean;
