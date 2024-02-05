@@ -1,5 +1,5 @@
 import { Schema, Document, model } from 'mongoose';
-import { TOffer, CityType, FlatType, User  } from '../../../types/index.js';
+import { TOffer, CityType, FlatType, } from '../../../types/index.js';
 
 export interface OfferDocument extends TOffer, Document {
   createdAt: Date,
@@ -8,7 +8,7 @@ export interface OfferDocument extends TOffer, Document {
 
 const offerSchema = new Schema({
   name: {
-   type: String,
+    type: String,
   },
   desription: {
     type: String,
@@ -60,4 +60,6 @@ const offerSchema = new Schema({
   coords: {
     type: Object
   }
-});
+}, { timestamps: true });
+
+export const OfferModel = model<OfferDocument>('Offer', offerSchema);
