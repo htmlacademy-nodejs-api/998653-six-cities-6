@@ -8,3 +8,4 @@ export * from './location.type.js';
 export * from './mock-server-data.type.js';
 export * from './status.type.enum.js';
 export * from './component.enum.js';
+export * from './category.types.js';
