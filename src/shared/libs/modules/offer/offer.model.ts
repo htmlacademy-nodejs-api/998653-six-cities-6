@@ -1,5 +1,5 @@
 import { Schema, Document, model } from 'mongoose';
-import { TOffer, CityType, FlatType, } from '../../../types/index.js';
+import { TOffer, CityType, FlatType, InsideType } from '../../../types/index.js';
 
 export interface OfferDocument extends TOffer, Document {
   createdAt: Date,
@@ -41,6 +41,7 @@ const offerSchema = new Schema({
   },
   inside: {
     type: Array,
+    enum: InsideType
   },
   rooms: {
     type: Number

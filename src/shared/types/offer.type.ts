@@ -1,7 +1,4 @@
-import { User } from './user.type.js';
-import { FlatType } from './flat.type.enum.js';
-import { TLocation } from './location.type.js';
-import { CityType } from './city.type.enum.js';
+import { User, FlatType, TLocation, CityType, InsideType} from './index.js';
 
 export type TOffer ={
   name: string;
@@ -14,7 +11,7 @@ export type TOffer ={
   isFavorite: boolean;
   rating: number;
   flat: FlatType;
-  inside: string[];
+  inside: InsideType;
   rooms: number;
   adult: number;
   price : number;

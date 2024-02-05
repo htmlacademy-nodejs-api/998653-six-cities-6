@@ -1,4 +1,8 @@
 const OfferMap = {
+  NAME_MIN: 10,
+  NAME_MAX: 100,
+  DESCRIPTION_MIN: 10,
+  DESCRIPTION_MAX: 100,
   VALUE_MIN: 0,
   VALUE_MAX: 1,
   RATING_MIN: 1,
