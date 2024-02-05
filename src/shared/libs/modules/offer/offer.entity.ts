@@ -125,3 +125,5 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   })
   public coords: TLocation;
 }
+
+export const OfferModel = getModelForClass(OfferEntity);
