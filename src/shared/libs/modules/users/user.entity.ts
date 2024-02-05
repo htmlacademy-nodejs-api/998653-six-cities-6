@@ -1,6 +1,7 @@
 import { defaultClasses, getModelForClass, modelOptions, prop } from '@typegoose/typegoose';
-import { User } from '../../../types/index.js';
+import { User, StatusType} from '../../../types/index.js';
 import { createSHA256 } from '../users/hash.js';
+import { DEFAULT_AVATAR, NameLength } from'../../../../const/const.js';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 export interface UserEntity extends defaultClasses.Base {}
@@ -14,17 +15,40 @@ export interface UserEntity extends defaultClasses.Base {}
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 export class UserEntity extends defaultClasses.TimeStamps implements User {
-  @prop({ unique: true, required: true })
+  @prop({
+    required: true,
+    unique: true,
+    match: [
+      /^([\w-\\.]+@([\w-]+\.)+[\w-]{2,4})?$/,
+      'Email is incorrect'
+    ]
+  })
     email: string;
 
-  @prop({ required: false, default: '' })
-    avatarPath: string;
+  @prop({
+    required: true,
+    minlength: [NameLength.Min, `Min length for name is ${NameLength.Min}`],
+    maxlength: [NameLength.Max, `Max length for name is ${NameLength.Max}`],
+    default: '',
+  })
+    author: string;
 
-  @prop({ required: true })
-    firstname: string;
+  @prop({
+    required: false,
+    trim: true,
+    match: [
+      /\.(jpg|png)(\?.*)?$/i,
+      'The avatar image must match the format .jpg or .png',
+    ],
+    default: DEFAULT_AVATAR,
+  })
+    avatar: string;
 
-  @prop({ required: true })
-    lastname: string;
+  @prop({
+    enum: StatusType,
+    required: true
+  })
+    status: StatusType;
 
   @prop({ required: true, default: '' })
     password?: string;
@@ -33,9 +57,9 @@ export class UserEntity extends defaultClasses.TimeStamps implements User {
     super();
 
     this.email = UserData.email;
-    this.avatarPath = UserData.avatarPath;
-    this.firstname = UserData.firstname;
-    this.lastname = UserData.lastname;
+    this.author = UserData.author;
+    this.avatar = UserData.avatar;
+    this.status = UserData.status;
   }
 
   public setPassword(password: string, salt: string) {

@@ -17,5 +17,11 @@ const OfferMap = {
   LAST_WEEK_DAY: 7,
 } as const;
 
-console.log(OfferMap);
-export { OfferMap };
+const DEFAULT_AVATAR = 'default-avatar.jpg';
+
+const NameLength = {
+  Min: 1,
+  Max: 15,
+} as const;
+
+export { OfferMap, DEFAULT_AVATAR, NameLength};

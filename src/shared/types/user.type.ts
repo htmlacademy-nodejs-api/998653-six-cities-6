@@ -1,8 +1,10 @@
+import { StatusType } from './index.js';
+
 type User= {
+  author: string;
   email: string;
-  avatarPath: string;
-  firstname: string;
-  lastname: string;
+  avatar: string;
+  status: StatusType;
 }
 
 export { User };
