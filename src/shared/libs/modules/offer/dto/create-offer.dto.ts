@@ -15,7 +15,7 @@ export class CreateOfferDto {
   public rooms: number;
   public adult: number;
   public price : number;
-  public user: string;
+  public userId: string;
   public comment: number;
   public coords: TLocation;
 }

@@ -1,4 +1,4 @@
-import { TOffer, CityType, FlatType, StatusType } from'../../shared/types/index.js';
+import { TOffer, CityType, FlatType, StatusType, InsideType } from'../../shared/types/index.js';
 
 function CreateOffer(OfferData: string): TOffer {
   const [
@@ -36,7 +36,7 @@ function CreateOffer(OfferData: string): TOffer {
     isFavorite: !!isFavorite,
     rating: Number(rating),
     flat: FlatType[flat as 'Room' | 'Apartment' | 'House' | 'Hotel'],
-    inside: inside.split('|'),
+    inside: InsideType[inside as keyof typeof InsideType ],
     rooms: Number(rooms) ,
     adult:  Number(adult),
     price: Number.parseInt(price, 10),

@@ -44,19 +44,25 @@
       "Towels",
       "Fridge"
     ],
-    "users": [
-      {
-        "author": "Roman",
-        "email": "roman@mail.ru",
-        "avatar": "https://loremflickr.com/50/50/avatar",
-        "status": "Standart"
-      },
-      {
-        "author": "Nata",
-        "email": "erbet@mail.ru",
-        "avatar": "https://loremflickr.com/50/50/avatar",
-        "status": "Pro"
-      }
+    "authors" :[
+      "Roman",
+      "Nata",
+      "Igor"
+    ],
+    "emails" :[
+      "roman@mail.ru",
+      "erbet@mail.ru",
+      "martabet@mail.ru"
+    ],
+    "avatars": [
+      "https://loremflickr.com/50/50/avatar",
+      "https://loremflickr.com/50/50/avatar",
+      "https://loremflickr.com/50/50/avatar"
+    ],
+    "statuses": [
+      "Standart",
+      "Pro",
+      "Standart"
     ],
     "comments": [
       "Non aliqua elit ut magna Lorem aliqua et duis. Laboris est mollit et ullamco elit ipsum eu qui. Aliqua nostrud non excepteur officia ad velit eiusmod laboris mollit sunt ullamco veniam eu.",
