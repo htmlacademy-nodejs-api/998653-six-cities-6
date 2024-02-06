@@ -22,12 +22,24 @@
       "Dusseldorf"
     ],
     "prevImages": [
-      "https://loremflickr.com/50/50/photo",
-      "https://loremflickr.com/50/70/photo"
+      "preview-1.jpg",
+      "preview-2.jpg",
+      "preview-3.jpg",
+      "preview-4.jpg",
+      "preview-5.jpg",
+      "preview-6.jpg",
+      "preview-7.jpg",
+      "preview-8.jpg"
     ],
     "photos":[
-      "https://loremflickr.com/50/50/photo",
-      "https://loremflickr.com/50/70/photo"
+      "photo-1.jpg",
+      "photo-2.jpg",
+      "photo-3.jpg",
+      "photo-4.jpg",
+      "photo-5.jpg",
+      "photo-6.jpg",
+      "photo-7.jpg",
+      "photo-8.jpg"
     ],
     "flats" : [
       "apartment",
@@ -44,23 +56,37 @@
       "Towels",
       "Fridge"
     ],
-    "authors" :[
-      "Roman",
-      "Nata",
-      "Igor"
+    "authors": [
+      "Amelia Sterling",
+      "Victor Royale",
+      "Eleanor Estates",
+      "Samuel Retreats",
+      "Isabella Luxton",
+      "Maximillian Grandeur",
+      "Gabriella Homestead",
+      "Oliver TranquilHaven"
     ],
-    "emails" :[
-      "roman@mail.ru",
-      "erbet@mail.ru",
-      "martabet@mail.ru"
+    "emails": [
+      "alice.wonderland@test.com",
+      "captain.adventure@test.com",
+      "mystic.dreamer@test.com",
+      "galaxy.explorer@test.com",
+      "professor.genius@test.net",
+      "enchanted.forest@test.com",
+      "tech.wizardry@test.org",
+      "secret.agent@test.com"
     ],
     "avatars": [
-      "https://loremflickr.com/50/50/avatar",
-      "https://loremflickr.com/50/50/avatar",
-      "https://loremflickr.com/50/50/avatar"
+      "avatar-1.jpg",
+      "avatar-2.jpg",
+      "avatar-3.jpg",
+      "avatar-4.jpg",
+      "avatar-5.jpg",
+      "avatar-6.jpg",
+      "avatar-7.jpg",
+      "avatar-8.jpg"
     ],
     "statuses": [
-      "Standart",
       "Pro",
       "Standart"
     ],
@@ -72,14 +98,10 @@
       "Nostrud adipisicing excepteur esse occaecat occaecat et anim dolor exercitation elit sit amet nostrud. Dolore nisi commodo cupidatat qui ut veniam enim cupidatat ullamco proident. Aliqua et magna Lorem eiusmod cillum exercitation."
     ],
     "coords": [
-        {
-          "lat": "55.7522",
-          "lng": "37.6156"
-        },
-        {
-          "lat": "46.3497",
-          "lng": "48.0408"
-        }
+        "55.7522",
+        "37.6156",
+        "46.3497",
+        "48.0408"
     ]
   }
 }

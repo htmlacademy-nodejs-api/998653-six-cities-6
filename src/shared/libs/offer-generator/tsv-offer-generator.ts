@@ -24,8 +24,11 @@ class TSVOfferGenerator implements OfferGenerator {
     const rooms = generateRandomValue(OfferMap.ROOMS_MIN,OfferMap.ROOMS_MAX).toString();
     const adult = generateRandomValue(OfferMap.ADULT_MIN, OfferMap.ADULT_MAX).toString();
     const price = generateRandomValue(OfferMap.PRICE_MIN, OfferMap.PRICE_MAX).toString();
-    const user = getRandomItem<string>(this.mockData.users);
     const comments = generateRandomValue(OfferMap.COMMENT_MIN,OfferMap.COMMENT_MAX).toString();
+    const author = getRandomItem<string>(this.mockData.authors).toString();
+    const email = getRandomItem<string>(this.mockData.emails).toString();
+    const avatar = getRandomItem<string>(this.mockData.avatars).toString();
+    const status = getRandomItem<string>(this.mockData.statuses).toString();
     const coords = [
       generateRandomValue(OfferMap.COORD_MIN, OfferMap.COORD_MAX).toString(),
       generateRandomValue(OfferMap.COORD_MIN, OfferMap.COORD_MAX).toString(),
@@ -46,7 +49,10 @@ class TSVOfferGenerator implements OfferGenerator {
       adult,
       price,
       inside,
-      user,
+      author,
+      email,
+      avatar,
+      status,
       comments,
       coords
     ]. join('\t');

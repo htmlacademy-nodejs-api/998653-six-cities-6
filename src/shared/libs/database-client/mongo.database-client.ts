@@ -14,22 +14,24 @@ export class MongoDatabaseClient implements DatabaseClient {
   private isConnected: boolean;
 
   constructor(
-    @inject(Component.Logger) private logger: Logger,
+    @inject(Component.Logger) private readonly logger: Logger
   ) {
     this.isConnected = false;
   }
 
-  public isConnectedToDataBase() {
+  public isConnectedToDatabase() {
     return this.isConnected;
   }
 
   public async connect(uri: string): Promise<void> {
-    if (this.isConnectedToDataBase()) {
+    if (this.isConnectedToDatabase()) {
       throw new Error('MongoDB client already connected');
     }
+
     this.logger.info('Trying to connect to MongoDB…');
 
     let attempt = 0;
+
     while (attempt < RETRY_COUNT) {
       try {
         this.mongoose = await Mongoose.connect(uri);
@@ -47,7 +49,7 @@ export class MongoDatabaseClient implements DatabaseClient {
   }
 
   public async disconnect(): Promise<void> {
-    if (!this.isConnectedToDataBase()) {
+    if (!this.isConnectedToDatabase()) {
       throw new Error('Not connected to the database');
     }
 
@@ -56,3 +58,4 @@ export class MongoDatabaseClient implements DatabaseClient {
     this.logger.info('Database connection closed.');
   }
 }
+
