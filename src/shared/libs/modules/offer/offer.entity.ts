@@ -1,4 +1,4 @@
-import { defaultClasses, getModelForClass, modelOptions, prop } from '@typegoose/typegoose';
+import { Ref, defaultClasses, getModelForClass, modelOptions, prop } from '@typegoose/typegoose';
 import { CityType, FlatType, TLocation, InsideType} from '../../../types/index.js';
 import { OfferMap } from '../../../../const/const.js';
 import { UserEntity } from '../users/index.js';
@@ -15,18 +15,20 @@ export interface OfferEntity extends defaultClasses.Base {}
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 export class OfferEntity extends defaultClasses.TimeStamps {
   @prop({
+    trim: true,
     require: true,
     minlength: OfferMap.NAME_MIN,
     maxlength: OfferMap.NAME_MAX
   })
-  public name: string;
+  public name!: string;
 
   @prop({
+    trim: true,
     require: true,
     minlength: OfferMap.DESCRIPTION_MIN,
     maxlength: OfferMap.DESCRIPTION_MAX
   })
-  public desription: string;
+  public desription!: string;
 
   @prop({
     required: true,
@@ -37,7 +39,7 @@ export class OfferEntity extends defaultClasses.TimeStamps {
     enum: CityType,
     required: true
   })
-  public city: CityType;
+  public city!: CityType;
 
   @prop({
     required: true,
@@ -47,7 +49,7 @@ export class OfferEntity extends defaultClasses.TimeStamps {
       'The avatar image must match the format .jpg or .png',
     ],
   })
-  public prevImg: string;
+  public prevImg!: string;
 
   @prop({
     type: () => [String],
@@ -60,70 +62,71 @@ export class OfferEntity extends defaultClasses.TimeStamps {
     require: true,
     default: false,
   })
-  public isPremium: boolean;
+  public isPremium!: boolean;
 
   @prop({
     require: true,
     default: false,
   })
-  public isFavorite: boolean;
+  public isFavorite!: boolean;
 
   @prop({
     require: true,
     min: OfferMap.RATING_MIN,
     max: OfferMap.RATING_MAX
   })
-  public rating: number;
+  public rating!: number;
 
   @prop({
     type: () => String,
     enum: FlatType,
     required: true
   })
-  public flat: FlatType;
+  public flat!: FlatType;
 
   @prop({
     default: [],
     type: () => [String],
     required: true
   })
-  public inside: InsideType;
+  public inside!: InsideType;
 
   @prop({
     required: true,
     min: OfferMap.ROOMS_MIN,
     max: OfferMap.ROOMS_MAX,
   })
-  public rooms: number;
+  public rooms!: number;
 
   @prop({
     required: true,
     min: OfferMap.ADULT_MIN,
     max: OfferMap.ADULT_MAX,
   })
-  public adult: number;
+  public adult!: number;
 
   @prop({
     required: true,
     min: OfferMap.PRICE_MIN,
     max: OfferMap.PRICE_MAX,
   })
-  public price : number;
+  public price!: number;
 
   @prop({
-
+    ref: UserEntity,
+    required: true,
   })
-  public user: User;
+  public user!: Ref<UserEntity>;
 
   @prop({
     default: 0
   })
-  public comment: number;
+  public comment!: number;
 
   @prop({
     required: true
   })
-  public coords: TLocation;
+  public coords!: TLocation;
 }
 
 export const OfferModel = getModelForClass(OfferEntity);

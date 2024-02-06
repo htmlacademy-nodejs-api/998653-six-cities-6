@@ -1,7 +1,7 @@
 import { inject, injectable } from 'inversify';
 import { DocumentType, types } from '@typegoose/typegoose';
 import { CreateOfferDto } from './dto/create-offer.dto.js';
-import { OfferEntity, OfferService, OfferModel } from './index.js';
+import { OfferEntity, OfferService } from './index.js';
 import { Logger } from '../../logger/index.js';
 import { Component } from '../../../types/index.js';
 
@@ -20,8 +20,7 @@ export class DefaultOfferService implements OfferService {
     return result;
   }
 
-  findOrCreate(offerId: string): Promise<DocumentType<OfferEntity>> | null{
+  public async findById(offerId: string): Promise<DocumentType<OfferEntity> | null> {
     return this.offerModel.findById(offerId).exec();
   }
-
 }

@@ -23,7 +23,7 @@ export class UserEntity extends defaultClasses.TimeStamps implements User {
       'Email is incorrect'
     ]
   })
-    email: string;
+    email!: string;
 
   @prop({
     required: true,
@@ -31,7 +31,7 @@ export class UserEntity extends defaultClasses.TimeStamps implements User {
     maxlength: [NameLength.Max, `Max length for name is ${NameLength.Max}`],
     default: '',
   })
-    author: string;
+    author!: string;
 
   @prop({
     required: false,
@@ -42,7 +42,7 @@ export class UserEntity extends defaultClasses.TimeStamps implements User {
     ],
     default: DEFAULT_AVATAR,
   })
-    avatar: string;
+    avatar!: string;
 
   @prop({
     enum: StatusType,
