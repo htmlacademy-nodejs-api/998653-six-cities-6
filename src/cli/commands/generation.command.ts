@@ -23,7 +23,6 @@ class GenerateCommand implements CommnadInterface {
 
   public async write(filepath: string, offerCount: number) {
     const tsvOfferGenerator = new TSVOfferGenerator(this.initalData);
-    console.log(tsvOfferGenerator);
     const tsvFileWriter = new TSVFileWriter(filepath);
 
     for(let i = 0; i < offerCount; i++) {
