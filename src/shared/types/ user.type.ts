@@ -1,10 +1,9 @@
-import { StatusType } from './index.js';
-
-type TUser= {
-  name: string;
+type User= {
+  id: string,
   email: string;
-  avatar: string;
-  status: StatusType;
+  avatarPath: string;
+  firstname: string;
+  lastname: string;
 }
 
-export { TUser };
+export { User };

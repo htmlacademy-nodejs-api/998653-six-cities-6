@@ -13,7 +13,10 @@ export type TMocksServerData = {
   adults: string[];
   prices : string[];
   insides: string[];
-  users: string[];
-  comments: string[]
+  authors: string[];
+  emails: string[];
+  avatars: string[];
+  statuses: string[];
+  comments: string[];
   coords: string[]
 };

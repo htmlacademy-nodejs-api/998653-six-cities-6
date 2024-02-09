@@ -14,7 +14,7 @@ class GenerateCommand implements CommnadInterface {
   private async load(url: string) {
     try {
       this.initalData = await got.get(url).json();
-      console.log(this.initalData);
+
     } catch {
       throw new Error(`Can't load data from ${url}`);
     }

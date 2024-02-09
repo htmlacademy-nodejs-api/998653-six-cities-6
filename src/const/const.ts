@@ -1,4 +1,8 @@
 const OfferMap = {
+  NAME_MIN: 10,
+  NAME_MAX: 100,
+  DESCRIPTION_MIN: 10,
+  DESCRIPTION_MAX: 100,
   VALUE_MIN: 0,
   VALUE_MAX: 1,
   RATING_MIN: 1,
@@ -17,5 +21,11 @@ const OfferMap = {
   LAST_WEEK_DAY: 7,
 } as const;
 
-console.log(OfferMap);
-export { OfferMap };
+const DEFAULT_AVATAR = 'default-avatar.jpg';
+
+const NameLength = {
+  Min: 1,
+  Max: 15,
+} as const;
+
+export { OfferMap, DEFAULT_AVATAR, NameLength};
