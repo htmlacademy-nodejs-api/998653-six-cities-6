@@ -1,7 +1,6 @@
-openapi: '3.0.1'
+openapi: '3.0.0'
 info:
-  title: Шесть городов
-  summary: API для проекта
+  title:  API  сервер для проекта Шесть городов
   description: Cервис для путешественников, не желающих переплачивать за аренду жилья
   contact:
     name: API Support
@@ -14,15 +13,125 @@ info:
 servers:
   - url: https://www.example.com/support
     description: Development server
-components:
-  schemas:   Category:
-              type: object
 
+tags:
+  - name: offers
+    description: Действия с предложениями по аренде
+  - name: favorites
+    description: Действия  с  избранными  предложениями
+  - name: premium
+    description: Действия с премиальными предложениями
+  - name: users
+    description: Действия c пользователями
+  - name: comments
+    description: Действия с комментариями
 
 
 paths:
-  /test:
+  /offers:
     get:
-      responses:
-        '200':
-          description: OK
+      tags:
+        - offers
+      summary:  Получение списка предложений по аренде
+      description: Возвращает не больше 60 предложений по аренде.
+
+  /offers/{offerId}/:
+    get:
+      tags:
+        - offers
+      summary: Получение детальной информации по предложению
+      description:  Возвращает предложение с уникальным идентификатором offerId
+
+    post:
+      tags:
+        - offers
+      summary: Создание нового предложения
+      description:  Отправляет  предложение с уникальным идентификатором offerId
+
+    patch:
+      tags:
+        - offers
+      summary: Редактирование предложения по аренде
+      description:  Отправляет отредактирование предложение offerId
+
+    delete:
+      tags:
+        - offers
+      summary: Удаление предложения по аренде
+      description:  Удаляет предложение с уникальным идентификатором offerId
+
+  /favorites:
+    get:
+      tags:
+        - favorites
+      summary:  Список избранных предложений
+      description: Возвращает все предложения, добавленные в избранное
+
+  /favorites/offerId/{status}:
+    post:
+      tags:
+        - favorites
+      summary: Добавление предложения в избранное
+      description:  Добавляет любое предложения в список избранных предложений
+
+    delete:
+      tags:
+        - favorites
+      summary: Удаляет предложения в избранное
+      description:  Удаляет  любое предложения в список избранных предложений
+
+  /premium:
+    get:
+      tags:
+        - premium
+      summary:   Премиальные предложения для города
+      description: Возвращает не больше 3 предложений с флагом «Premium».
+
+  /comments:
+    get:
+      tags:
+        - comments
+      summary: Получение cписка комментариев для предложения
+      description:  Получения списка комментариев для определённого предложения.
+
+    post:
+      tags:
+        - comments/{offerId}
+      summary: Добавление комментария
+      description: Добавления комментариев к определённому предложению по аренде.
+
+  /users/register:
+    post:
+      tags:
+        - users
+      summary: Создание нового пользователя
+      description: Регистрациянового пользователя
+
+  /users/login:
+    post:
+      tags:
+          - users
+      summary:  Авторизация пользователя.
+      description:  Вход в закрытую часть приложения
+
+    get:
+      tags:
+          - users
+      summary:  Проверка состояния пользователя
+      description:  Если клиент авторизован, сервис возвращает соответствующий код состояния и информацию о пользователе
+
+  /users/logout:
+    delete:
+      tags:
+        - users
+      summary:   Выход из закрытой части приложения
+      description:   Ресурс доступен только авторизованным клиентам
+
+
+
+
+
+
+
+
+
