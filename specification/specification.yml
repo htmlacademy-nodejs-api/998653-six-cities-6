@@ -435,8 +435,7 @@ components:
 
         author:
           type: string
-          example: Артем Жолудь
-
+          example: Натали Эрбет
         avatar:
           type: string
           example: example-path-to-img.png
@@ -458,7 +457,7 @@ components:
 
         author:
           type: string
-          example: Артем Жолудь
+          example: Натали Эрбет
 
         password:
           type: string
@@ -506,7 +505,7 @@ components:
           type: string
           example: example-path-to-img.png
 
-        lphotos:
+        photos:
           type: array
           example:
             - example-path-to-img.png,
@@ -564,10 +563,6 @@ components:
             - Towels
             - Fridge
 
-        userId:
-          type: number
-          example: 1234
-
         latitude:
           type: number
           example: 48.85661
@@ -576,7 +571,7 @@ components:
           type: number
           example: 2.351499
 
-        commentCount:
+        comment:
           type: number
           example: 13
 
@@ -584,15 +579,15 @@ components:
       type: object
 
       properties:
-        title:
+        name:
           type: string
-          example: title
+          example: name
 
-        description:
+        desription:
           type: string
-          example: description
+          example: desription
 
-        publicationDate:
+        date:
           type: string
           example: 2024-01-02T11:55:41.283Z
           format: date
@@ -608,11 +603,11 @@ components:
             - Hamburg
             - Dusseldorf
 
-        previewImage:
+        prevImg:
           type: string
-          example: example-path.png
+          example: example-path-to-img.png
 
-        listImages:
+        photos:
           type: array
           example:
             - example-path-to-img.png,
@@ -624,7 +619,7 @@ components:
 
         isPremium:
           type: boolean
-          example: false
+          example: true
 
         isFavorite:
           type: boolean
@@ -632,9 +627,9 @@ components:
 
         rating:
           type: number
-          example: 3.4
+          example: 4.3
 
-        houseType:
+        flat:
           type: string
           example: Paris
           enum:
@@ -645,17 +640,17 @@ components:
 
         rooms:
           type: number
-          example: 3
+          example: 2
 
-        guests:
+        adult:
           type: number
-          example: 4
+          example: 2
 
-        rentalCost:
+        price:
           type: number
-          example: 5432
+          example: 1234
 
-        amenities:
+        inside:
           type: array
           example:
             - Baby seat
@@ -677,6 +672,10 @@ components:
         longitude:
           type: number
           example: 2.351499
+
+        comment:
+          type: number
+          example: 13
 
         userId:
           type: string
