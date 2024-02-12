@@ -1,9 +1,11 @@
 import { inject, injectable } from 'inversify';
 import { DocumentType, types } from '@typegoose/typegoose';
-import { CreateOfferDto } from './dto/create-offer.dto.js';
+import { CreateOfferDto, UpdateOfferDto } from './dto/index.js';
 import { OfferEntity, OfferService } from './index.js';
 import { Logger } from '../../logger/index.js';
 import { Component } from '../../../types/index.js';
+import { DEFAULT_PREMIUM_OFFER_COUNT, DEFAULT_OFFER_AMOUNT} from '../../../../const/const.js';
+import { CityType, SortType } from '../../../types/index.js';
 
 @injectable()
 export class DefaultOfferService implements OfferService {
@@ -20,36 +22,56 @@ export class DefaultOfferService implements OfferService {
   }
 
   public async findById(offerId: string): Promise<DocumentType<OfferEntity> | null> {
-    return this.offerModel.findById(offerId).exec();
+    return this.offerModel
+      .findById(offerId)
+      .populate(['userId'])
+      .exec();
   }
 
-  public async getAllOffers(): Promise<DocumentType<OfferEntity>[]> {
+  public async findAllOffers(count: number): Promise<DocumentType<OfferEntity>[]> {
+    const limit = count ?? DEFAULT_OFFER_AMOUNT ;
 
+    return this.offerModel
+      .find({limit})
+      .sort({createdAt: SortType.Down})
+      .populate(['userId'])
+      .exec();
   }
 
-  public async updateOffer(): Promise<DocumentType<OfferEntity> | null> {
-
+  public async updateOffer(offerId: string, dto: UpdateOfferDto): Promise<DocumentType<OfferEntity> | null> {
+    return this.offerModel
+      .findByIdAndUpdate(offerId, dto, {new: true});
   }
 
   public async deleteOfferById(offerId: string): Promise<DocumentType<OfferEntity> | null> {
-    this.offerModel.findByIdAndDelete(offerId).exec();
+    return this.offerModel
+      .findByIdAndDelete(offerId)
+      .exec();
   }
 
-  public async getPremiumOffersByCity(): Promise<DocumentType<OfferEntity>[]> {
-
+  public async findPremiumOffersByCity(city: string, count?: number): Promise<DocumentType<OfferEntity>[]> {
+    const limit = count ?? DEFAULT_PREMIUM_OFFER_COUNT;
+    return this.offerModel
+      .find({limit})
+      .sort({city: CityType[city]}, {isPremium : true})
+      .populate(['userId'])
+      .exec();
   }
 
-  public async getAllFavoriteOffersByUser(userId: string): Promise<DocumentType<OfferEntity>[]> {
+  public async findAllFavoriteOffersByUser(userId: string): Promise<DocumentType<OfferEntity>[]> {
 
   }
-
-  public async 
 
   public async exists(documentId: string): Promise<boolean> {
     return (await this.offerModel
       .exists({_id: documentId})) !== null;
   }
 
-
-
+  public async incCommentCount(offerId: string): Promise<DocumentType<OfferEntity> | null> {
+    return this.offerModel
+      .findByIdAndUpdate(offerId, {'$inc' : {
+        commentCount: 1,
+      }})
+      .exec();
+  }
 }
