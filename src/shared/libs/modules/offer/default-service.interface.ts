@@ -1,11 +1,11 @@
 import { inject, injectable } from 'inversify';
 import { DocumentType, types } from '@typegoose/typegoose';
-import { CreateOfferDto, UpdateOfferDto, GetOfferDtoArr } from './dto/index.js';
+import { CreateOfferDto, UpdateOfferDto,} from './dto/index.js';
 import { OfferEntity, OfferService } from './index.js';
 import { Logger } from '../../logger/index.js';
 import { Component } from '../../../types/index.js';
 import { DEFAULT_PREMIUM_OFFER_COUNT, DEFAULT_OFFER_AMOUNT} from '../../../../const/const.js';
-import { CityType, SortType } from '../../../types/index.js';
+import { SortType } from '../../../types/index.js';
 
 @injectable()
 export class DefaultOfferService implements OfferService {
@@ -48,18 +48,29 @@ export class DefaultOfferService implements OfferService {
       .exec();
   }
 
-  public async findPremiumOffersByCity(dto: GetOfferDtoArr, city: string, count?: number): Promise<DocumentType<OfferEntity>[]> {
-    const limit = count ?? DEFAULT_PREMIUM_OFFER_COUNT;
+  public async findPremiumOffersByCity(city: string): Promise<DocumentType<OfferEntity>[]> {
+    const limit = DEFAULT_PREMIUM_OFFER_COUNT;
+
     return this.offerModel
-      .find(dto, {limit}, {city}, {isPremium})
-      .sort({createdAt: SortType.Down})
-      .populate('userId')
+      .aggregate([
+        {
+          $match: {
+            city,
+            isPremium: true
+          }
+        },
+        {$limit: limit},
+        {$sort: {createdAt: SortType.Down}}
+      ])
       .exec();
   }
 
   public async findAllFavoriteOffersByUser(userId: string): Promise<DocumentType<OfferEntity>[]> {
     return this.offerModel
-      .find({userId}, {isFavorite: true})
+      .aggregate([
+
+      ]
+      )
       .exec();
   }
 
