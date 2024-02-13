@@ -68,7 +68,15 @@ export class DefaultOfferService implements OfferService {
   public async findAllFavoriteOffersByUser(userId: string): Promise<DocumentType<OfferEntity>[]> {
     return this.offerModel
       .aggregate([
-
+        {
+          $lookup: {
+            from: 'users',
+            let: {userId: '$_id'},
+            pipeline: [
+              {$mat}
+            ]
+          }
+        }
       ]
       )
       .exec();
