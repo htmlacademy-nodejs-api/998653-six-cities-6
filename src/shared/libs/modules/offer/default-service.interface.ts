@@ -24,15 +24,15 @@ export class DefaultOfferService implements OfferService {
   public async findById(offerId: string): Promise<DocumentType<OfferEntity> | null> {
     return this.offerModel
       .findById(offerId)
-      .populate(['userId'])
+      .populate('userId')
       .exec();
   }
 
-  public async getAllOffers(dto: GetOfferDtoArr, count: number): Promise<DocumentType<OfferEntity>[]> {
+  public async getAllOffers(count: number): Promise<DocumentType<OfferEntity>[]> {
     const limit = count ?? DEFAULT_OFFER_AMOUNT ;
 
     return this.offerModel
-      .find(dto , {limit})
+      .find({limit})
       .sort({createdAt: SortType.Down})
       .exec();
   }
@@ -51,15 +51,15 @@ export class DefaultOfferService implements OfferService {
   public async findPremiumOffersByCity(dto: GetOfferDtoArr, city: string, count?: number): Promise<DocumentType<OfferEntity>[]> {
     const limit = count ?? DEFAULT_PREMIUM_OFFER_COUNT;
     return this.offerModel
-      .find(dto, {limit}, {city: city})
+      .find(dto, {limit}, {city}, {isPremium})
       .sort({createdAt: SortType.Down})
-      .populate(['userId'])
+      .populate('userId')
       .exec();
   }
 
-  public async findAllFavoriteOffersByUser(dto: GetOfferDtoArr, userId: string): Promise<DocumentType<OfferEntity>[]> {
+  public async findAllFavoriteOffersByUser(userId: string): Promise<DocumentType<OfferEntity>[]> {
     return this.offerModel
-      .find(dto, userId, {isFavorite: true})
+      .find({userId}, {isFavorite: true})
       .exec();
   }
 
