@@ -28,4 +28,8 @@ const NameLength = {
   Max: 15,
 } as const;
 
-export { OfferMap, DEFAULT_AVATAR, NameLength};
+
+export const DEFAULT_OFFER_AMOUNT = 60;
+export const DEFAULT_PREMIUM_OFFER_COUNT = 3;
+
+export { OfferMap, DEFAULT_AVATAR, NameLength };

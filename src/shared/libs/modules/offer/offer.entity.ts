@@ -1,5 +1,5 @@
 import { Ref, defaultClasses, getModelForClass, modelOptions, prop } from '@typegoose/typegoose';
-import { CityType, FlatType, TLocation, InsideType} from '../../../types/index.js';
+import { CityType, FlatType, InsideType} from '../../../types/index.js';
 import { OfferMap } from '../../../../const/const.js';
 import { UserEntity } from '../users/index.js';
 
@@ -124,9 +124,10 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   public comment!: number;
 
   @prop({
+    type: () => [Number],
     required: true
   })
-  public coords!: TLocation;
+  public coords!: number[];
 }
 
 export const OfferModel = getModelForClass(OfferEntity);

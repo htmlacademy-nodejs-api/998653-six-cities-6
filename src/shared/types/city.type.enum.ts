@@ -4,6 +4,7 @@
    Amsterdam = 'Amsterdam',
    Hamburg = 'Hamburg',
    Dusseldorf = 'Dusseldorf',
+   Brussels = 'Brussels',
 }
 
 export { CityType };

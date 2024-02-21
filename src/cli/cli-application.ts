@@ -35,7 +35,7 @@ class CLIApplication {
     const [commandName] = Object.keys(parsedCommand);
     const command = this.getCommand(commandName);
     const commandArg = parsedCommand[commandName] ?? [];
-
+    console.log(commandArg);
     command.execute(...commandArg);
   }
 }

@@ -3,15 +3,15 @@
     "names": [
       "Royal apartment",
       "Student room",
-      "Cool hotel",
-      "Big house"
+      "Cool hotel, ms",
+      "Big house-ms"
     ],
     "desriptions": [
-      "Non aliqua elit ut magna Lorem aliqua et duis. Laboris est mollit et ullamco elit ipsum eu qui. Aliqua nostrud non excepteur officia ad velit eiusmod laboris mollit sunt ullamco veniam eu.",
-      "Sint laboris proident dolor Lorem pariatur mollit do nisi et esse in tempor aliqua est. Laboris mollit dolor do amet esse esse dolor. Consequat esse elit id non culpa ex reprehenderit laboris eiusmod. Lorem tempor sint in labore velit culpa. Anim officia minim ea magna exercitation esse veniam minim sit do id.",
-      "Mollit ipsum pariatur elit anim officia anim irure esse. Eiusmod adipisicing qui eiusmod incididunt officia proident irure laboris consectetur sunt qui. Aliquip irure laborum exercitation consequat laboris irure sint ea. Fugiat sunt velit Lorem ea cillum aliqua amet consectetur aliquip ut excepteur ad nisi. Sunt consectetur in occaecat eu minim dolore occaecat. Ad deserunt exercitation anim proident deserunt ex ea ipsum ut aliqua dolore labore.",
-      "Eu enim pariatur qui dolore ullamco in pariatur pariatur dolore laborum. Reprehenderit laboris duis ipsum sit ut pariatur proident eiusmod culpa irure sunt sit mollit. Mollit commodo magna dolore sint nisi elit tempor velit id incididunt magna nisi magna. Velit consectetur ex aliqua fugiat do. Consectetur dolore Lorem cupidatat fugiat ullamco. Sit duis ex nostrud id adipisicing magna consectetur tempor consequat ut ad eu consectetur elit.",
-      "Nostrud adipisicing excepteur esse occaecat occaecat et anim dolor exercitation elit sit amet nostrud. Dolore nisi commodo cupidatat qui ut veniam enim cupidatat ullamco proident. Aliqua et magna Lorem eiusmod cillum exercitation."
+      "Non aliqua elit ut magna Lorem aliqua et ",
+      "Sint laboris proident dolor Lorem pariatu.",
+      "Mollit ipsum pariatur elit anim officia.",
+      "Eu enim pariatur qui dolore ullamco in",
+      "Nostrud adipisicing excepteur esse occ"
     ],
     "cities": [
       "Paris",
@@ -31,7 +31,7 @@
       "preview-7.jpg",
       "preview-8.jpg"
     ],
-    "photos":[
+    "photos": [
       "photo-1.jpg",
       "photo-2.jpg",
       "photo-3.jpg",
@@ -41,11 +41,11 @@
       "photo-7.jpg",
       "photo-8.jpg"
     ],
-    "flats" : [
-      "apartment",
-      "house",
-       "room",
-       "hotel"
+    "flats": [
+      "Apartment",
+      "House",
+      "Room",
+      "Hotel"
     ],
     "insides": [
       "Breakfast",
@@ -57,14 +57,14 @@
       "Fridge"
     ],
     "authors": [
-      "Amelia Sterling",
-      "Victor Royale",
-      "Eleanor Estates",
-      "Samuel Retreats",
-      "Isabella Luxton",
-      "Maximillian Grandeur",
-      "Gabriella Homestead",
-      "Oliver TranquilHaven"
+      "Amelia Ster",
+      "Victor Roy",
+      "Eleanor Est",
+      "Samuel Retre",
+      "Isabe Luxton",
+      "Maxim Ha",
+      "Gabrla Hom",
+      "Oliver Tranquil"
     ],
     "emails": [
       "alice.wonderland@test.com",
@@ -88,20 +88,20 @@
     ],
     "statuses": [
       "Pro",
-      "Standart"
+      "Standard"
     ],
     "comments": [
-      "Non aliqua elit ut magna Lorem aliqua et duis. Laboris est mollit et ullamco elit ipsum eu qui. Aliqua nostrud non excepteur officia ad velit eiusmod laboris mollit sunt ullamco veniam eu.",
-      "Sint laboris proident dolor Lorem pariatur mollit do nisi et esse in tempor aliqua est. Laboris mollit dolor do amet esse esse dolor. Consequat esse elit id non culpa ex reprehenderit laboris eiusmod. Lorem tempor sint in labore velit culpa. Anim officia minim ea magna exercitation esse veniam minim sit do id.",
-      "Mollit ipsum pariatur elit anim officia anim irure esse. Eiusmod adipisicing qui eiusmod incididunt officia proident irure laboris consectetur sunt qui. Aliquip irure laborum exercitation consequat laboris irure sint ea. Fugiat sunt velit Lorem ea cillum aliqua amet consectetur aliquip ut excepteur ad nisi. Sunt consectetur in occaecat eu minim dolore occaecat. Ad deserunt exercitation anim proident deserunt ex ea ipsum ut aliqua dolore labore.",
-      "Eu enim pariatur qui dolore ullamco in pariatur pariatur dolore laborum. Reprehenderit laboris duis ipsum sit ut pariatur proident eiusmod culpa irure sunt sit mollit. Mollit commodo magna dolore sint nisi elit tempor velit id incididunt magna nisi magna. Velit consectetur ex aliqua fugiat do. Consectetur dolore Lorem cupidatat fugiat ullamco. Sit duis ex nostrud id adipisicing magna consectetur tempor consequat ut ad eu consectetur elit.",
-      "Nostrud adipisicing excepteur esse occaecat occaecat et anim dolor exercitation elit sit amet nostrud. Dolore nisi commodo cupidatat qui ut veniam enim cupidatat ullamco proident. Aliqua et magna Lorem eiusmod cillum exercitation."
+      "Non aliqua elit ut magna Lorem aliqua et.",
+      "Sint laboris proident dolor Lorem.",
+      "Mollit ipsum pariatur elit anim.",
+      "Eu enim pariatur qui dolore",
+      "Nostrud adipisicing excepteur."
     ],
     "coords": [
-        "55.7522",
-        "37.6156",
-        "46.3497",
-        "48.0408"
+      "55.7522",
+      "37.6156",
+      "46.3497",
+      "48.0408"
     ]
   }
 }
