@@ -65,22 +65,22 @@ export class DefaultOfferService implements OfferService {
       .exec();
   }
 
-  public async findAllFavoriteOffersByUser(userId: string): Promise<DocumentType<OfferEntity>[]> {
-    return this.offerModel
-      .aggregate([
-        {
-          $lookup: {
-            from: 'users',
-            let: {userId: '$_id'},
-            pipeline: [
-              {$mat}
-            ]
-          }
-        }
-      ]
-      )
-      .exec();
-  }
+  // public async findAllFavoriteOffersByUser(userId: string): Promise<DocumentType<OfferEntity>[]> {
+  //   return this.offerModel
+  //     .aggregate([
+  //       {
+  //         $lookup: {
+  //           from: 'users',
+  //           let: {userId: '$_id'},
+  //           pipeline: [
+  //             {$mat}
+  //           ]
+  //         }
+  //       }
+  //     ]
+  //     )
+  //     .exec();
+  // }
 
   public async exists(documentId: string): Promise<boolean> {
     return (await this.offerModel
