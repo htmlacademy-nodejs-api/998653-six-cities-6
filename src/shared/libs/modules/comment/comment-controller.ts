@@ -4,11 +4,13 @@ import { BaseController} from '../../rest/controller/index.js';
 import { HttpMethod } from '../../../libs/rest/types/index.js';
 import { Component } from '../../../types/index.js';
 import { Request, Response } from 'express';
+import { CommentService } from './index.js';
 
 @injectable()
 export class CommentController extends BaseController {
   constructor(
   @inject(Component.Logger)protected readonly logger: Logger,
+  @inject(Component.CommentService) private readonly commentService: CommentService
   ){
     // передаем в конструктор BaseController
     super(logger);
@@ -20,7 +22,10 @@ export class CommentController extends BaseController {
   }
 
   //для отдачи списка корневого ресурса
-  public index(req: Request, res: Response) {}
+  public async index(_req: Request, res: Response) {
+    const comments = await this.commentService.findByOfferId(offerId);
+    this.ok(res, comments);
+  }
 
   public create(req: Request, res: Response) {}
 }

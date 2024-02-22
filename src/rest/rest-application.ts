@@ -5,15 +5,18 @@ import { Component } from '../shared/types/index.js';
 import { DatabaseClient } from '../shared/libs/database-client/index.js';
 import { getMongoURI } from '../shared/helpers/database.js';
 import express, { Express } from 'express';
+import { Controller } from '../shared/libs/rest/controller/index.js';
 
 @injectable()
 export class RestApplication {
   private readonly server: Express;
 
+
   constructor(
   @inject(Component.Logger) private readonly logger: Logger,
   @inject(Component.Config) private readonly config: Config<RestShema>,
-  @inject(Component.DatabaseClient) private readonly databaseClient: DatabaseClient
+  @inject(Component.DatabaseClient) private readonly databaseClient: DatabaseClient,
+  @inject(Component.CommentController) private readonly commentController: Controller,
   ) {
     this.server = express();
   }
@@ -35,6 +38,11 @@ export class RestApplication {
     this.server.listen(port);
   }
 
+  public async _initControllers() {
+    // путь беру из спеки?
+    this.server.use('/comments/{offerId}', this.commentController.router);
+  }
+
   public async init() {
     this.logger.info('Application initialization');
     this.logger.info(`Get value from env $PORT: ${this.config.get('PORT')}`);
@@ -44,6 +52,10 @@ export class RestApplication {
     this.logger.info('Init database…');
     await this._initDb();
     this.logger.info('Init database completed');
+
+    this.logger.info('Init controllers…');
+    await this._initControllers();
+    this.logger.info('Controller initialization completed');
 
     this.logger.info('Try to init server…');
     await this._initServer();
