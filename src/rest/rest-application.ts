@@ -18,6 +18,7 @@ export class RestApplication {
   @inject(Component.Config) private readonly config: Config<RestShema>,
   @inject(Component.DatabaseClient) private readonly databaseClient: DatabaseClient,
   @inject(Component.CommentController) private readonly commentController: Controller,
+  @inject(Component.UserController) private readonly userController: Controller
   @inject(Component.ExceptionFilter) private readonly appExceptionFilter: ExceptionFilter
   ) {
     this.server = express();
@@ -40,9 +41,11 @@ export class RestApplication {
     this.server.listen(port);
   }
 
+
   public async _initControllers() {
     // путь беру из спеки?
     this.server.use('/comments/{offerId}', this.commentController.router);
+    this.server.use('/users', this.userController.router);
   }
 
   //все middleware -  код который будет выполяться до того, как будет выполнен определенный обработчик
