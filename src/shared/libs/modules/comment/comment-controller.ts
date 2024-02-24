@@ -5,6 +5,8 @@ import { HttpMethod } from '../../../libs/rest/types/index.js';
 import { Component } from '../../../types/index.js';
 import { Request, Response } from 'express';
 import { CommentService } from './index.js';
+import { fillDTO } from '../../../helpers/common.js';
+import { CategoryRdo } from './index.js';
 
 @injectable()
 export class CommentController extends BaseController {
@@ -16,16 +18,10 @@ export class CommentController extends BaseController {
     super(logger);
 
     this.logger.info('Register routes for CategoryController…');
-
-    this.addRoute({ path:'/', method: HttpMethod.Get, handler: this.index });
-    this.addRoute({ path:'/', method: HttpMethod.Post, handler: this.create });
+    this.addRoute({ path:'/:id', method: HttpMethod.Post, handler: this.create });
   }
 
-  //для отдачи списка корневого ресурса
-  public async index(_req: Request, res: Response) {
-    const comments = await this.commentService.findByOfferId(offerId);
-    this.ok(res, comments);
+  public create(_req: Request, _res: Response) {
+    
   }
-
-  public create(req: Request, res: Response) {}
 }

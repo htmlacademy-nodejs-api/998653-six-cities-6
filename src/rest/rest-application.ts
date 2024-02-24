@@ -43,6 +43,13 @@ export class RestApplication {
     this.server.use('/comments/{offerId}', this.commentController.router);
   }
 
+  //все middleware -  код который будет выполяться до того, как будет выполнен определенный обработчик
+  public async _initMiddleware() {
+    //в  express встроенный mw express.json -для парсинга во входящих запросах
+    //  конвертация тела запроса из json  в обычный объект
+    this.server.use(express.json());
+  }
+
   public async init() {
     this.logger.info('Application initialization');
     this.logger.info(`Get value from env $PORT: ${this.config.get('PORT')}`);
