@@ -4,6 +4,8 @@ import { Logger } from '../../logger/logger.interface.js';
 import { Controller } from './controller.interface.js';
 import { Route } from '../types/route-interface.js';
 import { StatusCodes } from 'http-status-codes';
+// добавляет try/catch перед вызовом обработчика
+import asyncHandler from 'express-async-handler';
 
 const DEFAULT_CONTENT_TYPE = 'application/json';
 
@@ -23,7 +25,9 @@ export abstract class BaseController implements Controller {
 
   //рега маршрута
   public addRoute(route: Route): void {
-    this._router[route.method](route.path, route.handler.bind(this));
+    const wrapperAsyncHandler = asyncHandler(route.handler.bind(this));
+    this._router[route.method](route.path, wrapperAsyncHandler);
+    this.logger.info(`Route registered: ${route.method.toUpperCase()} ${route.path}`);
   }
 
   public send<T>(res: Response, statusCode: number, data: T): void {
