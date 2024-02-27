@@ -6,6 +6,7 @@ import { DatabaseClient } from '../shared/libs/database-client/index.js';
 import { getMongoURI } from '../shared/helpers/database.js';
 import express, { Express } from 'express';
 import { Controller } from '../shared/libs/rest/controller/index.js';
+import { ExceptionFilter } from '../shared/libs/rest/controller/exception-filter/index.js';
 
 @injectable()
 export class RestApplication {
@@ -16,7 +17,11 @@ export class RestApplication {
   @inject(Component.Logger) private readonly logger: Logger,
   @inject(Component.Config) private readonly config: Config<RestShema>,
   @inject(Component.DatabaseClient) private readonly databaseClient: DatabaseClient,
+  @inject(Component.OfferController) private readonly offerController: OfferController,
   @inject(Component.CommentController) private readonly commentController: Controller,
+  @inject(Component.UserController) private readonly userController: Controller,
+  @inject(Component.ExceptionFilter) private readonly appExceptionFilter: ExceptionFilter
+
   ) {
     this.server = express();
   }
@@ -38,9 +43,12 @@ export class RestApplication {
     this.server.listen(port);
   }
 
+
   public async _initControllers() {
     // путь беру из спеки?
     this.server.use('/comments/{offerId}', this.commentController.router);
+    this.server.use('/offers', this.offerController.router);
+    this.server.use('/users', this.userController.router);
   }
 
   //все middleware -  код который будет выполяться до того, как будет выполнен определенный обработчик
@@ -48,6 +56,10 @@ export class RestApplication {
     //в  express встроенный mw express.json -для парсинга во входящих запросах
     //  конвертация тела запроса из json  в обычный объект
     this.server.use(express.json());
+  }
+
+  private async _initExceptionFilters() {
+    this.server.use(this.appExceptionFilter.catch.bind(this.appExceptionFilter));
   }
 
   public async init() {
@@ -63,6 +75,10 @@ export class RestApplication {
     this.logger.info('Init controllers…');
     await this._initControllers();
     this.logger.info('Controller initialization completed');
+
+    this.logger.info('Init exception filters');
+    await this._initExceptionFilters();
+    this.logger.info('Exception filters initialization compleated');
 
     this.logger.info('Try to init server…');
     await this._initServer();

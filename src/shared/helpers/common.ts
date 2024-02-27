@@ -22,3 +22,9 @@ export function fillDTO<T,V>(someDTO: ClassConstructor<T>, plainObject: V) {
   // в объекте натсроек исклчает все то чего явно не описано(заполнять те поля которые помечены декоратором @expose)
   return plainToInstance(someDTO, plainObject, {excludeExtraneousValues: true});
 }
+
+export function createErrorObject(message: string) {
+  return {
+    error: message,
+  };
+}

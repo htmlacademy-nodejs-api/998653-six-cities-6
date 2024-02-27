@@ -4,9 +4,9 @@ import { BaseController} from '../../rest/controller/index.js';
 import { HttpMethod } from '../../../libs/rest/types/index.js';
 import { Component } from '../../../types/index.js';
 import { Request, Response } from 'express';
-import { CommentService } from './index.js';
+import { CommentService, CreateCommentDto } from './index.js';
 import { fillDTO } from '../../../helpers/common.js';
-import { CategoryRdo } from './index.js';
+import { CommentRdo } from './index.js';
 
 @injectable()
 export class CommentController extends BaseController {
@@ -21,7 +21,11 @@ export class CommentController extends BaseController {
     this.addRoute({ path:'/:id', method: HttpMethod.Post, handler: this.create });
   }
 
-  public create(_req: Request, _res: Response) {
-    
+  public async create
+  ({body}: Request<Record<string, unknown>,Record<string, unknown>, CreateCommentDto>,
+    res: Response): Promise<void> {
+
+    const result = await this.commentService.create(body);
+    this.created(res, fillDTO(CommentRdo, result));
   }
 }
