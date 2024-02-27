@@ -26,7 +26,6 @@ export class OfferController extends BaseController {
     this.addRoute({path:'/offerId', method: HttpMethod.Put, handler: this.update});
     this.addRoute({path:'/offerId', method: HttpMethod.Delete, handler: this.delete});
     this.addRoute({path:'/offerId', method: HttpMethod.Get, handler: this.find});
-    // this.addRoute({path:'/', method: HttpMethod, handler:});
   }
 
   public async index(_req: Request, res: Response): Promise<void> {

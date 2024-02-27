@@ -3,7 +3,7 @@ import validator from 'convict-format-with-validator';
 
 convict.addFormats(validator);
 
-export type RestShema ={
+export type RestSchema = {
   PORT: number;
   SALT: string;
   DB_HOST: string;
@@ -13,9 +13,9 @@ export type RestShema ={
   DB_NAME: string;
 }
 
-export const configRestShema = convict<RestShema>({
+export const configRestSchema = convict<RestSchema>({
   PORT: {
-    doc: 'Port for incoming connections',
+    doc: 'port for incoming connection',
     format: 'port',
     env: 'PORT',
     default: 4000
@@ -54,8 +54,6 @@ export const configRestShema = convict<RestShema>({
     doc: 'Database name (MongoDB)',
     format: String,
     env: 'DB_NAME',
-    default: 'six-cities-6'
+    default: 'six-cities'
   },
-},
-);
-
+});

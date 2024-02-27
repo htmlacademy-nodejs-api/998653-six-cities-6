@@ -6,3 +6,4 @@ export * from './offer.container.js';
 export * from './create-offer-request.js';
 export * from './dto/update-offer.dto.js';
 export * from './update-offer-request.js';
+export * from './offer-controller.js';
