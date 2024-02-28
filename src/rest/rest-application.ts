@@ -9,6 +9,7 @@ import { Controller } from '../shared/libs/rest/controller/index.js';
 import { ExceptionFilter } from '../shared/libs/rest/controller/exception-filter/index.js';
 import { OfferService } from '../shared/libs/modules/offer/index.js';
 
+
 @injectable()
 export class RestApplication {
   private readonly server: Express;
@@ -23,7 +24,6 @@ export class RestApplication {
   @inject(Component.CommentController) private readonly commentController: Controller,
   @inject(Component.UserController) private readonly userController: Controller,
   @inject(Component.ExceptionFilter) private readonly appExceptionFilter: ExceptionFilter
-
   ) {
     this.server = express();
   }
@@ -50,7 +50,7 @@ export class RestApplication {
   public async _initControllers() {
     this.server.use('/comments/{offerId}', this.commentController.router);
     this.server.use('/offers', this.offerController.router);
-    this.server.use('/users', this.userController.router);
+
   }
 
   //все middleware -  код который будет выполяться до того, как будет выполнен определенный обработчик

@@ -10,7 +10,6 @@ import { UserService, LoginUserDto } from './index.js';
 import { StatusCodes } from 'http-status-codes';
 import { fillDTO } from '../../../helpers/index.js';
 import { UserRdo } from './rdo/user.rdo.js';
-
 export type LoginUserRequest = Request<RequestParams, RequestBody, LoginUserDto>;
 
 @injectable()
@@ -19,6 +18,7 @@ export class UserController extends BaseController{
     @inject(Component.Logger) protected readonly logger: Logger,
     @inject(Component.UserService) private readonly userService: UserService,
     @inject(Component.Config) private readonly configService: Config<RestSchema>
+
   ) {
     super(logger);
     this.logger.info('Register routes for UserController…');
@@ -72,5 +72,17 @@ export class UserController extends BaseController{
 
   public async checkAuth(_req: Request, _res: Response): Promise<void> {
     throw new HttpError(StatusCodes.NOT_IMPLEMENTED, 'Not implemented', 'UserController');
+  }
+
+  public async create (
+    _req: CreateUserRequest,
+    _res: Response,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      throw new Error('[UserController] Oops');
+    } catch (error) {
+      return next(error);
+    }
   }
 }
