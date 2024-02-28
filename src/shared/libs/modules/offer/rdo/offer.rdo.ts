@@ -1,4 +1,5 @@
 import { Expose, Type } from 'class-transformer';
+import { User, TLocation } from '../../../../types/index.js';
 
 export class OfferRdo {
   @Expose()
@@ -44,11 +45,12 @@ export class OfferRdo {
   public price : number;
 
   @Expose()
+  @Type(() => UserRdo)
   public userId: User;
 
   @Expose()
   public comment: number;
 
   @Expose()
-  public coords: TLocation;
+  public coords: number[];
 }
