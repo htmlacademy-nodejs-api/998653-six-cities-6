@@ -29,7 +29,7 @@ export class OfferController extends BaseController {
   }
 
   public async index(_req: Request, res: Response): Promise<void> {
-    const offers = await this.offerService.getAllOffers();
+    const offers = await this.offerService.find();
     const responseData = fillDTO(OfferRdo, offers);
     this.ok(res, responseData);
   }
@@ -47,7 +47,7 @@ export class OfferController extends BaseController {
     { body, params }: UpdateOfferRequest,
     res: Response
   ): Promise<void> {
-    const offers = this.offerService.updateOffer(String(params.offerId), body);
+    const offers = this.offerService.updateById(String(params.offerId), body);
     const responseData = fillDTO(OfferRdo, offers);
 
     this.ok(res, responseData);
@@ -56,7 +56,7 @@ export class OfferController extends BaseController {
   public async delete (
     { params }: Request,
     res: Response): Promise<void> {
-    const existsOffer = await this.offerService.deleteOfferById(params.offerId);
+    const existsOffer = await this.offerService.deleteById(params.offerId);
 
     if (!existsOffer) {
       throw new HttpError(

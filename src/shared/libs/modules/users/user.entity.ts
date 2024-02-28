@@ -73,3 +73,4 @@ export class UserEntity extends defaultClasses.TimeStamps implements User {
 }
 
 export const UserModel = getModelForClass(UserEntity);
+console.log(UserModel);

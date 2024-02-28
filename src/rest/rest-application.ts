@@ -7,6 +7,7 @@ import { getMongoURI } from '../shared/helpers/database.js';
 import express, { Express } from 'express';
 import { Controller } from '../shared/libs/rest/controller/index.js';
 import { ExceptionFilter } from '../shared/libs/rest/controller/exception-filter/index.js';
+import { OfferService } from '../shared/libs/modules/offer/index.js';
 
 @injectable()
 export class RestApplication {
@@ -17,6 +18,7 @@ export class RestApplication {
   @inject(Component.Logger) private readonly logger: Logger,
   @inject(Component.Config) private readonly config: Config<RestSchema>,
   @inject(Component.DatabaseClient) private readonly databaseClient: DatabaseClient,
+  @inject(Component.OfferService) private readonly offerService: OfferService,
   @inject(Component.OfferController) private readonly offerController: Controller,
   @inject(Component.CommentController) private readonly commentController: Controller,
   @inject(Component.UserController) private readonly userController: Controller,
@@ -87,5 +89,12 @@ export class RestApplication {
     this.logger.info('Try to init server…');
     await this._initServer();
     this.logger.info(`🚀 Server started on http://localhost:${this.config.get('PORT')}`);
+
+    const offer = await this.offerService.findById('65cbd3f22bafc2e35c2fe2e7');
+    console.log(offer);
+
+    const offers = await this.offerService.find();
+    console.dir(offers, { depth: 3});
+
   }
 }
