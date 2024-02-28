@@ -48,6 +48,7 @@ export class RestApplication {
 
 
   public async _initControllers() {
+    // регаем контроллеры, чтобы роутер из этого конроллера был доступен для пользования
     this.server.use('/comments/{offerId}', this.commentController.router);
     this.server.use('/offers', this.offerController.router);
     this.server.use('/users', this.userController.router);

@@ -9,7 +9,7 @@ import { Request, Response } from 'express';
 import { fillDTO } from '../../../helpers/index.js';
 import { OfferRdo } from './rdo/offer.rdo.js';
 import { StatusCodes } from 'http-status-codes';
-
+import { ParamOfferId } from '../../../types/index.js';
 
 @injectable()
 export class OfferController extends BaseController {
@@ -23,9 +23,10 @@ export class OfferController extends BaseController {
 
     this.addRoute({path:'/', method: HttpMethod.Get, handler: this.index});
     this.addRoute({path:'/', method: HttpMethod.Post, handler: this.create});
-    this.addRoute({path:'/offerId', method: HttpMethod.Put, handler: this.update});
-    this.addRoute({path:'/offerId', method: HttpMethod.Delete, handler: this.delete});
-    this.addRoute({path:'/offerId', method: HttpMethod.Get, handler: this.find});
+    this.addRoute({path:'/', method: HttpMethod.Get, handler: this.show});
+    this.addRoute({path:'/:offerId', method: HttpMethod.Put, handler: this.update});
+    this.addRoute({path:'/:offerId', method: HttpMethod.Delete, handler: this.delete});
+    this.addRoute({path:'/:offerId', method: HttpMethod.Get, handler: this.find});
   }
 
   public async index(_req: Request, res: Response): Promise<void> {
@@ -41,6 +42,22 @@ export class OfferController extends BaseController {
     const result = this.offerService.create(body);
 
     this.created(res, fillDTO(OfferRdo, result));
+  }
+
+  public async show({ params }: Request<ParamOfferId>, res: Response): Promise<void>{
+    const { offerId } = params;
+
+    const offer = await this.offerService.findById(offerId);
+
+    if(!offer) {
+      throw new HttpError(
+        StatusCodes.NOT_FOUND,
+        `Offer with id ${offerId} not found.`,
+        'OfferController'
+      );
+    }
+
+    this.ok(res, offer);
   }
 
   public async update(
