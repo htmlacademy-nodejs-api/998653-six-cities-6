@@ -89,7 +89,7 @@ export class DefaultOfferService implements OfferService {
   }
 
   public async findPremium(count?: number): Promise<DocumentType<OfferEntity>[]> {
-    const limit = count ?? DEFAULT_PREMIUM_OFFER_COUNT
+    const limit = count ?? DEFAULT_PREMIUM_OFFER_COUNT;
     return this.offerModel
       .find({premium: true})
       .sort({createdAt: SortType.Down})
