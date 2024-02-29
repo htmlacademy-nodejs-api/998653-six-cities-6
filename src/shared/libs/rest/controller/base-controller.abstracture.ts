@@ -25,8 +25,14 @@ export abstract class BaseController implements Controller {
 
   //рега маршрута
   public addRoute(route: Route): void {
+    //обработчик маршрута из нашего контроллера
     const wrapperAsyncHandler = asyncHandler(route.handler.bind(this));
-    this._router[route.method](route.path, wrapperAsyncHandler);
+
+    const middlewareHandlers = route.middlewares?.map(
+      (middleware) => asyncHandler(middleware.execute.bind(middleware)));
+    const allHandlers = middlewareHandlers ? [...middlewareHandlers, wrapperAsyncHandler] : wrapperAsyncHandler;
+
+    this._router[route.method](route.path, allHandlers);
     this.logger.info(`Route registered: ${route.method.toUpperCase()} ${route.path}`);
   }
 
