@@ -23,6 +23,7 @@ export class OfferController extends BaseController {
 
     this.addRoute({path:'/', method: HttpMethod.Get, handler: this.index});
     this.addRoute({path:'/', method: HttpMethod.Post, handler: this.create});
+    this.addRoute({path:'/favorites/userId', method: HttpMethod.Get, handler: this.love});
     this.addRoute({path:'/', method: HttpMethod.Get, handler: this.show});
     this.addRoute({path:'/:offerId', method: HttpMethod.Put, handler: this.update});
     this.addRoute({path:'/:offerId', method: HttpMethod.Delete, handler: this.delete});
@@ -42,6 +43,10 @@ export class OfferController extends BaseController {
     const result = this.offerService.create(body);
 
     this.created(res, fillDTO(OfferRdo, result));
+  }
+
+  public async love({ params }: Request<ParamUserId>, res: Response): Promise<void>{
+
   }
 
   public async show({ params }: Request<ParamOfferId>, res: Response): Promise<void>{

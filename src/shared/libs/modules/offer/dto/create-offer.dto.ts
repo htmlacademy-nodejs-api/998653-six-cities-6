@@ -1,4 +1,4 @@
-import { FlatType, TLocation, CityType, InsideType, User} from '../../../../types/index.js';
+import { FlatType, CityType, InsideType, User} from '../../../../types/index.js';
 
 export class CreateOfferDto {
   public name: string;
@@ -17,5 +17,5 @@ export class CreateOfferDto {
   public price : number;
   public userId: User;
   public comment: number;
-  public coords: TLocation;
+  public coords: number[];
 }

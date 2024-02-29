@@ -1,5 +1,5 @@
 import { Expose, Type } from 'class-transformer';
-import { User, TLocation } from '../../../../types/index.js';
+import { UserRdo } from '../../../../types/index.js';
 
 export class OfferRdo {
   @Expose()
@@ -44,9 +44,9 @@ export class OfferRdo {
   @Expose()
   public price : number;
 
-  @Expose()
+  @Expose({name: 'userId'})
   @Type(() => UserRdo)
-  public userId: User;
+  public userId: UserRdo;
 
   @Expose()
   public comment: number;
