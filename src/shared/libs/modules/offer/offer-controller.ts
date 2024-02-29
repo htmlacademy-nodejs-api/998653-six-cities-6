@@ -8,14 +8,18 @@ import { HttpMethod } from '../../rest/types/http-method.enum.js';
 import { Request, Response } from 'express';
 import { fillDTO } from '../../../helpers/index.js';
 import { OfferRdo } from './rdo/offer.rdo.js';
+import { CommentRdo } from '../comment/index.js';
 import { StatusCodes } from 'http-status-codes';
 import { ParamOfferId, ParamCityName } from '../../rest/types/index.js';
+import { CommentService } from '../comment/index.js';
+
 
 @injectable()
 export class OfferController extends BaseController {
   constructor(
     @inject(Component.Logger) protected readonly logger: Logger,
     @inject(Component.OfferService) private readonly offerService: OfferService,
+    @inject(Component.CommentService) private readonly commentService: CommentService
   ){
     super(logger);
 
@@ -108,6 +112,14 @@ export class OfferController extends BaseController {
   }
 
   public async getComments({ params }: Request<ParamOfferId>, res: Response): Promise<void> {
+    if(! await this.offerService.exists(params.offerId)) {
+      throw new HttpError(
+        StatusCodes.NOT_FOUND,
+        `Offer with id ${params.offerId} not found`,
+        'OfferController'
+      );
+    }
+
     const comments = await this.commentService.findByOfferId(params.offerId);
     this.ok(res, fillDTO(CommentRdo, comments));
   }
@@ -121,5 +133,4 @@ export class OfferController extends BaseController {
     const offers = await this.offerService.findFavorites();
     this.ok(res, fillDTO(OfferRdo, offers));
   }
-
 }

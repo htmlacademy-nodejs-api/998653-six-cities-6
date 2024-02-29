@@ -6,7 +6,7 @@ import { DatabaseClient } from '../shared/libs/database-client/index.js';
 import { getMongoURI } from '../shared/helpers/database.js';
 import express, { Express } from 'express';
 import { Controller } from '../shared/libs/rest/controller/index.js';
-import { ExceptionFilter } from '../shared/libs/rest/controller/exception-filter/index.js';
+import { ExceptionFilter } from '../shared/libs/rest/exception-filter/index.js';
 import { OfferService } from '../shared/libs/modules/offer/index.js';
 
 @injectable()
