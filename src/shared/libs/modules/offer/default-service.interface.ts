@@ -4,7 +4,7 @@ import { CreateOfferDto, UpdateOfferDto,} from './dto/index.js';
 import { OfferEntity, OfferService } from './index.js';
 import { Logger } from '../../logger/index.js';
 import { Component } from '../../../types/index.js';
-import { DEFAULT_PREMIUM_OFFER_COUNT } from '../../../../const/const.js';
+import { DEFAULT_PREMIUM_OFFER_COUNT, DEFAULT_OFFER_AMOUNT } from '../../../../const/const.js';
 import { SortType } from '../../../types/index.js';
 import { Types } from 'mongoose';
 
@@ -52,7 +52,7 @@ export class DefaultOfferService implements OfferService {
   }
 
   public async find(count?: number): Promise<DocumentType<OfferEntity>[]> {
-    const limit = count ?? DEFAULT_PREMIUM_OFFER_COUNT;
+    const limit = count ?? DEFAULT_OFFER_AMOUNT;
     return this.offerModel.aggregate([
       {
         $lookup: {
@@ -88,12 +88,11 @@ export class DefaultOfferService implements OfferService {
       .exec();
   }
 
-  public async findPremium(count?: number): Promise<DocumentType<OfferEntity>[]> {
-    const limit = count ?? DEFAULT_PREMIUM_OFFER_COUNT;
+  public async findPremiumByCity(city: string): Promise<DocumentType<OfferEntity>[]> {
+    const limit = DEFAULT_PREMIUM_OFFER_COUNT;
     return this.offerModel
-      .find({premium: true})
-      .sort({createdAt: SortType.Down})
-      .limit(limit)
+      .find({ city, premium: true }, {}, { limit })
+      .sort({ date: SortType.Down })
       .populate(['userId'])
       .exec();
   }

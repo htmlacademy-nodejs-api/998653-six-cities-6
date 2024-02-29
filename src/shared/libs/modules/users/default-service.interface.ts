@@ -43,5 +43,11 @@ export class DefaultUserService implements UserService {
       .findByIdAndUpdate(userId, dto, { new: true })
       .exec();
   }
+
+  public async exists(userId: string): Promise<boolean> {
+    const user = await this.userModel.exists({ _id: userId });
+
+    return user !== null;
+  }
 }
 

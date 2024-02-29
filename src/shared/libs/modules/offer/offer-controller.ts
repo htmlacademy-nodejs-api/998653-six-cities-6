@@ -9,7 +9,7 @@ import { Request, Response } from 'express';
 import { fillDTO } from '../../../helpers/index.js';
 import { OfferRdo } from './rdo/offer.rdo.js';
 import { StatusCodes } from 'http-status-codes';
-import { ParamOfferId } from '../../../types/index.js';
+import { ParamOfferId, ParamCityName } from '../../rest/types/index.js';
 
 @injectable()
 export class OfferController extends BaseController {
@@ -23,11 +23,15 @@ export class OfferController extends BaseController {
 
     this.addRoute({path:'/', method: HttpMethod.Get, handler: this.index});
     this.addRoute({path:'/', method: HttpMethod.Post, handler: this.create});
-    this.addRoute({path:'/favorites/userId', method: HttpMethod.Get, handler: this.love});
     this.addRoute({path:'/', method: HttpMethod.Get, handler: this.show});
     this.addRoute({path:'/:offerId', method: HttpMethod.Put, handler: this.update});
     this.addRoute({path:'/:offerId', method: HttpMethod.Delete, handler: this.delete});
     this.addRoute({path:'/:offerId', method: HttpMethod.Get, handler: this.find});
+    this.addRoute({ path: '/:offerId/comments', method: HttpMethod.Get, handler: this.getComments,
+    });
+    this.addRoute({ path: '/:city/premium', method: HttpMethod.Get, handler: this.getPremium,
+    });
+
   }
 
   public async index(_req: Request, res: Response): Promise<void> {
@@ -43,10 +47,6 @@ export class OfferController extends BaseController {
     const result = this.offerService.create(body);
 
     this.created(res, fillDTO(OfferRdo, result));
-  }
-
-  public async love({ params }: Request<ParamUserId>, res: Response): Promise<void>{
-
   }
 
   public async show({ params }: Request<ParamOfferId>, res: Response): Promise<void>{
@@ -105,6 +105,21 @@ export class OfferController extends BaseController {
       );
     }
     this.ok(res, fillDTO(OfferRdo, existsOffer));
+  }
+
+  public async getComments({ params }: Request<ParamOfferId>, res: Response): Promise<void> {
+    const comments = await this.commentService.findByOfferId(params.offerId);
+    this.ok(res, fillDTO(CommentRdo, comments));
+  }
+
+  public async getPremium({ params }: Request<ParamCityName>, res: Response): Promise<void> {
+    const offers = await this.offerService.findPremiumByCity(params.city);
+    this.ok(res, fillDTO(OfferRdo, offers));
+  }
+
+  public async getFavorites(_req:Request, res: Response): Promise<void>{
+    const offers = await this.offerService.findFavorites();
+    this.ok(res, fillDTO(OfferRdo, offers));
   }
 
 }
