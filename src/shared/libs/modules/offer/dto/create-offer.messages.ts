@@ -25,6 +25,14 @@ export const CreateOfferValidationMessage = {
   isPremium: {
     invalidFormat: 'isPremium must be an boolean',
   },
+  isFavorite: {
+    invalidFormat: 'isFavorite must be an boolean'
+  },
+  rating: {
+    invalidFormat: 'Rating must be an integer',
+    minValue: 'Minimum price is 1',
+    maxValue: 'Maximum price is 5',
+  },
   houseType: {
     invalidFormat: 'houseType must be apartment, house, room or hotel',
   },
@@ -53,4 +61,14 @@ export const CreateOfferValidationMessage = {
   userId: {
     invalidId: 'userId field must be a valid id',
   },
+
+  commentCount: {
+    invalidFormat: 'commentCount must be an integer',
+  },
+
+  coords: {
+    invalidFormat: 'Field coordinates must be an object',
+    invalidLatitude: 'Latitude must be a valid number',
+    invalidLongitude: 'Longitude must be a valid number'
+  }
 } as const;
