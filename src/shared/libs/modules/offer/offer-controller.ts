@@ -12,7 +12,9 @@ import { CommentRdo } from '../comment/index.js';
 import { StatusCodes } from 'http-status-codes';
 import { ParamOfferId, ParamCityName } from '../../rest/types/index.js';
 import { CommentService } from '../comment/index.js';
-import { ValidateObjectIdMiddleware } from '../../rest/middleware/validate-objectId.middleware.js';
+import { ValidateObjectIdMiddleware } from '../../rest/middleware/index.js';
+import { ValidateDtoMMiddleware } from '../../rest/middleware/index.js';
+import { CreateOfferDto } from './index.js';
 
 
 @injectable()
@@ -26,8 +28,20 @@ export class OfferController extends BaseController {
 
     this.logger.info('Register routes for OfferController…');
 
-    this.addRoute({path:'/', method: HttpMethod.Get, handler: this.index});
-    this.addRoute({path:'/', method: HttpMethod.Post, handler: this.create});
+    this.addRoute({
+      path:'/',
+      method: HttpMethod.Get,
+      handler: this.index
+    });
+
+    this.addRoute({
+      path:'/',
+      method: HttpMethod.Post,
+      handler: this.create,
+      middlewares: [new ValidateDtoMMiddleware(CreateOfferDto)]
+    });
+
+
     this.addRoute({path:'/', method: HttpMethod.Get, handler: this.show});
 
     this.addRoute({
