@@ -4,7 +4,7 @@ import { Component } from '../../../types/component.enum.js';
 import { OfferService, DefaultOfferService, OfferEntity, OfferModel } from './index.js';
 import { OfferController } from './index.js';
 import { Controller } from '../../rest/controller/index.js';
-import { ValidateDtoMMiddleware } from '../../rest/middleware/'
+import { ValidateDtoMiddleware } from '../../rest/middleware/'
 
 export function createOfferContainer() {
   const offerContainer = new Container();

@@ -4,7 +4,7 @@ import { validate } from 'class-validator';
 import { ClassConstructor, plainToInstance } from 'class-transformer';
 import { StatusCodes } from 'http-status-codes';
 
-export class ValidateDtoMMiddleware implements Middleware{
+export class ValidateDtoMiddleware implements Middleware{
   constructor(
     private dto: ClassConstructor<object>
   ) {}

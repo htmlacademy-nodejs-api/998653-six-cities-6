@@ -10,6 +10,9 @@ import { UserService, LoginUserDto } from './index.js';
 import { StatusCodes } from 'http-status-codes';
 import { fillDTO } from '../../../helpers/index.js';
 import { UserRdo } from './rdo/user.rdo.js';
+import { ValidateDtoMiddleware } from '../../rest/middleware/index.js';
+import { CreateUserDto } from './index.js';
+
 
 export type LoginUserRequest = Request<RequestParams, RequestBody, LoginUserDto>;
 
@@ -23,7 +26,13 @@ export class UserController extends BaseController{
     super(logger);
     this.logger.info('Register routes for UserController…');
 
-    this.addRoute({path: '/register', method: HttpMethod.Post, handler: this.create});
+    this.addRoute({
+      path: '/register',
+      method: HttpMethod.Post,
+      handler: this.create,
+      middlewares: [new ValidateDtoMiddleware(CreateUserDto)]
+    });
+
     this.addRoute({path: '/login', method: HttpMethod.Post, handler: this.login});
     this.addRoute({path: '/logout', method: HttpMethod.Post, handler: this.logout});
     this.addRoute({path: '/check_auth', method: HttpMethod.Get, handler: this.checkAuth});

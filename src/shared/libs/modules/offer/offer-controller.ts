@@ -13,7 +13,7 @@ import { StatusCodes } from 'http-status-codes';
 import { ParamOfferId, ParamCityName } from '../../rest/types/index.js';
 import { CommentService } from '../comment/index.js';
 import { ValidateObjectIdMiddleware } from '../../rest/middleware/index.js';
-import { ValidateDtoMMiddleware } from '../../rest/middleware/index.js';
+import { ValidateDtoMiddleware } from '../../rest/middleware/index.js';
 import { CreateOfferDto } from './index.js';
 
 
@@ -38,7 +38,7 @@ export class OfferController extends BaseController {
       path:'/',
       method: HttpMethod.Post,
       handler: this.create,
-      middlewares: [new ValidateDtoMMiddleware(CreateOfferDto)]
+      middlewares: [new ValidateDtoMiddleware(CreateOfferDto)]
     });
 
 
