@@ -14,7 +14,7 @@ import { ParamOfferId, ParamCityName } from '../../rest/types/index.js';
 import { CommentService } from '../comment/index.js';
 import { ValidateObjectIdMiddleware } from '../../rest/middleware/index.js';
 import { ValidateDtoMiddleware } from '../../rest/middleware/index.js';
-import { CreateOfferDto } from './index.js';
+import { CreateOfferDto, UpdateOfferDto } from './index.js';
 
 
 @injectable()
@@ -54,7 +54,10 @@ export class OfferController extends BaseController {
       path:'/:offerId',
       method: HttpMethod.Delete,
       handler: this.delete,
-      middlewares:[new ValidateObjectIdMiddleware('offerId')]
+      middlewares: [
+        new ValidateObjectIdMiddleware('offerId'),
+        new ValidateDtoMiddleware(UpdateOfferDto),
+      ]
     });
 
     this.addRoute({
