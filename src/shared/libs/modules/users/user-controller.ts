@@ -6,13 +6,11 @@ import { HttpMethod, RequestBody, RequestParams } from '../../rest/types/index.j
 import { CreateUserRequest } from './create-user-request.type.js';
 import { Request, Response } from 'express';
 import { Config, RestSchema } from '../../config/index.js';
-import { UserService, LoginUserDto } from './index.js';
+import {CreateUserDto, UserService, LoginUserDto } from './index.js';
 import { StatusCodes } from 'http-status-codes';
 import { fillDTO } from '../../../helpers/index.js';
 import { UserRdo } from './rdo/user.rdo.js';
 import { ValidateDtoMiddleware } from '../../rest/middleware/index.js';
-import { CreateUserDto } from './index.js';
-
 
 export type LoginUserRequest = Request<RequestParams, RequestBody, LoginUserDto>;
 
@@ -33,7 +31,12 @@ export class UserController extends BaseController{
       middlewares: [new ValidateDtoMiddleware(CreateUserDto)]
     });
 
-    this.addRoute({path: '/login', method: HttpMethod.Post, handler: this.login});
+    this.addRoute({
+      path: '/login',
+      method: HttpMethod.Post,
+      handler: this.login,
+      middlewares: [new ValidateDtoMiddleware(LoginUserDto)]
+    });
     this.addRoute({path: '/logout', method: HttpMethod.Post, handler: this.logout});
     this.addRoute({path: '/check_auth', method: HttpMethod.Get, handler: this.checkAuth});
   }
