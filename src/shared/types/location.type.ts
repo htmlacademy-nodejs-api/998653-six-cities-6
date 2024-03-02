@@ -1,6 +1,6 @@
-type TLocation = {
+type Location = {
   latitude: number;
   longitude: number;
 }
 
-export { TLocation };
+export { Location };

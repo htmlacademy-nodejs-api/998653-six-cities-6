@@ -9,7 +9,7 @@ class TSVOfferGenerator implements OfferGenerator {
 
   public generate(): string {
     const name = getRandomItem<string>(this.mockData.names);
-    const desription = getRandomItem<string>(this.mockData.desriptions);
+    const description = getRandomItem<string>(this.mockData.desriptions);
     const date = dayjs()
       .subtract(generateRandomValue(OfferMap.FIRST_WEEK_DAY, OfferMap.LAST_WEEK_DAY), 'day')
       .toISOString();
@@ -36,7 +36,7 @@ class TSVOfferGenerator implements OfferGenerator {
 
     return [
       name,
-      desription,
+      description,
       date,
       city,
       prevImage,

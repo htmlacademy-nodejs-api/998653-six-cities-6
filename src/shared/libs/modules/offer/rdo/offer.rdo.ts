@@ -6,7 +6,7 @@ export class OfferRdo {
   public name: string;
 
   @Expose()
-  public desription: string;
+  public description: string;
 
   @Expose()
   public date: string;

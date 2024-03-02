@@ -12,10 +12,11 @@ import {
   Max,
   MaxLength,
   Min,
-  MinLength
+  MinLength,
+  ValidateNested
 } from 'class-validator';
 
-import { FlatType, CityType, InsideType, User} from '../../../../types/index.js';
+import { FlatType, CityType, InsideType, User, Location} from '../../../../types/index.js';
 import { CreateOfferValidationMessage } from '../dto/index.js';
 
 export class CreateOfferDto {
@@ -25,7 +26,7 @@ export class CreateOfferDto {
 
   @MinLength(20, { message: CreateOfferValidationMessage.description.minLength })
   @MaxLength(1024, { message: CreateOfferValidationMessage.description.maxLength })
-  public desription: string;
+  public description: string;
 
   @IsDateString({}, { message: CreateOfferValidationMessage.publicationDate.invalidFormat })
   public date: Date;
@@ -59,7 +60,7 @@ export class CreateOfferDto {
   @IsEnum(InsideType, { message: CreateOfferValidationMessage.amenities.invalidFormat })
 
   @IsArray({message: CreateOfferValidationMessage.houseType.invalidFormat})
-  public inside: InsideType[];
+  public inside: InsideType;
 
   @IsInt({ message: CreateOfferValidationMessage.countRooms.invalidFormat })
   @Min(1, { message: CreateOfferValidationMessage.countRooms.minValue })
@@ -82,6 +83,6 @@ export class CreateOfferDto {
   @IsInt({ message: CreateOfferValidationMessage.commentCount.invalidFormat})
   public comment: number;
 
-  @IsEnum({ message: CreateOfferValidationMessage.coords.invalidFormat})
-  public coords: number;
+  @ValidateNested()
+  public coords: Location;
 }

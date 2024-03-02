@@ -1,12 +1,12 @@
 //--generate <n> <filepath> <url>
 import got from 'got';
-import { CommnadInterface } from './command.interface.js';
+import { CommandInterface } from './command.interface.js';
 import { TMocksServerData } from '../../shared/types/index.js';
 import { TSVOfferGenerator } from '../../shared/libs/offer-generator/index.js';
 import { getErrorMessage } from '../../shared/helpers/index.js';
 import { TSVFileWriter } from '../../shared/libs/file-writer/index.js';
 
-class GenerateCommand implements CommnadInterface {
+class GenerateCommand implements CommandInterface {
   private readonly name: string = '--generate';
   private initalData: TMocksServerData;
 
