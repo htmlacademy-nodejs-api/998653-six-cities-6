@@ -15,6 +15,7 @@ import { CommentService } from '../comment/index.js';
 import { ValidateObjectIdMiddleware } from '../../rest/middleware/index.js';
 import { ValidateDtoMiddleware } from '../../rest/middleware/index.js';
 import { CreateOfferDto, UpdateOfferDto } from './index.js';
+import { DocumentExistsMiddleware } from '../../rest/middleware/document-exists.middleware.js';
 
 
 @injectable()
@@ -70,7 +71,10 @@ export class OfferController extends BaseController {
       path: '/:offerId/comments',
       method: HttpMethod.Get,
       handler: this.getComments,
-      middlewares:[new ValidateObjectIdMiddleware('offerId')]
+      middlewares:[
+        new ValidateObjectIdMiddleware('offerId'),
+        new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId')
+      ]
     });
 
     this.addRoute({ path: '/:city/premium', method: HttpMethod.Get, handler: this.getPremium,
