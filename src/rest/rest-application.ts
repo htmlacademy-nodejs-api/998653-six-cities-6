@@ -48,17 +48,17 @@ export class RestApplication {
 
 
   public async _initControllers() {
-    // регаем контроллеры, чтобы роутер из этого конроллера был доступен для пользования
     this.server.use('/comments/{offerId}', this.commentController.router);
     this.server.use('/offers', this.offerController.router);
     this.server.use('/users', this.userController.router);
   }
 
-  //все middleware -  код который будет выполяться до того, как будет выполнен определенный обработчик
   public async _initMiddleware() {
-    //в  express встроенный mw express.json -для парсинга во входящих запросах
-    //  конвертация тела запроса из json  в обычный объект
     this.server.use(express.json());
+    this.server.use(
+      '/upload',
+      express.static(this.config.get('UPLOAD_DIRECTORY')),
+    );
   }
 
   private async _initExceptionFilters() {
