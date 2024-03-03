@@ -17,7 +17,7 @@ import {
 } from 'class-validator';
 
 import { FlatType, CityType, InsideType, User, Location} from '../../../../types/index.js';
-import { CreateOfferValidationMessage } from '../dto/index.js';
+import { CreateOfferValidationMessage } from './index.js';
 
 export class CreateOfferDto {
   @MinLength(10, { message: CreateOfferValidationMessage.title.minLength })

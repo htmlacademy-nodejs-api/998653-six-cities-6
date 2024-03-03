@@ -1,4 +1,5 @@
 import { FlatType, Location, CityType, InsideType} from '../../../../types/index.js';
+import { CreateOfferValidationMessage } from './index.js';
 import {
   ArrayMaxSize,
   ArrayMinSize,
@@ -15,11 +16,10 @@ import {
   MinLength,
   ValidateNested
 } from 'class-validator';
-import { CreateOfferValidationMessage } from '../dto/index.js';
+
 
 export class UpdateOfferDto {
   @IsOptional()
-  @MinLength(10, { message: CreateOfferValidationMessage.title.minLength })
   @MaxLength(100, { message: CreateOfferValidationMessage.title.maxLength })
   public name?: string;
 
