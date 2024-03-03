@@ -12,3 +12,4 @@ export * from './category.types.js';
 export * from './inside.type.enum.js';
 export * from './sort.type.js';
 export * from '../libs/rest/types/param-offer-id.type.js';
+export * from './document-exists.interface.js';

@@ -48,16 +48,15 @@ export class OfferController extends BaseController {
       path:'/:offerId',
       method: HttpMethod.Put,
       handler: this.update,
-      middlewares:[new ValidateObjectIdMiddleware('offerId')]});
+      middlewares:[
+        new ValidateObjectIdMiddleware('offerId'),
+        new ValidateDtoMiddleware(UpdateOfferDto)
+      ]});
 
     this.addRoute({
       path:'/:offerId',
       method: HttpMethod.Delete,
       handler: this.delete,
-      middlewares: [
-        new ValidateObjectIdMiddleware('offerId'),
-        new ValidateDtoMiddleware(UpdateOfferDto),
-      ]
     });
 
     this.addRoute({
@@ -73,6 +72,7 @@ export class OfferController extends BaseController {
       handler: this.getComments,
       middlewares:[new ValidateObjectIdMiddleware('offerId')]
     });
+
     this.addRoute({ path: '/:city/premium', method: HttpMethod.Get, handler: this.getPremium,
     });
 

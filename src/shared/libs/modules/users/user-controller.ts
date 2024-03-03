@@ -37,6 +37,7 @@ export class UserController extends BaseController{
       handler: this.login,
       middlewares: [new ValidateDtoMiddleware(LoginUserDto)]
     });
+
     this.addRoute({path: '/logout', method: HttpMethod.Post, handler: this.logout});
     this.addRoute({path: '/check_auth', method: HttpMethod.Get, handler: this.checkAuth});
   }
