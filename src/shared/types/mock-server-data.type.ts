@@ -18,5 +18,6 @@ export type TMocksServerData = {
   avatars: string[];
   statuses: string[];
   comments: string[];
-  coords: string[]
+  latitudes: string[];
+  longitudes: string[];
 };

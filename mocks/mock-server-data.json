@@ -70,16 +70,17 @@
       "Room",
       "Hotel"
     ],
-    "insides": [
-      "Breakfast",
-      "Air conditioning",
-      "Laptop friendly workspace",
-      "Baby seat",
-      "Washer",
-      "Towels",
-      "Fridge"
-    ],
     "rooms": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8"
+    ],
+    "adults": [
       "1",
       "2",
       "3",
@@ -97,6 +98,15 @@
       "512",
       "665",
       "709"
+    ],
+    "insides": [
+      "Breakfast",
+      "Air conditioning",
+      "Laptop friendly workspace",
+      "Baby seat",
+      "Washer",
+      "Towels",
+      "Fridge"
     ],
     "authors": [
       "Amelia Ster",
