@@ -1,6 +1,9 @@
 import { Offer, CityType, FlatType, InsideType, StatusType } from '../../shared/types/index.js';
 
 function createOffer(offerData: string): Offer {
+
+  const lines = offerData.replace('\n', '').split('\t');
+
   const [
     name,
     description,
@@ -23,7 +26,9 @@ function createOffer(offerData: string): Offer {
     comment,
     latitude,
     longitude
-  ] = offerData.replace('\n', '').split('\t');
+  ] = lines;
+
+  console.log(lines);
 
   const res = {
     name,

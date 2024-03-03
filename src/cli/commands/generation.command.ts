@@ -8,12 +8,12 @@ import { TSVFileWriter } from '../../shared/libs/file-writer/index.js';
 
 class GenerateCommand implements CommandInterface {
   private readonly name: string = '--generate';
-  private initalData: TMocksServerData;
+  private initialData: TMocksServerData;
 
 
   private async load(url: string) {
     try {
-      this.initalData = await got.get(url).json();
+      this.initialData = await got.get(url).json();
 
     } catch {
       throw new Error(`Can't load data from ${url}`);
@@ -22,7 +22,7 @@ class GenerateCommand implements CommandInterface {
   }
 
   public async write(filepath: string, offerCount: number) {
-    const tsvOfferGenerator = new TSVOfferGenerator(this.initalData);
+    const tsvOfferGenerator = new TSVOfferGenerator(this.initialData);
     const tsvFileWriter = new TSVFileWriter(filepath);
 
     for(let i = 0; i < offerCount; i++) {
