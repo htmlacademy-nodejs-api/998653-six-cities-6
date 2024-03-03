@@ -123,10 +123,7 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   })
   public comment!: number;
 
-  @prop({
-    type: () => [Number],
-    required: true
-  })
+  @prop({ required: true })
   public coords!: Location;
 }
 

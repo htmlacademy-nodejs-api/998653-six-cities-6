@@ -8,12 +8,12 @@ import {
   IsInt,
   IsMongoId,
   IsUrl,
+  IsObject,
   Matches,
   Max,
   MaxLength,
   Min,
   MinLength,
-  ValidateNested
 } from 'class-validator';
 
 import { FlatType, CityType, InsideType, User, Location} from '../../../../types/index.js';
@@ -58,8 +58,6 @@ export class CreateOfferDto {
   public flat: FlatType;
 
   @IsEnum(InsideType, { message: CreateOfferValidationMessage.amenities.invalidFormat })
-
-  @IsArray({message: CreateOfferValidationMessage.houseType.invalidFormat})
   public inside: InsideType;
 
   @IsInt({ message: CreateOfferValidationMessage.countRooms.invalidFormat })
@@ -83,6 +81,6 @@ export class CreateOfferDto {
   @IsInt({ message: CreateOfferValidationMessage.commentCount.invalidFormat})
   public comment: number;
 
-  @ValidateNested()
+  @IsObject()
   public coords: Location;
 }
