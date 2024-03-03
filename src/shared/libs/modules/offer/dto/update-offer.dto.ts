@@ -1,5 +1,5 @@
 import { FlatType, Location, CityType, InsideType} from '../../../../types/index.js';
-import { CreateOfferValidationMessage } from './index.js';
+import { CreateOfferValidationMessage } from './create-offer.messages.js';
 import {
   ArrayMaxSize,
   ArrayMinSize,

@@ -1,8 +1,8 @@
 export type TMocksServerData = {
   names: string[];
-  desriptions: string[];
+  descriptions: string[];
   dates: string[];
-  cities: string[]
+  cities: string[];
   prevImages: string[];
   photos: string[];
   isPremiums: boolean[];
