@@ -6,7 +6,6 @@ import { StatusCodes } from 'http-status-codes';
 
 export class ValidateObjectIdMiddleware implements Middleware{
   constructor(
-    //название параметра в котором передается идентификатор
     private param: string
   ) {}
 
