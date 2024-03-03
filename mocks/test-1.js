@@ -1,1 +1,0 @@
-const data = 'Big house-ms	Nostrud adipisicing excepteur esse occ	2024-02-26T15:00:51.503Z	Cologne	preview-3.jpg	photo-4.jpg;photo-5.jpg;photo-6.jpg;photo-7.jpg;photo-8.jpg	0	1	2	Room	3	3	711	Breakfast	Eleanor Est	alice.wonderland@test.com	avatar-4.jpg	Standard	4	2;3'
