@@ -21,10 +21,9 @@ function createOffer(offerData: string): Offer {
     avatar,
     status,
     comment,
-    coords,
+    latitude,
+    longitude
   ] = offerData.replace('\n', '').split('\t');
-  const [latitude, longitude] = coords.split(';');
-  console.log({avatar});
 
   const res = {
     name,
