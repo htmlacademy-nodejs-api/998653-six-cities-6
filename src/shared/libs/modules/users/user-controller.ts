@@ -73,4 +73,16 @@ export class UserController extends BaseController{
   public async checkAuth(_req: Request, _res: Response): Promise<void> {
     throw new HttpError(StatusCodes.NOT_IMPLEMENTED, 'Not implemented', 'UserController');
   }
+
+  public async create (
+    _req: CreateUserRequest,
+    _res: Response,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      throw new Error('[UserController] Oops');
+    } catch (error) {
+      return next(error);
+    }
+  }
 }

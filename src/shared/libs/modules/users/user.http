@@ -12,7 +12,6 @@ Content-Type: application/json
   "password": "shining"
 }
 
-###
 
 ## Авторизовать пользователя
 
@@ -37,3 +36,4 @@ Content-Type: image/png
 
 
 ##
+

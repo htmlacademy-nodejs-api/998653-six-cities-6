@@ -62,6 +62,29 @@ export class RestApplication {
     this.server.use(this.appExceptionFilter.catch.bind(this.appExceptionFilter));
   }
 
+  private async _initServer() {
+    const port = this.config.get('PORT');
+    this.server.listen(port);
+  }
+
+
+  public async _initControllers() {
+    // путь беру из спеки?
+    this.server.use('/comments/{offerId}', this.commentController.router);
+    this.server.use('/users', this.userController.router);
+  }
+
+  //все middleware -  код который будет выполяться до того, как будет выполнен определенный обработчик
+  public async _initMiddleware() {
+    //в  express встроенный mw express.json -для парсинга во входящих запросах
+    //  конвертация тела запроса из json  в обычный объект
+    this.server.use(express.json());
+  }
+
+  private async _initExceptionFilters() {
+    this.server.use(this.appExceptionFilter.catch.bind(this.appExceptionFilter));
+  }
+
   public async init() {
     this.logger.info('Application initialization');
     this.logger.info(`Get value from env $PORT: ${this.config.get('PORT')}`);
@@ -72,9 +95,6 @@ export class RestApplication {
     await this._initDb();
     this.logger.info('Init database completed');
 
-    this.logger.info('Init app-level middleware');
-    await this._initMiddleware();
-    this.logger.info('App-level middleware initialization completed');
 
     this.logger.info('Init controllers…');
     await this._initControllers();
