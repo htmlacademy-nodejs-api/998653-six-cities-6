@@ -6,12 +6,12 @@ import { UserEntity } from '../users/user.entity.js';
 import { AuthService, TokenPayload, JWT_ALGORITHM, JWT_EXPIRED } from './index.js';
 import { RestSchema, Config } from '../../config/index.js';
 import { Component } from '../../../types/index.js';
-import { Logger } from '../../../libs/logger/index.js';
+import { Logger } from '../../logger/index.js';
 import { UserNotFoundException, UserPasswordIncorrectException } from './errors/index.js';
 
 @injectable()
 export class DefaultService implements AuthService {
-   constructor(
+  constructor(
     @inject(Component.Logger) private readonly logger: Logger,
     @inject(Component.UserService) private readonly userService: UserService,
     @inject(Component.Config) private readonly config: Config<RestSchema>
@@ -21,7 +21,7 @@ export class DefaultService implements AuthService {
     const jwtSecret = this.config.get('JWT_SECRET');
     const secretKey = crypto.createSecretKey(jwtSecret, 'utf-8');
 
-    const tokenPayload: TokenPayload ={
+    const tokenPayload: TokenPayload = {
       name: user.author,
       email: user.email,
       id: user.id
@@ -33,11 +33,11 @@ export class DefaultService implements AuthService {
       .setProtectedHeader({ alg:JWT_ALGORITHM })
       .setIssuedAt()
       .setExpirationTime(JWT_EXPIRED)
-      .sign(secretKey)
+      .sign(secretKey);
   }
 
   public async verify(dto: LoginUserDto): Promise<UserEntity> {
-    const user =  await this.userService.findByEmail(dto.email);
+    const user = await this.userService.findByEmail(dto.email);
 
     if(!user) {
       this.logger.warn(`User with ${dto.email} not found`);
