@@ -1,18 +1,19 @@
 import { inject, injectable } from 'inversify';
 import * as crypto from 'node:crypto';
 import { SignJWT } from 'jose';
-import { CreateUserDto, UserService } from '../users/index.js';
+import { LoginUserDto, UserService } from '../users/index.js';
 import { UserEntity } from '../users/user.entity.js';
-import { AuthService, TokenPayload } from './index.js';
+import { AuthService, TokenPayload, JWT_ALGORITHM, JWT_EXPIRED } from './index.js';
 import { RestSchema, Config } from '../../config/index.js';
 import { Component } from '../../../types/index.js';
 import { Logger } from '../../../libs/logger/index.js';
+import { UserNotFoundException, UserPasswordIncorrectException } from './errors/index.js';
 
 @injectable()
-export class DefaultuthService implements AuthService {
+export class DefaultService implements AuthService {
    constructor(
     @inject(Component.Logger) private readonly logger: Logger,
-    @inject(Component.UserService) private readonly userService: UserService;
+    @inject(Component.UserService) private readonly userService: UserService,
     @inject(Component.Config) private readonly config: Config<RestSchema>
   ) {}
 
@@ -29,11 +30,26 @@ export class DefaultuthService implements AuthService {
     this.logger.info(`Create token for ${user.email}`);
 
     return new SignJWT(tokenPayload)
-      .setProtectedHeader({alg})
+      .setProtectedHeader({ alg:JWT_ALGORITHM })
+      .setIssuedAt()
+      .setExpirationTime(JWT_EXPIRED)
+      .sign(secretKey)
   }
 
-  public async verify(dto: CreateUserDto): Promise<UserEntity> {
+  public async verify(dto: LoginUserDto): Promise<UserEntity> {
+    const user =  await this.userService.findByEmail(dto.email);
 
+    if(!user) {
+      this.logger.warn(`User with ${dto.email} not found`);
+      throw new UserNotFoundException();
+    }
+
+    if (! user.verifyPassword(dto.password, this.config.get('SALT'))) {
+      this.logger.warn(`Incorrect password for ${dto.email}`);
+      throw new UserPasswordIncorrectException();
+    }
+
+    return user;
   }
-
 }
+
