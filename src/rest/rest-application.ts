@@ -1,4 +1,4 @@
-import { Config, RestShema } from '../shared/libs/config/index.js';
+import { Config, RestSchema } from '../shared/libs/config/index.js';
 import { Logger } from '../shared/libs/logger/index.js';
 import { injectable, inject } from 'inversify';
 import { Component } from '../shared/types/index.js';
@@ -15,11 +15,13 @@ export class RestApplication {
 
   constructor(
   @inject(Component.Logger) private readonly logger: Logger,
-  @inject(Component.Config) private readonly config: Config<RestShema>,
+  @inject(Component.Config) private readonly config: Config<RestSchema>,
   @inject(Component.DatabaseClient) private readonly databaseClient: DatabaseClient,
+  @inject(Component.OfferController) private readonly offerController: Controller,
   @inject(Component.CommentController) private readonly commentController: Controller,
-  @inject(Component.UserController) private readonly userController: Controller
+  @inject(Component.UserController) private readonly userController: Controller,
   @inject(Component.ExceptionFilter) private readonly appExceptionFilter: ExceptionFilter
+
   ) {
     this.server = express();
   }
@@ -32,8 +34,32 @@ export class RestApplication {
       this.config.get('DB_PORT'),
       this.config.get('DB_NAME'),
     );
+    const url = this.databaseClient.connect(mongoIrl);
+    return url;
+  }
 
-    return this.databaseClient.connect(mongoIrl);
+
+  private async _initServer() {
+    const port = this.config.get('PORT');
+    this.server.listen(port);
+  }
+
+
+  public async _initControllers() {
+    this.server.use('/comments/{offerId}', this.commentController.router);
+    this.server.use('/offers', this.offerController.router);
+    this.server.use('/users', this.userController.router);
+  }
+
+  //все middleware -  код который будет выполяться до того, как будет выполнен определенный обработчик
+  public async _initMiddleware() {
+    //в  express встроенный mw express.json -для парсинга во входящих запросах
+    //  конвертация тела запроса из json  в обычный объект
+    this.server.use(express.json());
+  }
+
+  private async _initExceptionFilters() {
+    this.server.use(this.appExceptionFilter.catch.bind(this.appExceptionFilter));
   }
 
   private async _initServer() {
@@ -68,6 +94,7 @@ export class RestApplication {
     this.logger.info('Init database…');
     await this._initDb();
     this.logger.info('Init database completed');
+
 
     this.logger.info('Init controllers…');
     await this._initControllers();
