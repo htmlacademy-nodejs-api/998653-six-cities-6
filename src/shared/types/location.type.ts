@@ -1,6 +1,9 @@
-type Location = {
-  latitude: number;
-  longitude: number;
-}
+import { prop } from '@typegoose/typegoose';
 
-export { Location };
+export class Location {
+  @prop({ required: true })
+    latitude: number;
+
+  @prop({ required: true })
+    longitude: number;
+}

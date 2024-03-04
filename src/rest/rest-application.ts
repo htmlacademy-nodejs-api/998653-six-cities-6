@@ -7,7 +7,6 @@ import { getMongoURI } from '../shared/helpers/database.js';
 import express, { Express } from 'express';
 import { Controller } from '../shared/libs/rest/controller/index.js';
 import { ExceptionFilter } from '../shared/libs/rest/exception-filter/index.js';
-import { OfferService } from '../shared/libs/modules/offer/index.js';
 
 @injectable()
 export class RestApplication {
@@ -18,7 +17,6 @@ export class RestApplication {
   @inject(Component.Logger) private readonly logger: Logger,
   @inject(Component.Config) private readonly config: Config<RestSchema>,
   @inject(Component.DatabaseClient) private readonly databaseClient: DatabaseClient,
-  @inject(Component.OfferService) private readonly offerService: OfferService,
   @inject(Component.OfferController) private readonly offerController: Controller,
   @inject(Component.CommentController) private readonly commentController: Controller,
   @inject(Component.UserController) private readonly userController: Controller,
