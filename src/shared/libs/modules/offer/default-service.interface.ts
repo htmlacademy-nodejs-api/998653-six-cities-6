@@ -6,7 +6,6 @@ import { Logger } from '../../logger/index.js';
 import { Component } from '../../../types/index.js';
 import { DEFAULT_PREMIUM_OFFER_COUNT, DEFAULT_OFFER_AMOUNT } from '../../../../const/const.js';
 import { SortType } from '../../../types/index.js';
-import { Types } from 'mongoose';
 
 @injectable()
 export class DefaultOfferService implements OfferService {
@@ -24,31 +23,11 @@ export class DefaultOfferService implements OfferService {
 
   public async findById(offerId: string): Promise<DocumentType<OfferEntity> | null> {
     const result = await this.offerModel
-      .aggregate([
-        {
-          $match: {_id: new Types.ObjectId(offerId)}
-        },
-        {
-          $lookup: {
-            from: 'comments',
-            localField: '_id',
-            foreignField: 'offerId',
-            as: 'comments',
-          }
-        },
-        {
-          $addFields: {
-            commentCount: {$size: '$comments'},
-            totalRating: {$avg: '$comments.rating'},
-          }
-        },
-        {
-          $unset: 'comments'
-        }
-      ])
+      .findById(offerId)
+      .populate(['userId'])
       .exec();
 
-    return result[0] ?? null;
+    return result;
   }
 
   public async find(count?: number): Promise<DocumentType<OfferEntity>[]> {

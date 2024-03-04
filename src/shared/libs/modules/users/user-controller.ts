@@ -10,7 +10,11 @@ import {CreateUserDto, UserService, LoginUserDto } from './index.js';
 import { StatusCodes } from 'http-status-codes';
 import { fillDTO } from '../../../helpers/index.js';
 import { UserRdo } from './rdo/user.rdo.js';
-import { ValidateDtoMiddleware } from '../../rest/middleware/index.js';
+import {
+  ValidateDtoMiddleware,
+  UploadFileMiddleware,
+  ValidateObjectIdMiddleware
+} from '../../rest/middleware/index.js';
 
 export type LoginUserRequest = Request<RequestParams, RequestBody, LoginUserDto>;
 
@@ -38,6 +42,16 @@ export class UserController extends BaseController{
       middlewares: [new ValidateDtoMiddleware(LoginUserDto)]
     });
 
+    this.addRoute({
+      path: '/:userId',
+      method: HttpMethod.Post,
+      handler: this.uploadAvatar,
+      middlewares: [
+        new ValidateObjectIdMiddleware('userId'),
+        new UploadFileMiddleware(this.configService.get('UPLOAD_DIRECTORY'), 'avatar')
+      ]
+    });
+
     this.addRoute({path: '/logout', method: HttpMethod.Post, handler: this.logout});
     this.addRoute({path: '/check_auth', method: HttpMethod.Get, handler: this.checkAuth});
   }
@@ -56,6 +70,12 @@ export class UserController extends BaseController{
     }
     const result = await this.userService.create(body, this.configService.get('SALT'));
     this.created(res, fillDTO(UserRdo, result));
+  }
+
+  public async uploadAvatar(req: Request, res: Response): Promise<void> {
+    this.created(res, {
+      filepath: req.file?.path
+    });
   }
 
   public async login(

@@ -91,11 +91,5 @@ export class RestApplication {
     await this._initServer();
     this.logger.info(`🚀 Server started on http://localhost:${this.config.get('PORT')}`);
 
-    const offer = await this.offerService.findById('65cbd3f22bafc2e35c2fe2e7');
-    console.log(offer);
-
-    const offers = await this.offerService.find();
-    console.dir(offers, { depth: 3});
-
   }
 }

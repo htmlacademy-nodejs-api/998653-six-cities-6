@@ -28,8 +28,6 @@ function createOffer(offerData: string): Offer {
     longitude
   ] = lines;
 
-  console.log(lines);
-
   const res = {
     name,
     description: description,
