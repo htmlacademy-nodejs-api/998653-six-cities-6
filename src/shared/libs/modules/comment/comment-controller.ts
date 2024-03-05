@@ -18,7 +18,6 @@ export class CommentController extends BaseController {
   @inject(Component.CommentService) private readonly commentService: CommentService,
   @inject(Component.OfferService) private readonly offerService: OfferService
   ){
-    // передаем в конструктор BaseController
     super(logger);
 
     this.logger.info('Register routes for CategoryController…');
@@ -26,7 +25,7 @@ export class CommentController extends BaseController {
   }
 
   public async create(
-    {body}: Request<Record<string, unknown>,Record<string, unknown>, CreateCommentDto>,
+    { body, tokenPayload }: Request<Record<string, unknown>,Record<string, unknown>, CreateCommentDto>,
     res: Response): Promise<void> {
     if (! await this.offerService.exists(body.offerId)) {
       throw new HttpError(
@@ -36,7 +35,7 @@ export class CommentController extends BaseController {
       );
     }
 
-    const result = await this.commentService.create(body);
+    const result = await this.commentService.create({...body, userId: tokenPayload.id });
     this.created(res, fillDTO(CommentRdo, result));
   }
 }
