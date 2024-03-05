@@ -10,7 +10,7 @@ import { Logger } from '../../logger/index.js';
 import { UserNotFoundException, UserPasswordIncorrectException } from './errors/index.js';
 
 @injectable()
-export class DefaultService implements AuthService {
+export class DefaultAuthService implements AuthService {
   constructor(
     @inject(Component.Logger) private readonly logger: Logger,
     @inject(Component.UserService) private readonly userService: UserService,
