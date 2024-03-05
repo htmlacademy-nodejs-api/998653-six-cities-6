@@ -61,6 +61,7 @@ export class RestApplication {
   }
 
   private async _initExceptionFilters() {
+    //ошибка  No matching bindings found for serviceIdentifier: Symbol(AuthExceptionFilter)
     this.server.use(this.authExceptionFilter.catch.bind(this.authExceptionFilter));
     this.server.use(this.appExceptionFilter.catch.bind(this.appExceptionFilter));
   }

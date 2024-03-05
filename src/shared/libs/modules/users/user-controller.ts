@@ -10,6 +10,8 @@ import {CreateUserDto, UserService, LoginUserDto } from './index.js';
 import { StatusCodes } from 'http-status-codes';
 import { fillDTO } from '../../../helpers/index.js';
 import { UserRdo } from './rdo/user.rdo.js';
+import { AuthService } from '../auth/errors';
+
 import {
   ValidateDtoMiddleware,
   UploadFileMiddleware,
@@ -23,7 +25,8 @@ export class UserController extends BaseController{
   constructor(
     @inject(Component.Logger) protected readonly logger: Logger,
     @inject(Component.UserService) private readonly userService: UserService,
-    @inject(Component.Config) private readonly configService: Config<RestSchema>
+    @inject(Component.Config) private readonly configService: Config<RestSchema>,
+    @inject(Component.AuthService) private readonly authService: AuthService
   ) {
     super(logger);
     this.logger.info('Register routes for UserController…');
