@@ -1,7 +1,7 @@
-import { CommnadInterface } from './commands/command.interface.js';
+import { CommandInterface } from './commands/command.interface.js';
 import { CommandParser } from './commands/command.parser.js';
 
-type CommandCollection = Record<string, CommnadInterface>
+type CommandCollection = Record<string, CommandInterface>
 
 class CLIApplication {
   private commands: CommandCollection = {};
@@ -10,18 +10,18 @@ class CLIApplication {
     private readonly defaultCommand = '--help',
   ) {}
 
-  public getCommand(commandName: string): CommnadInterface {
+  public getCommand(commandName: string): CommandInterface {
     return this.commands[commandName] ?? this.getDefaultCommand;
   }
 
-  public getDefaultCommand(): CommnadInterface | never {
+  public getDefaultCommand(): CommandInterface | never {
     if(!this.commands[this.defaultCommand]){
       throw new Error(`The default command (${this.defaultCommand}) is not registered.`);
     }
     return this.commands[this.defaultCommand];
   }
 
-  public registerCommands(commandList: CommnadInterface[]): void {
+  public registerCommands(commandList: CommandInterface[]): void {
     commandList.forEach((commandItem) => {
       if(Object.hasOwn(commandList, commandItem.getName())) {
         throw new Error(`Command ${commandItem.getName()} is already registered`);

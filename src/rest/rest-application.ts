@@ -6,7 +6,8 @@ import { DatabaseClient } from '../shared/libs/database-client/index.js';
 import { getMongoURI } from '../shared/helpers/database.js';
 import express, { Express } from 'express';
 import { Controller } from '../shared/libs/rest/controller/index.js';
-import { ExceptionFilter } from '../shared/libs/rest/controller/exception-filter/index.js';
+import { ExceptionFilter } from '../shared/libs/rest/exception-filter/index.js';
+import { ParseTokenMiddleware } from '../shared/libs/rest/middleware/index.js'
 
 @injectable()
 export class RestApplication {
@@ -20,7 +21,8 @@ export class RestApplication {
   @inject(Component.OfferController) private readonly offerController: Controller,
   @inject(Component.CommentController) private readonly commentController: Controller,
   @inject(Component.UserController) private readonly userController: Controller,
-  @inject(Component.ExceptionFilter) private readonly appExceptionFilter: ExceptionFilter
+  @inject(Component.ExceptionFilter) private readonly appExceptionFilter: ExceptionFilter,
+  @inject(Component.AuthExceptionFilter) private readonly authExceptionFilter: ExceptionFilter
 
   ) {
     this.server = express();
@@ -51,14 +53,19 @@ export class RestApplication {
     this.server.use('/users', this.userController.router);
   }
 
-  //все middleware -  код который будет выполяться до того, как будет выполнен определенный обработчик
   public async _initMiddleware() {
-    //в  express встроенный mw express.json -для парсинга во входящих запросах
-    //  конвертация тела запроса из json  в обычный объект
+    const authenticateMiddleware = new ParseTokenMiddleware(this.config.get('JWT_SECRET'));
     this.server.use(express.json());
+    this.server.use(
+      '/upload',
+      express.static(this.config.get('UPLOAD_DIRECTORY')),
+    );
+    this.server.use(authenticateMiddleware.execute.bind(authenticateMiddleware));
   }
 
   private async _initExceptionFilters() {
+    //ошибка  No matching bindings found for serviceIdentifier: Symbol(AuthExceptionFilter)
+    this.server.use(this.authExceptionFilter.catch.bind(this.authExceptionFilter));
     this.server.use(this.appExceptionFilter.catch.bind(this.appExceptionFilter));
   }
 
@@ -102,10 +109,11 @@ export class RestApplication {
 
     this.logger.info('Init exception filters');
     await this._initExceptionFilters();
-    this.logger.info('Exception filters initialization compleated');
+    this.logger.info('Exception filters initialization completed');
 
     this.logger.info('Try to init server…');
     await this._initServer();
     this.logger.info(`🚀 Server started on http://localhost:${this.config.get('PORT')}`);
+
   }
 }

@@ -1,55 +1,56 @@
-import {Expose} from 'class-transformer';
+import { Expose, Type } from 'class-transformer';
+import { UserRdo } from '../../users/rdo/user.rdo.js';
 
 export class OfferRdo {
-
   @Expose()
-  public title: string;
+  public name: string;
 
   @Expose()
   public description: string;
 
   @Expose()
-  public publicationDate: string;
+  public date: string;
 
   @Expose()
   public city: string;
 
   @Expose()
-  public imagePreview: string;
+  public prevImg: string;
 
   @Expose()
-  public photos: string;
+  public photos: string[];
 
   @Expose()
-  public premium: string;
+  public isPremium: boolean;
 
   @Expose()
-  public favorites: string;
+  public isFavorite: boolean;
 
   @Expose()
-  public houseType: string;
+  public rating: number;
 
   @Expose()
-  public countRooms: string;
+  public flat: string;
 
   @Expose()
-  public countGuests: string;
+  public inside: string;
 
   @Expose()
-  public rentPrice: string;
+  public rooms: number;
 
   @Expose()
-  public amenities: string;
+  public adult: number;
 
   @Expose()
-  public totalRating: string;
+  public price : number;
+
+  @Expose({name: 'userId'})
+  @Type(() => UserRdo)
+  public userId: UserRdo;
 
   @Expose()
-  public commentCount: string;
+  public comment: number;
 
   @Expose()
-  public location: string;
-
-  @Expose()
-  public userId: string;
+  public coords: number[];
 }

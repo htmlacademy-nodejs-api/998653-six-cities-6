@@ -1,19 +1,19 @@
 //--generate <n> <filepath> <url>
 import got from 'got';
-import { CommnadInterface } from './command.interface.js';
+import { CommandInterface } from './command.interface.js';
 import { TMocksServerData } from '../../shared/types/index.js';
 import { TSVOfferGenerator } from '../../shared/libs/offer-generator/index.js';
 import { getErrorMessage } from '../../shared/helpers/index.js';
 import { TSVFileWriter } from '../../shared/libs/file-writer/index.js';
 
-class GenerateCommand implements CommnadInterface {
+class GenerateCommand implements CommandInterface {
   private readonly name: string = '--generate';
-  private initalData: TMocksServerData;
+  private initialData: TMocksServerData;
 
 
   private async load(url: string) {
     try {
-      this.initalData = await got.get(url).json();
+      this.initialData = await got.get(url).json();
 
     } catch {
       throw new Error(`Can't load data from ${url}`);
@@ -22,7 +22,7 @@ class GenerateCommand implements CommnadInterface {
   }
 
   public async write(filepath: string, offerCount: number) {
-    const tsvOfferGenerator = new TSVOfferGenerator(this.initalData);
+    const tsvOfferGenerator = new TSVOfferGenerator(this.initialData);
     const tsvFileWriter = new TSVFileWriter(filepath);
 
     for(let i = 0; i < offerCount; i++) {

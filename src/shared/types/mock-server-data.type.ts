@@ -1,8 +1,8 @@
 export type TMocksServerData = {
   names: string[];
-  desriptions: string[];
+  descriptions: string[];
   dates: string[];
-  cities: string[]
+  cities: string[];
   prevImages: string[];
   photos: string[];
   isPremiums: boolean[];
@@ -18,5 +18,6 @@ export type TMocksServerData = {
   avatars: string[];
   statuses: string[];
   comments: string[];
-  coords: string[]
+  latitudes: string[];
+  longitudes: string[];
 };

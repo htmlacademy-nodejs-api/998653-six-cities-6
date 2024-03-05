@@ -1,6 +1,6 @@
-interface CommnadInterface {
+interface CommandInterface {
     getName(): string;
     execute(...params: string[]): void
 }
 
-export { CommnadInterface };
+export { CommandInterface as CommandInterface };

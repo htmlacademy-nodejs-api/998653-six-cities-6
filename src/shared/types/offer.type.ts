@@ -1,8 +1,8 @@
-import { User, FlatType, TLocation, CityType, InsideType} from './index.js';
+import { User, FlatType, Location, CityType, InsideType} from './index.js';
 
-export type TOffer ={
+export type Offer ={
   name: string;
-  desription: string;
+  description: string;
   date: Date;
   city: CityType;
   prevImg: string;
@@ -17,7 +17,7 @@ export type TOffer ={
   price : number;
   user: User;
   comment: number;
-  coords: TLocation
+  coords: Location
 }
 
-export type TOfferByList = Omit<TOffer, 'desription' | 'photos' | 'rooms' | 'adult' | 'comment' >
+
