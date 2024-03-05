@@ -75,9 +75,6 @@ export class CreateOfferDto {
   @Max(100000, { message: CreateOfferValidationMessage.rentPrice.maxValue })
   public price : number;
 
-  @IsMongoId({ message: CreateOfferValidationMessage.userId.invalidId })
-  public userId: User;
-
   @IsInt({ message: CreateOfferValidationMessage.commentCount.invalidFormat})
   public comment: number;
 
