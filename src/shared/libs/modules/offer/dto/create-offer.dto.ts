@@ -6,7 +6,6 @@ import {
   IsDateString,
   IsEnum,
   IsInt,
-  IsMongoId,
   IsUrl,
   IsObject,
   Matches,
@@ -16,7 +15,7 @@ import {
   MinLength,
 } from 'class-validator';
 
-import { FlatType, CityType, InsideType, User, Location} from '../../../../types/index.js';
+import { FlatType, CityType, InsideType, Location} from '../../../../types/index.js';
 import { CreateOfferValidationMessage } from './index.js';
 
 export class CreateOfferDto {
