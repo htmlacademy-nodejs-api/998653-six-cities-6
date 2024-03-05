@@ -13,6 +13,7 @@ export class RestConfig implements Config<RestSchema> {
     @inject(Component.Logger) private readonly logger: Logger
   ){
     const parsedOut = config();
+    console.info(parsedOut);
 
     if(parsedOut.error) {
       throw new Error('Can\'t read .env file. Perhaps the file does not exists.');

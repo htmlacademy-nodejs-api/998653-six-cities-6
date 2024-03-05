@@ -12,7 +12,6 @@ Content-Type: application/json
   "password": "shining"
 }
 
-###
 
 ## Авторизовать пользователя
 
@@ -38,4 +37,3 @@ Content-Type: image/jpeg
 < /Users/ruslan.ivanov/Documents/projects/2235809-six-cities-5/upload/avatar.jpg
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 
-###
