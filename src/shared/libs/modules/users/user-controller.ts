@@ -16,7 +16,8 @@ import { LoggedUserRdo } from '../users/dto/index.js';
 import {
   ValidateDtoMiddleware,
   UploadFileMiddleware,
-  ValidateObjectIdMiddleware
+  ValidateObjectIdMiddleware,
+  PrivateRouteMiddleware
 } from '../../rest/middleware/index.js';
 
 export type LoginUserRequest = Request<RequestParams, RequestBody, LoginUserDto>;
@@ -58,6 +59,13 @@ export class UserController extends BaseController{
 
     this.addRoute({path: '/logout', method: HttpMethod.Post, handler: this.logout});
     this.addRoute({path: '/check_auth', method: HttpMethod.Get, handler: this.checkAuth});
+
+    this.addRoute({
+      path: '/login',
+      method: HttpMethod.Get,
+      handler: this.checkAuthenticate,
+      middlewares: [new PrivateRouteMiddleware()]
+    });
   }
 
   public async create(
@@ -101,5 +109,19 @@ export class UserController extends BaseController{
 
   public async checkAuth(_req: Request, _res: Response): Promise<void> {
     throw new HttpError(StatusCodes.NOT_IMPLEMENTED, 'Not implemented', 'UserController');
+  }
+
+  public async checkAuthenticate({ tokenPayload: { email } }: Request, res: Response) {
+    const foundedUser = await this.userService.findByEmail(email);
+
+    if (!foundedUser) {
+      throw new HttpError(
+        StatusCodes.UNAUTHORIZED,
+        'Unauthorized',
+        'UserController'
+      );
+    }
+
+    this.ok(res, fillDTO(LoggedUserRdo, foundedUser));
   }
 }
