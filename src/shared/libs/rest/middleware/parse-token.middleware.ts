@@ -33,7 +33,7 @@ export class ParseTokenMiddleware implements Middleware{
       const { payload } = await jwtVerify(token, createSecretKey(this.jwtSecret, 'utf-8'));
 
       if(this.isTokenPayload(payload)) {
-        req.tokenPayLoad = { ...payload };
+        req.tokenPayload = { ...payload };
         return next();
       } else {
         throw new Error('Bad Token');
