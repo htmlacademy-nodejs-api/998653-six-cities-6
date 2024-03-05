@@ -10,6 +10,7 @@ import { CommentRdo } from './index.js';
 import { StatusCodes } from 'http-status-codes';
 import { HttpError} from '../../../libs/rest/errors/index.js';
 import { OfferService } from '../offer/index.js';
+import { }
 
 @injectable()
 export class CommentController extends BaseController {
