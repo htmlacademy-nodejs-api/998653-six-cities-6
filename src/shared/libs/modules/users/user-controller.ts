@@ -10,7 +10,8 @@ import {CreateUserDto, UserService, LoginUserDto } from './index.js';
 import { StatusCodes } from 'http-status-codes';
 import { fillDTO } from '../../../helpers/index.js';
 import { UserRdo } from './rdo/user.rdo.js';
-import { AuthService } from '../auth/errors';
+import { AuthService } from '../auth/index.js';
+import { LoggedUserRdo } from '../users/dto/index.js'
 
 import {
   ValidateDtoMiddleware,
@@ -83,23 +84,15 @@ export class UserController extends BaseController{
 
   public async login(
     { body }: LoginUserRequest,
-    _res: Response,
+    res: Response,
   ): Promise<void> {
-    const existsUser = await this.userService.findByEmail(body.email);
-
-    if (! existsUser) {
-      throw new HttpError(
-        StatusCodes.UNAUTHORIZED,
-        `User with email ${body.email} not found.`,
-        'UserController',
-      );
-    }
-
-    throw new HttpError(
-      StatusCodes.NOT_IMPLEMENTED,
-      'Not implemented',
-      'UserController',
-    );
+    const user = await this.authService.verify(body);
+    const token = await this.authService.authenticate(user);
+    const responseData = fillDTO(LoggedUserRdo, {
+      email: user.email,
+      token,
+    });
+    this.ok(res, responseData);
   }
 
   public async logout(_req: Request, _res: Response): Promise<void> {
