@@ -7,7 +7,7 @@ import { getMongoURI } from '../shared/helpers/database.js';
 import express, { Express } from 'express';
 import { Controller } from '../shared/libs/rest/controller/index.js';
 import { ExceptionFilter } from '../shared/libs/rest/exception-filter/index.js';
-import { ParseTokenMiddleware } from '../shared/libs/rest/middleware/index.js'
+import { ParseTokenMiddleware } from '../shared/libs/rest/middleware/index.js';
 
 @injectable()
 export class RestApplication {

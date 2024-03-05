@@ -11,7 +11,7 @@ import { StatusCodes } from 'http-status-codes';
 import { fillDTO } from '../../../helpers/index.js';
 import { UserRdo } from './rdo/user.rdo.js';
 import { AuthService } from '../auth/index.js';
-import { LoggedUserRdo } from '../users/dto/index.js'
+import { LoggedUserRdo } from '../users/dto/index.js';
 
 import {
   ValidateDtoMiddleware,
