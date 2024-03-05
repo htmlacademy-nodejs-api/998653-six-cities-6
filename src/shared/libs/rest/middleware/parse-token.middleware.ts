@@ -36,7 +36,7 @@ export class ParseTokenMiddleware implements Middleware{
         req.tokenPayLoad = { ...payload };
         return next();
       } else {
-        throw new Error('Bad Token')
+        throw new Error('Bad Token');
       }
     } catch {
       return next(new HttpError(
@@ -45,8 +45,6 @@ export class ParseTokenMiddleware implements Middleware{
         'AuthenticateMiddleware')
       );
     }
-    }
   }
-
-
 }
+
