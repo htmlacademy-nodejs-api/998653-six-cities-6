@@ -10,7 +10,7 @@ import { CommentRdo } from './index.js';
 import { StatusCodes } from 'http-status-codes';
 import { HttpError} from '../../../libs/rest/errors/index.js';
 import { OfferService } from '../offer/index.js';
-import { }
+import { PrivateRouteMiddleware, ValidateDtoMiddleware } from '../../rest/middleware/index.js';
 
 @injectable()
 export class CommentController extends BaseController {
@@ -22,7 +22,15 @@ export class CommentController extends BaseController {
     super(logger);
 
     this.logger.info('Register routes for CategoryController…');
-    this.addRoute({ path:'/:id', method: HttpMethod.Post, handler: this.create });
+    this.addRoute({
+      path:'/',
+      method: HttpMethod.Post,
+      handler: this.create,
+      middlewares: [
+        new PrivateRouteMiddleware(),
+        new ValidateDtoMiddleware(CreateCommentDto)
+      ]
+    });
   }
 
   public async create(

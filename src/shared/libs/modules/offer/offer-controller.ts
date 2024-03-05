@@ -13,7 +13,7 @@ import { StatusCodes } from 'http-status-codes';
 import { ParamOfferId, ParamCityName } from '../../rest/types/index.js';
 import { CommentService } from '../comment/index.js';
 import { ValidateObjectIdMiddleware } from '../../rest/middleware/index.js';
-import { ValidateDtoMiddleware } from '../../rest/middleware/index.js';
+import { ValidateDtoMiddleware, PrivateRouteMiddleware } from '../../rest/middleware/index.js';
 import { CreateOfferDto, UpdateOfferDto } from './index.js';
 import { DocumentExistsMiddleware } from '../../rest/middleware/document-exists.middleware.js';
 
@@ -39,7 +39,10 @@ export class OfferController extends BaseController {
       path:'/',
       method: HttpMethod.Post,
       handler: this.create,
-      middlewares: [new ValidateDtoMiddleware(CreateOfferDto)]
+      middlewares: [
+        new ValidateDtoMiddleware(CreateOfferDto),
+        new PrivateRouteMiddleware(),
+      ]
     });
 
 
@@ -58,6 +61,11 @@ export class OfferController extends BaseController {
       path:'/:offerId',
       method: HttpMethod.Delete,
       handler: this.delete,
+      middlewares: [
+        new PrivateRouteMiddleware(),
+        new ValidateObjectIdMiddleware('offerId'),
+        new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId')
+      ]
     });
 
     this.addRoute({
