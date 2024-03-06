@@ -31,7 +31,7 @@ Content-Type: application/json
 
 GET  http://localhost:5000/users/login HTTP/1.1
 Content-Type: application/json
-Authorization:  Bearer eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiSmFjayIsImVtYWlsIjoidG9yYW5zQG92ZXJsb29rLm5ldCIsImlkIjoiNjVlNzgzMWUyNTg3YWE1YzBhNzBlOWMzIiwiaWF0IjoxNzA5NjcxMjAxLCJleHAiOjE3MDk4NDQwMDF9.wAViuYGjSqpNHqp6h087famD288yaLa7H37LPr26hTg
+Authorization:  Bearer eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiSmFjayIsImVtYWlsIjoidG9yYW5zc3NAb3Zlcmxvb2submV0IiwiaWQiOiI2NWU4M2U0YWMxOGQ5NjBkZWEzNWE0ZWUiLCJpYXQiOjE3MDk3NTMyNzcsImV4cCI6MTcwOTkyNjA3N30.OefhEtPjHxzwNGYeQsH4BN0D8OJ7UOgdufgF9ztTaIc
 
 ###
 

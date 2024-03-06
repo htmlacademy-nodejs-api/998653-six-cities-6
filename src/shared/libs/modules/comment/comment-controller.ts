@@ -10,7 +10,7 @@ import { fillDTO } from '../../../helpers/common.js';
 import { CommentRdo } from './index.js';
 import { StatusCodes } from 'http-status-codes';
 import { HttpError} from '../../../libs/rest/errors/index.js';
-import { OfferService } from '../offer/index.js';
+import {OfferService } from '../offer/index.js';
 import { PrivateRouteMiddleware, ValidateDtoMiddleware, ValidateObjectIdMiddleware } from '../../rest/middleware/index.js';
 import { DocumentExistsMiddleware } from '../../rest/middleware/document-exists.middleware.js';
 
