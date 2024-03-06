@@ -6,6 +6,7 @@ import { inject, injectable } from 'inversify';
 import { Component } from '../../../types/index.js';
 import { Logger } from '../../../libs/logger/index.js';
 import { UpdateUserDto } from './dto/update-user.dto.js';
+import { HttpError } from '../../rest/errors/http-error.js';
 
 @injectable()
 export class DefaultUserService implements UserService {
@@ -42,6 +43,42 @@ export class DefaultUserService implements UserService {
     return this.userModel
       .findByIdAndUpdate(userId, dto, { new: true })
       .exec();
+  }
+
+  public async findById(userId?: string): Promise<DocumentType<UserEntity> | null> {
+    if (!userId) {
+      return null;
+    }
+    return this.userModel.findById(userId);
+  }
+
+  public async addFavoriteOfferToUser(userId: string, offerId: string): Promise<DocumentType<UserEntity> | null> {
+    const user = await this.findById(userId);
+    if (!user) {
+      throw new HttpError(StatusCodes.BAD_REQUEST, 'Пользователь не найден', 'UserService');
+    }
+    const offer = await this.offerModel.findOne({ _id: offerId });
+    if (!offer) {
+      throw new HttpError(StatusCodes.BAD_REQUEST, 'Предложение не найдено', 'UserService');
+    }
+    if (!user.favoriteOffers.map((el) => String(el._id)).includes(offerId)) {
+      user.favoriteOffers.push(offer);
+      await user.save();
+    }
+    return user;
+  }
+
+  public async removeFavoriteOfferToUser(userId: string, offerId: string): Promise<DocumentType<UserEntity> | null> {
+    const user = await this.findById(userId);
+    if (!user) {
+      throw new HttpError(StatusCodes.BAD_REQUEST, 'Пользователь не найден', 'UserService');
+    }
+    const index = user.favoriteOffers.map((offer) => String(offer._id)).indexOf(offerId);
+    if (index !== -1) {
+      user.favoriteOffers.splice(index, 1);
+      await user.save();
+    }
+    return user;
   }
 
   public async exists(userId: string): Promise<boolean> {

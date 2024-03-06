@@ -1,18 +1,24 @@
 import { inject, injectable } from 'inversify';
 import { DocumentType, types } from '@typegoose/typegoose';
-import { CreateOfferDto, UpdateOfferDto,} from './dto/index.js';
+import { CreateOfferDto, UpdateOfferDto } from './dto/index.js';
 import { OfferEntity, OfferService } from './index.js';
+import { UserEntity } from '../users/index.js';
 import { Logger } from '../../logger/index.js';
 import { Component } from '../../../types/index.js';
 import { DEFAULT_PREMIUM_OFFER_COUNT, DEFAULT_OFFER_AMOUNT } from '../../../../const/const.js';
 import { SortType } from '../../../types/index.js';
+import { Types } from 'mongoose';
+import { HttpError } from '../../rest/errors/http-error.js';
+import { StatusCodes } from 'http-status-codes';
 
 @injectable()
 export class DefaultOfferService implements OfferService {
   constructor(
     @inject(Component.Logger) private readonly logger: Logger,
     @inject(Component.OfferModel) private readonly offerModel: types.ModelType<OfferEntity>,
-  ){}
+    @inject(Component.UserModel) private readonly userModel: types.ModelType<UserEntity>
+  ) {
+  }
 
   public async create(dto: CreateOfferDto): Promise<DocumentType<OfferEntity>> {
     const result = await this.offerModel.create(dto);
@@ -42,14 +48,28 @@ export class DefaultOfferService implements OfferService {
         }
       },
       {
-        $addFields: {
-          commentCount: {$size: '$comments'},
-          totalRating: {$avg: '$comments.rating'},
+        $lookup: {
+          from: 'users',
+          localField: 'userId',
+          foreignField: '_id',
+          as: 'user'
         }
       },
-      {$unset: ['comments']},
-      {$sort: {createdAt: SortType.Down}},
-      {$limit: limit},
+      {
+        $addFields: {
+          commentCount: { $size: '$comments' },
+          totalRating: { $avg: '$comments.rating' },
+        }
+      },
+      { $unset: ['comments'] },
+      {
+        $unwind: {
+          path: '$user',
+          preserveNullAndEmptyArrays: true
+        }
+      },
+      { $sort: { createdAt: SortType.Down } },
+      { $limit: limit },
     ])
       .exec();
   }
@@ -62,7 +82,7 @@ export class DefaultOfferService implements OfferService {
 
   public async updateById(offerId: string, dto: UpdateOfferDto): Promise<DocumentType<OfferEntity> | null> {
     return this.offerModel
-      .findByIdAndUpdate(offerId, dto, {new: true})
+      .findByIdAndUpdate(offerId, dto, { new: true })
       .populate(['userId'])
       .exec();
   }
@@ -78,8 +98,8 @@ export class DefaultOfferService implements OfferService {
 
   public async findFavorites(): Promise<DocumentType<OfferEntity>[]> {
     return this.offerModel
-      .find({favorites: true})
-      .sort({createdAt: SortType.Down})
+      .find({ favorites: true })
+      .sort({ createdAt: SortType.Down })
       .populate(['userId'])
       .exec();
   }

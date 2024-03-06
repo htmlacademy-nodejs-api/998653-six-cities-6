@@ -8,6 +8,7 @@ import express, { Express } from 'express';
 import { Controller } from '../shared/libs/rest/controller/index.js';
 import { ExceptionFilter } from '../shared/libs/rest/exception-filter/index.js';
 import { ParseTokenMiddleware } from '../shared/libs/rest/middleware/index.js';
+import { OfferService } from '../shared/libs/modules/offer/index.js';
 
 @injectable()
 export class RestApplication {
@@ -22,7 +23,8 @@ export class RestApplication {
   @inject(Component.CommentController) private readonly commentController: Controller,
   @inject(Component.UserController) private readonly userController: Controller,
   @inject(Component.ExceptionFilter) private readonly appExceptionFilter: ExceptionFilter,
-  @inject(Component.AuthExceptionFilter) private readonly authExceptionFilter: ExceptionFilter
+  @inject(Component.AuthExceptionFilter) private readonly authExceptionFilter: ExceptionFilter,
+  @inject(Component.OfferService) private readonly offerService: OfferService
 
   ) {
     this.server = express();
@@ -64,7 +66,6 @@ export class RestApplication {
   }
 
   private async _initExceptionFilters() {
-    //ошибка  No matching bindings found for serviceIdentifier: Symbol(AuthExceptionFilter)
     this.server.use(this.authExceptionFilter.catch.bind(this.authExceptionFilter));
     this.server.use(this.appExceptionFilter.catch.bind(this.appExceptionFilter));
   }
@@ -94,6 +95,12 @@ export class RestApplication {
     this.logger.info('Try to init server…');
     await this._initServer();
     this.logger.info(`🚀 Server started on http://localhost:${this.config.get('PORT')}`);
+
+    const premium = this.offerService.findPremiumByCity('Paris');
+    console.log(premium);
+
+    const favorites = this.offerService.findFavorites();
+    console.log(favorites);
 
   }
 }

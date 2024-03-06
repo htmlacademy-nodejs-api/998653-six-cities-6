@@ -34,8 +34,8 @@ class GenerateCommand implements CommandInterface {
     return this.name;
   }
 
-  public async execute(..._params: string[]): Promise<void> {
-    const [count, filepath, url] = _params;
+  public async execute(...params: string[]): Promise<void> {
+    const [count, filepath, url] = params;
 
     const offerCount = parseInt(count, 10);
 

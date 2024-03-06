@@ -89,7 +89,7 @@ export class OfferEntity extends defaultClasses.TimeStamps {
     type: () => [String],
     required: true
   })
-  public inside!: InsideType;
+  public inside!: InsideType[];
 
   @prop({
     required: true,

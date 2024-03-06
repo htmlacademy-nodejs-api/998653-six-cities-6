@@ -100,7 +100,7 @@ export class OfferController extends BaseController {
     { body, tokenPayload } : CreateOfferRequest,
     res: Response
   ): Promise<void>{
-    const result = this.offerService.create({...body, userId: tokenPayload.id});
+    const result = await this.offerService.create({...body, userId: tokenPayload.id});
 
     this.created(res, fillDTO(OfferRdo, result));
   }
@@ -151,7 +151,7 @@ export class OfferController extends BaseController {
     { params }: Request,
     res: Response
   ) {
-    const existsOffer = this.offerService.findById(params.offerId);
+    const existsOffer = await this.offerService.findById(params.offerId);
 
     if (!existsOffer) {
       throw new HttpError(

@@ -10,7 +10,7 @@ export class CreateUserDto {
   @IsEmail({}, { message: CreateUserMessages.email.invalidFormat })
   public email: string;
 
-  @IsString({ message: CreateUserMessages.username.invalidFormat })
+  @IsString({ message: CreateUserMessages.avatarPath.invalidFormat })
   public avatar: string;
 
   @IsEnum(StatusType, {message: CreateUserMessages.status.invalidFormat})

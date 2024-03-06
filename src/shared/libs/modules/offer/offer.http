@@ -7,12 +7,13 @@ Content-Type: application/json
 
 ## Добавить новое предложение
 POST http://localhost:4000/offers/ HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiSmFjayIsImVtYWlsIjoidG9yYW5zQG92ZXJsb29rLm5ldCIsImlkIjoiNjVlNzgzMWUyNTg3YWE1YzBhNzBlOWMzIiwiaWF0IjoxNzA5NjcxMjAxLCJleHAiOjE3MDk4NDQwMDF9.wAViuYGjSqpNHqp6h087famD288yaLa7H37LPr26hTg
 Content-Type: application/json
 
 {
   "name": "Luxury Apartment",
   "description": "Spacious apartment with a great view",
-  "date": "",
+  "date": "2024-03-05T20:24:02.443Z",
   "city": "Paris",
   "prevImg": "example-path.png",
   "photos": [
@@ -39,8 +40,8 @@ Content-Type: application/json
   "adult": 2,
   "price": 124,
   "comment": 2,
-  "userId": "",
-  "coords": {
+  "rating": 5,
+  "coordinates": {
     "latitude": 48.85661,
     "longitude": 2.351499
   }

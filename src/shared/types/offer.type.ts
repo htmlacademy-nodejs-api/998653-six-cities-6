@@ -11,7 +11,7 @@ export type Offer ={
   isFavorite: boolean;
   rating: number;
   flat: FlatType;
-  inside: InsideType;
+  inside: InsideType[];
   rooms: number;
   adult: number;
   price : number;

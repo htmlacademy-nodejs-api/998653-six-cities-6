@@ -72,7 +72,7 @@ class ImportCommand implements CommandInterface {
       price : offer.price,
       userId: user.id,
       comment: offer.comment,
-      coords: offer.coords
+      coordinates: offer.coords
     });
   }
 

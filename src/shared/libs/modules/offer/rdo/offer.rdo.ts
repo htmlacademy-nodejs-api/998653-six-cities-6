@@ -44,9 +44,9 @@ export class OfferRdo {
   @Expose()
   public price : number;
 
-  @Expose({name: 'userId'})
+  @Expose()
   @Type(() => UserRdo)
-  public userId: UserRdo;
+  public user: UserRdo;
 
   @Expose()
   public comment: number;

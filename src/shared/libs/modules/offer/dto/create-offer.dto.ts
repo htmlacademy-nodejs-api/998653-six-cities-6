@@ -15,7 +15,7 @@ import {
   MinLength,
 } from 'class-validator';
 
-import { FlatType, CityType, InsideType, Location} from '../../../../types/index.js';
+import { FlatType, CityType, InsideType, Location } from '../../../../types/index.js';
 import { CreateOfferValidationMessage } from './index.js';
 
 export class CreateOfferDto {
@@ -37,7 +37,7 @@ export class CreateOfferDto {
   @Matches(/\.(jpg|png)(\?.*)?$/i, { message: CreateOfferValidationMessage.imagePreview.matches })
   public prevImg: string;
 
-  @IsArray({ message: CreateOfferValidationMessage.photos.invalidFormat})
+  @IsArray({ message: CreateOfferValidationMessage.photos.invalidFormat })
   @ArrayMinSize(6, { message: CreateOfferValidationMessage.photos.ArrayMinSize })
   @ArrayMaxSize(6, { message: CreateOfferValidationMessage.photos.ArrayMaxSize })
   public photos: string[];
@@ -45,19 +45,19 @@ export class CreateOfferDto {
   @IsBoolean({ message: CreateOfferValidationMessage.isPremium.invalidFormat })
   public isPremium: boolean;
 
-  @IsBoolean({ message: CreateOfferValidationMessage.isFavorite.invalidFormat})
+  @IsBoolean({ message: CreateOfferValidationMessage.isFavorite.invalidFormat })
   public isFavorite: boolean;
 
   @IsInt({ message: CreateOfferValidationMessage.rating.invalidFormat })
-  @Min(1, { message: CreateOfferValidationMessage.rating.minValue})
-  @Max(5, { message: CreateOfferValidationMessage.rating.maxValue})
+  @Min(1, { message: CreateOfferValidationMessage.rating.minValue })
+  @Max(5, { message: CreateOfferValidationMessage.rating.maxValue })
   public rating: number;
 
   @IsEnum(FlatType, { message: CreateOfferValidationMessage.houseType.invalidFormat })
   public flat: FlatType;
 
-  @IsEnum(InsideType, { message: CreateOfferValidationMessage.amenities.invalidFormat })
-  public inside: InsideType;
+  @IsEnum(InsideType, { message: CreateOfferValidationMessage.amenities.invalidFormat, each: true })
+  public inside: InsideType[];
 
   @IsInt({ message: CreateOfferValidationMessage.countRooms.invalidFormat })
   @Min(1, { message: CreateOfferValidationMessage.countRooms.minValue })
@@ -72,11 +72,13 @@ export class CreateOfferDto {
   @IsInt({ message: CreateOfferValidationMessage.rentPrice.invalidFormat })
   @Min(100, { message: CreateOfferValidationMessage.rentPrice.minValue })
   @Max(100000, { message: CreateOfferValidationMessage.rentPrice.maxValue })
-  public price : number;
+  public price: number;
 
-  @IsInt({ message: CreateOfferValidationMessage.commentCount.invalidFormat})
+  @IsInt({ message: CreateOfferValidationMessage.commentCount.invalidFormat })
   public comment: number;
 
   @IsObject()
-  public coords: Location;
+  public coordinates: Location;
+
+  userId?: number;
 }

@@ -39,7 +39,7 @@ function createOffer(offerData: string): Offer {
     isFavorite: !!isFavorite,
     rating: Number(rating),
     flat: FlatType[flat as 'Room' | 'Apartment' | 'House' | 'Hotel'],
-    inside: inside as InsideType || 'Breakfast',
+    inside: inside.split(';') as InsideType[],
     rooms: Number(rooms),
     adult: Number(adult),
     price: Number.parseInt(price, 10),
