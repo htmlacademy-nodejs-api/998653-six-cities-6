@@ -12,7 +12,6 @@ Content-Type: application/json
   "password": "shining"
 }
 
-###
 
 ## Авторизовать пользователя
 
@@ -70,4 +69,3 @@ Content-Type: image/jpeg
 < /Users/erbetnataly/Desktop/6:03-six-cities-6 2/markup/img/avatar-max.jpg
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 
-###

@@ -156,4 +156,16 @@ export class UserController extends BaseController{
     const user = await this.userService.removeFavoriteOfferToUser(tokenPayload.id, offerId);
     this.ok(res, fillDTO(UserRdo, user));
   }
+
+  public async create (
+    _req: CreateUserRequest,
+    _res: Response,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      throw new Error('[UserController] Oops');
+    } catch (error) {
+      return next(error);
+    }
+  }
 }
