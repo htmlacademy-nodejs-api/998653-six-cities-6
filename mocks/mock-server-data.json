@@ -3,11 +3,11 @@
     "names": [
       "Royal apartment",
       "Student room",
-      "Cool hotel, ms",
+      "Cool hotel",
       "Big house-ms"
     ],
-    "desriptions": [
-      "Non aliqua elit ut magna Lorem aliqua et ",
+    "descriptions": [
+      "Non aliqua elit ut magna Lorem aliqua et",
       "Sint laboris proident dolor Lorem pariatu.",
       "Mollit ipsum pariatur elit anim officia.",
       "Eu enim pariatur qui dolore ullamco in",
@@ -41,11 +41,63 @@
       "photo-7.jpg",
       "photo-8.jpg"
     ],
+    "isPremiums": [
+      "true",
+      "false",
+      "true",
+      "false",
+      "true",
+      "false"
+    ],
+    "isFavorites": [
+      "true",
+      "false",
+      "true",
+     "false",
+      "true",
+      "false"
+    ],
+    "ratings": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
     "flats": [
       "Apartment",
       "House",
       "Room",
       "Hotel"
+    ],
+    "rooms": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8"
+    ],
+    "adults": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8"
+    ],
+    "prices": [
+      "145",
+      "298",
+      "376",
+      "443",
+      "512",
+      "665",
+      "709"
     ],
     "insides": [
       "Breakfast",
@@ -88,6 +140,10 @@
     ],
     "statuses": [
       "Pro",
+      "Standard",
+      "Pro",
+      "Standard",
+      "Pro",
       "Standard"
     ],
     "comments": [
@@ -97,7 +153,13 @@
       "Eu enim pariatur qui dolore",
       "Nostrud adipisicing excepteur."
     ],
-    "coords": [
+    "latitudes":[
+      "55.7522",
+      "37.6156",
+      "46.3497",
+      "48.0408"
+    ],
+    "longitudes": [
       "55.7522",
       "37.6156",
       "46.3497",

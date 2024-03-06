@@ -29,7 +29,7 @@ const NameLength = {
 } as const;
 
 
-export const DEFAULT_OFFER_AMOUNT = 60;
-export const DEFAULT_PREMIUM_OFFER_COUNT = 3;
+const DEFAULT_OFFER_AMOUNT = 60;
+const DEFAULT_PREMIUM_OFFER_COUNT = 3;
 
-export { OfferMap, DEFAULT_AVATAR, NameLength };
+export { OfferMap, DEFAULT_AVATAR, NameLength, DEFAULT_PREMIUM_OFFER_COUNT, DEFAULT_OFFER_AMOUNT};
