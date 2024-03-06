@@ -10,7 +10,7 @@ import {CreateUserDto, UserService, LoginUserDto } from './index.js';
 import { StatusCodes } from 'http-status-codes';
 import { fillDTO } from '../../../helpers/index.js';
 import { UserRdo } from './rdo/user.rdo.js';
-import { OfferRdo } from '../offer/rdo/offer.rdo.js';
+// import { OfferRdo } from '../offer/rdo/offer.rdo.js';
 import { AuthService } from '../auth/index.js';
 import { LoggedUserRdo } from '../users/dto/index.js';
 import { UploadUserAvatarRdo } from './rdo/upload-user-avatar.rdo.js';
@@ -21,7 +21,7 @@ import {
   ValidateObjectIdMiddleware,
   PrivateRouteMiddleware
 } from '../../rest/middleware/index.js';
-import { OfferService } from '../offer/offer-service.interface.js';
+// import { OfferService } from '../offer/offer-service.interface.js';
 
 export type LoginUserRequest = Request<RequestParams, RequestBody, LoginUserDto>;
 
@@ -30,7 +30,7 @@ export class UserController extends BaseController{
   constructor(
     @inject(Component.Logger) protected readonly logger: Logger,
     @inject(Component.UserService) private readonly userService: UserService,
-    @inject(Component.OfferService) private readonly offerService: OfferService,
+    // @inject(Component.OfferService) private readonly offerService: OfferService,
     @inject(Component.Config) private readonly configService: Config<RestSchema>,
     @inject(Component.AuthService) private readonly authService: AuthService
   ) {
@@ -71,12 +71,12 @@ export class UserController extends BaseController{
     this.addRoute({path: '/logout', method: HttpMethod.Post, handler: this.logout});
     this.addRoute({path: '/check_auth', method: HttpMethod.Get, handler: this.checkAuth});
 
-    this.addRoute({
-      path: '/favorite-offers',
-      method: HttpMethod.Post,
-      handler: this.addFavoriteOffer,
-      middlewares: [new PrivateRouteMiddleware()]
-    });
+    // this.addRoute({
+    //   path: '/favorite-offers',
+    //   method: HttpMethod.Post,
+    //   handler: this.addFavoriteOffer,
+    //   middlewares: [new PrivateRouteMiddleware()]
+    // });
 
     this.addRoute({
       path: '/favorite-offers',
@@ -104,9 +104,9 @@ export class UserController extends BaseController{
 
   public async uploadAvatar({ params, file }: Request, res: Response) {
     const { userId } = params;
-    const uploadFile = { avatarPath: file?.filename };
+    const uploadFile = { avatar: file?.filename };
     await this.userService.updateById(userId, uploadFile);
-    this.created(res, fillDTO(UploadUserAvatarRdo, { filepath: uploadFile.avatarPath }));
+    this.created(res, fillDTO(UploadUserAvatarRdo, { filepath: uploadFile.avatar }));
   }
 
   public async login(
@@ -144,12 +144,12 @@ export class UserController extends BaseController{
     this.ok(res, fillDTO(LoggedUserRdo, foundedUser));
   }
 
-  public async addFavoriteOffer(req: Request<RequestParams, RequestBody, { offerId: string, userId: s}>, res: Response) {
-    const { tokenPayload, body: { offerId } } = req;
-    await this.userService.addFavoriteOfferToUser(tokenPayload.id, offerId);
-    const offer = await this.offerService.findById({ offerId, userId: tokenPayload.id });
-    this.ok(res, fillDTO(OfferRdo, { ...offer, isFavorite: true }));
-  }
+  // public async addFavoriteOffer(req: Request<RequestParams, RequestBody, { offerId: string, userId: s}>, res: Response) {
+  //   const { tokenPayload, body: { offerId } } = req;
+  //   await this.userService.addFavoriteOfferToUser(tokenPayload.id, offerId);
+  //   const offer = await this.offerService.findById({ offerId, userId: tokenPayload.id });
+  //   this.ok(res, fillDTO(OfferRdo, { ...offer, isFavorite: true }));
+  // }
 
   public async removeFavoriteOffer(req: Request<RequestParams, RequestBody, { offerId: string }>, res: Response) {
     const { tokenPayload, body: { offerId } } = req;

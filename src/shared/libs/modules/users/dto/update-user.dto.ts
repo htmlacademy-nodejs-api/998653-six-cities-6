@@ -1,8 +1,8 @@
 import { IsEmail, IsString, Length, IsOptional, IsEnum } from 'class-validator';
 import { CreateUserMessages } from './index.js';
 import { StatusType } from '../../../../types/index.js';
-export class UpdateUserDto {
 
+export class UpdateUserDto {
   @IsOptional()
   @IsString({ message: CreateUserMessages.username.invalidFormat })
   @Length(1, 15, { message: CreateUserMessages.username.lengthField })
@@ -16,8 +16,9 @@ export class UpdateUserDto {
   @IsString({ message: CreateUserMessages.avatarPath.invalidFormat })
   public avatar?: string;
 
+  @IsOptional()
   @IsEnum(StatusType, {message: CreateUserMessages.status.invalidFormat})
-  public status: StatusType;
+  public status?: StatusType;
 
   @IsOptional()
   @IsString({ message: CreateUserMessages.password.invalidFormat })
