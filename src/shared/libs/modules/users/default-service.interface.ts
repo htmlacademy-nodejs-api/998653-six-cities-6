@@ -1,18 +1,21 @@
 import { UserService } from './user-service.interface.js';
 import { DocumentType, types } from '@typegoose/typegoose';
 import { UserEntity } from './user.entity.js';
+import { OfferEntity } from '../offer/offer.entity.js';
 import { CreateUserDto } from './dto/create-user.dto.js';
 import { inject, injectable } from 'inversify';
 import { Component } from '../../../types/index.js';
 import { Logger } from '../../../libs/logger/index.js';
 import { UpdateUserDto } from './dto/update-user.dto.js';
 import { HttpError } from '../../rest/errors/http-error.js';
+import { StatusCodes } from 'http-status-codes';
 
 @injectable()
 export class DefaultUserService implements UserService {
   constructor(
     @inject(Component.Logger) private readonly logger: Logger,
-    @inject(Component.UserModel) private readonly userModel: types.ModelType<UserEntity>
+    @inject(Component.UserModel) private readonly userModel: types.ModelType<UserEntity>,
+    @inject(Component.OfferModel) private readonly offerModel: types.ModelType<OfferEntity>
   ) {
   }
 

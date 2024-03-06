@@ -2,21 +2,16 @@ import { inject, injectable } from 'inversify';
 import { DocumentType, types } from '@typegoose/typegoose';
 import { CreateOfferDto, UpdateOfferDto } from './dto/index.js';
 import { OfferEntity, OfferService } from './index.js';
-import { UserEntity } from '../users/index.js';
 import { Logger } from '../../logger/index.js';
 import { Component } from '../../../types/index.js';
 import { DEFAULT_PREMIUM_OFFER_COUNT, DEFAULT_OFFER_AMOUNT } from '../../../../const/const.js';
 import { SortType } from '../../../types/index.js';
-import { Types } from 'mongoose';
-import { HttpError } from '../../rest/errors/http-error.js';
-import { StatusCodes } from 'http-status-codes';
 
 @injectable()
 export class DefaultOfferService implements OfferService {
   constructor(
     @inject(Component.Logger) private readonly logger: Logger,
     @inject(Component.OfferModel) private readonly offerModel: types.ModelType<OfferEntity>,
-    @inject(Component.UserModel) private readonly userModel: types.ModelType<UserEntity>
   ) {
   }
 
