@@ -481,9 +481,9 @@ components:
           type: string
           example: name
 
-        desription:
+        description:
           type: string
-          example: desription
+          example: description
 
         date:
           type: string
@@ -583,9 +583,9 @@ components:
           type: string
           example: name
 
-        desription:
+        description:
           type: string
-          example: desription
+          example: description
 
         date:
           type: string

@@ -2,10 +2,10 @@ import { Request, Response, NextFunction } from 'express';
 import { ExceptionFilter } from './exception-filter.interface.js';
 import { inject, injectable } from 'inversify';
 import { StatusCodes } from 'http-status-codes';
-import { Logger } from '../../../logger/index.js';
-import { Component } from '../../../../types/component.enum.js';
-import { createErrorObject } from '../../../../helpers/index.js';
-import { HttpError } from '../../../rest/errors/index.js';
+import { Logger } from '../../logger/index.js';
+import { Component } from '../../../types/component.enum.js';
+import { createErrorObject } from '../../../helpers/index.js';
+import { HttpError } from '../errors/index.js';
 
 @injectable()
 export class AppExceptionFilter implements ExceptionFilter {

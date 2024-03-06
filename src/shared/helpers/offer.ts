@@ -1,9 +1,12 @@
-import { TOffer, CityType, FlatType, InsideType, StatusType } from '../../shared/types/index.js';
+import { Offer, CityType, FlatType, InsideType, StatusType } from '../../shared/types/index.js';
 
-function CreateOffer(OfferData: string): TOffer {
+function createOffer(offerData: string): Offer {
+
+  const lines = offerData.replace('\n', '').split('\t');
+
   const [
     name,
-    desription,
+    description,
     date,
     city,
     prevImg,
@@ -21,12 +24,13 @@ function CreateOffer(OfferData: string): TOffer {
     avatar,
     status,
     comment,
-    coords,
-  ] = OfferData.replace('\n', '').split('\t');
-  const [latitude, longitude] = coords.split(';');
+    latitude,
+    longitude
+  ] = lines;
+
   const res = {
     name,
-    desription,
+    description: description,
     date: new Date(date),
     city: CityType[city as 'Paris' | 'Cologne' | 'Amsterdam' | 'Hamburg' | 'Dusseldorf'],
     prevImg,
@@ -35,7 +39,7 @@ function CreateOffer(OfferData: string): TOffer {
     isFavorite: !!isFavorite,
     rating: Number(rating),
     flat: FlatType[flat as 'Room' | 'Apartment' | 'House' | 'Hotel'],
-    inside: inside as InsideType || 'Breakfast',
+    inside: inside.split(';') as InsideType[],
     rooms: Number(rooms),
     adult: Number(adult),
     price: Number.parseInt(price, 10),
@@ -56,4 +60,4 @@ function CreateOffer(OfferData: string): TOffer {
 }
 
 
-export { CreateOffer };
+export { createOffer };
