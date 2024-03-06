@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import { CommnadInterface } from './command.interface.js';
+import { CommandInterface } from './command.interface.js';
 import { resolve } from 'node:path';
 
 type TPackageJSONConfig ={
@@ -15,7 +15,7 @@ function isPackageJSONConfig(value: unknown) : value is TPackageJSONConfig {
   );
 }
 
-class VersionCommand implements CommnadInterface {
+class VersionCommand implements CommandInterface {
   constructor(
     private readonly filePath: string = './package.json',
   ){}

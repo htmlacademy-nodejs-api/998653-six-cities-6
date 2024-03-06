@@ -9,15 +9,15 @@ class TSVOfferGenerator implements OfferGenerator {
 
   public generate(): string {
     const name = getRandomItem<string>(this.mockData.names);
-    const desription = getRandomItem<string>(this.mockData.desriptions);
+    const description = getRandomItem<string>(this.mockData.descriptions);
     const date = dayjs()
       .subtract(generateRandomValue(OfferMap.FIRST_WEEK_DAY, OfferMap.LAST_WEEK_DAY), 'day')
       .toISOString();
     const city = getRandomItem<string>(this.mockData.cities);
     const prevImage = getRandomItem<string>(this.mockData.prevImages);
     const photos = getRandomItems<string>(this.mockData.photos).join(';');
-    const isPremium = generateRandomValue(OfferMap.VALUE_MIN, OfferMap.VALUE_MAX).toString();
-    const isFavorite = generateRandomValue(OfferMap.VALUE_MIN,OfferMap.VALUE_MAX).toString();
+    const isPremium = getRandomItem<boolean>(this.mockData.isPremiums).toString();
+    const isFavorite = getRandomItem<boolean>(this.mockData.isFavorites).toString();
     const rating = generateRandomValue(OfferMap.RATING_MIN, OfferMap.RATING_MAX).toString();
     const flat = getRandomItem<string>(this.mockData.flats);
     const inside = getRandomItems<string>(this.mockData.insides).join(';');
@@ -29,14 +29,13 @@ class TSVOfferGenerator implements OfferGenerator {
     const email = getRandomItem<string>(this.mockData.emails).toString();
     const avatar = getRandomItem<string>(this.mockData.avatars).toString();
     const status = getRandomItem<string>(this.mockData.statuses).toString();
-    const coords = [
-      generateRandomValue(OfferMap.COORD_MIN, OfferMap.COORD_MAX).toString(),
-      generateRandomValue(OfferMap.COORD_MIN, OfferMap.COORD_MAX).toString(),
-    ].join(';');
+    const latitudes = getRandomItem(this.mockData.latitudes).toString();
+    const longitudes = getRandomItem(this.mockData.longitudes).toString();
+
 
     return [
       name,
-      desription,
+      description,
       date,
       city,
       prevImage,
@@ -54,7 +53,8 @@ class TSVOfferGenerator implements OfferGenerator {
       avatar,
       status,
       comments,
-      coords
+      latitudes,
+      longitudes
     ]. join('\t');
   }
 }

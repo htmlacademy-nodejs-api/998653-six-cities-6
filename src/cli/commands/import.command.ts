@@ -1,7 +1,7 @@
 import chalk from 'chalk';
-import { CommnadInterface } from './command.interface.js';
+import { CommandInterface as CommandInterface } from './command.interface.js';
 import { TSVFileReader } from '../../shared/libs/file-reader/index.js';
-import { CreateOffer, getErrorMessage, getMongoURI } from '../../shared/helpers/index.js';
+import { createOffer, getErrorMessage, getMongoURI } from '../../shared/helpers/index.js';
 import { UserService } from '../../shared/libs/modules/users/index.js';
 import { OfferService } from '../../shared/libs/modules/offer/index.js';
 import { DatabaseClient, MongoDatabaseClient } from '../../shared/libs/database-client/index.js';
@@ -10,9 +10,9 @@ import { DefaultOfferService, OfferModel } from '../../shared/libs/modules/offer
 import { DefaultUserService, UserModel } from '../../shared/libs/modules/users/index.js';
 import { ConsoleLogger } from '../../shared/libs/logger/index.js';
 import { Command, DEFAULT_DB_PORT, DEFAULT_USER_PASSWORD } from './command.constant.js';
-import { TOffer } from '../../shared/types/index.js';
+import { Offer } from '../../shared/types/index.js';
 
-class ImportCommand implements CommnadInterface {
+class ImportCommand implements CommandInterface {
   private userService: UserService;
   private offerService: OfferService;
   private databaseClient: DatabaseClient;
@@ -24,7 +24,7 @@ class ImportCommand implements CommnadInterface {
     this.onCompleteImport = this.onCompleteImport.bind(this);
 
     this.logger = new ConsoleLogger();
-    this.userService = new DefaultUserService(this.logger, UserModel);
+    this.userService = new DefaultUserService(this.logger, UserModel, OfferModel);
     this.offerService = new DefaultOfferService(this.logger, OfferModel);
     this.databaseClient = new MongoDatabaseClient(this.logger);
   }
@@ -34,7 +34,7 @@ class ImportCommand implements CommnadInterface {
   }
 
   private async onImportedLine(line: string, resolve: () => void) {
-    const offer = CreateOffer(line);
+    const offer = createOffer(line);
     await this.saveOffer(offer);
     resolve();
   }
@@ -44,12 +44,12 @@ class ImportCommand implements CommnadInterface {
     this.databaseClient.disconnect();
   }
 
-  private onCompliteEnd(count: number) {
+  private onCompleteEnd(count: number) {
     console.info(`${count} rows imported.`);
 
   }
 
-  private async saveOffer(offer: TOffer) {
+  private async saveOffer(offer: Offer) {
     const user = await this.userService.findOrCreate({
       ...offer.user,
       password: DEFAULT_USER_PASSWORD
@@ -57,7 +57,7 @@ class ImportCommand implements CommnadInterface {
 
     await this.offerService.create({
       name: offer.name,
-      desription: offer.desription,
+      description: offer.description,
       date: offer.date,
       city: offer.city,
       prevImg: offer.prevImg,
@@ -72,7 +72,7 @@ class ImportCommand implements CommnadInterface {
       price : offer.price,
       userId: user.id,
       comment: offer.comment,
-      coords: offer.coords
+      coordinates: offer.coords
     });
   }
 
@@ -92,7 +92,7 @@ class ImportCommand implements CommnadInterface {
     const fileReader = new TSVFileReader(filename);
 
     fileReader.on('line', this.onImportedLine);
-    fileReader.on('end', this.onCompliteEnd);
+    fileReader.on('end', this.onCompleteEnd);
 
     try {
       await fileReader.read();

@@ -1,6 +1,6 @@
-import { CommnadInterface } from '../commands/command.interface.js';
+import { CommandInterface } from '../commands/command.interface.js';
 
-class HelpCommand implements CommnadInterface {
+class HelpCommand implements CommandInterface {
   public getName(): string {
     return '--help';
   }

@@ -1,0 +1,94 @@
+# OFFERS
+## Получить список предложений
+GET http://localhost:4000/offers?limit=61/ HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiSmFjayIsImVtYWlsIjoidG9yYW5zc3NAb3Zlcmxvb2submV0IiwiaWQiOiI2NWU4M2U0YWMxOGQ5NjBkZWEzNWE0ZWUiLCJpYXQiOjE3MDk3NDM1NjAsImV4cCI6MTcwOTkxNjM2MH0.7KY8N8cv9yzwS_Osd4A6nmJpq5lQCtOH3k9x5qvKkeU
+
+###
+
+## Добавить новое предложение
+POST http://localhost:4000/offers/ HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiSmFjayIsImVtYWlsIjoidG9yYW5zQG92ZXJsb29rLm5ldCIsImlkIjoiNjVlNzgzMWUyNTg3YWE1YzBhNzBlOWMzIiwiaWF0IjoxNzA5NjcxMjAxLCJleHAiOjE3MDk4NDQwMDF9.wAViuYGjSqpNHqp6h087famD288yaLa7H37LPr26hTg
+Content-Type: application/json
+
+{
+  "name": "Luxury Apartment",
+  "description": "Spacious apartment with a great view",
+  "date": "2024-03-05T20:24:02.443Z",
+  "city": "Paris",
+  "prevImg": "example-path.png",
+  "photos": [
+    "example-path-to-img.png,",
+    "example-path-to-img.png,",
+    "example-path-to-img.png,",
+    "example-path-to-img.png,",
+    "example-path-to-img.png,",
+    "example-path-to-img.png,"
+  ],
+  "isPremium": true,
+  "isFavorite": false,
+  "flat": "room",
+  "inside": [
+    "Breakfast",
+    "Air conditioning",
+    "Laptop friendly workspace",
+    "Baby seat",
+    "Washer",
+    "Towels",
+    "Fridge"
+  ],
+  "rooms": 3,
+  "adult": 2,
+  "price": 124,
+  "comment": 2,
+  "rating": 5,
+  "coordinates": {
+    "latitude": 48.85661,
+    "longitude": 2.351499
+  }
+}
+
+###
+
+## Детальная информация по предложению.
+
+GET  http://localhost:4000/offers/65e4a3c4982152359baaad57/ HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiSmFjayIsImVtYWlsIjoidG9yYW5zQG92ZXJsb29rLm5ldCIsImlkIjoiNjVlNzgzMWUyNTg3YWE1YzBhNzBlOWMzIiwiaWF0IjoxNzA5NjcxMjAxLCJleHAiOjE3MDk4NDQwMDF9.wAViuYGjSqpNHqp6h087famD288yaLa7H37LPr26hTg
+
+###
+
+## Удалить предложение.
+
+DELETE  http://localhost:4000/offers/65e4a3c4982152359baaad57/ HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiSmFjayIsImVtYWlsIjoidG9yYW5zQG92ZXJsb29rLm5ldCIsImlkIjoiNjVlNzgzMWUyNTg3YWE1YzBhNzBlOWMzIiwiaWF0IjoxNzA5NjcxMjAxLCJleHAiOjE3MDk4NDQwMDF9.wAViuYGjSqpNHqp6h087famD288yaLa7H37LPr26hTg
+
+###
+
+## Редактирование предложения
+
+PUT  http://localhost:4000/offers/65e4a3c4982152359baaad4e/ HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiSmFjayIsImVtYWlsIjoidG9yYW5zQG92ZXJsb29rLm5ldCIsImlkIjoiNjVlNzgzMWUyNTg3YWE1YzBhNzBlOWMzIiwiaWF0IjoxNzA5NjcxMjAxLCJleHAiOjE3MDk4NDQwMDF9.wAViuYGjSqpNHqp6h087famD288yaLa7H37LPr26hTg
+
+{
+  "title": 1223344,
+  "userId": "65e4967a787680a02aaf495"
+}
+
+###
+
+## Получение списка предложений, добавленных в избраное
+GET http://localhost:4000/offers/bundles/favorite HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiSmFjayIsImVtYWlsIjoidG9yYW5zQG92ZXJsb29rLm5ldCIsImlkIjoiNjVlNzgzMWUyNTg3YWE1YzBhNzBlOWMzIiwiaWF0IjoxNzA5NjcxMjAxLCJleHAiOjE3MDk4NDQwMDF9.wAViuYGjSqpNHqp6h087famD288yaLa7H37LPr26hTg
+
+###
+
+## Получение списка премиальных предложений для города
+GET http://localhost:4000/offers/bundles/premium HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiSmFjayIsImVtYWlsIjoidG9yYW5zQG92ZXJsb29rLm5ldCIsImlkIjoiNjVlNzgzMWUyNTg3YWE1YzBhNzBlOWMzIiwiaWF0IjoxNzA5NjcxMjAxLCJleHAiOjE3MDk4NDQwMDF9.wAViuYGjSqpNHqp6h087famD288yaLa7H37LPr26hTg
+
+###
