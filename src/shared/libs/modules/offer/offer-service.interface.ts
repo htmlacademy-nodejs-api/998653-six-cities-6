@@ -3,9 +3,14 @@ import { OfferEntity } from './index.js';
 import { DocumentType } from '@typegoose/typegoose';
 import { DocumentExists } from '../../../types/index.js';
 
+export type OfferFindOptionsById = {
+  userId?: string,
+  offerId: string,
+}
+
 export interface OfferService extends DocumentExists {
   create(dto: CreateOfferDto): Promise<DocumentType<OfferEntity>>,
-  findById(offerId: string): Promise<DocumentType<OfferEntity> | null>;
+  findById(offerId: string, userId?: string): Promise<DocumentType<OfferEntity> | null>;
   find(count?: number): Promise<DocumentType<OfferEntity>[]>;
   deleteById(offerId: string): Promise<DocumentType<OfferEntity> | null>;
   updateById(offerId: string, dto: UpdateOfferDto): Promise<DocumentType<OfferEntity> | null>;
