@@ -1,6 +1,6 @@
 import { ClassConstructor, plainToInstance } from 'class-transformer';
 import { ValidationError } from 'class-validator';
-import { ValidationErrorField } from '../libs/rest/types/validation-error-field.type.js';
+import { ValidationErrorField } from '../libs/rest/validation-error-field.type.js';
 
 export function generateRandomValue(min:number, max: number, numAfterDigit = 0) {
   return +((Math.random() * (max - min)) + min).toFixed(numAfterDigit);
@@ -24,10 +24,8 @@ export function fillDTO<T,V>(someDTO: ClassConstructor<T>, plainObject: V) {
   return plainToInstance(someDTO, plainObject, {excludeExtraneousValues: true});
 }
 
-export function createErrorObject(message: string) {
-  return {
-    error: message,
-  };
+export function createErrorObject(errorType: ApplicationError, error: string, details: ValidationErrorField[] = []) {
+  return { errorType, error, details };
 }
 
 export function reduceValidationErrors(errors: ValidationError[]): ValidationErrorField[] {
@@ -37,4 +35,3 @@ export function reduceValidationErrors(errors: ValidationError[]): ValidationErr
     messages: constraints ? Object.values(constraints) : []
   }));
 }
-
