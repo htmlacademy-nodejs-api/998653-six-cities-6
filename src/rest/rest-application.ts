@@ -9,6 +9,7 @@ import { Controller } from '../shared/libs/rest/controller/index.js';
 import { ExceptionFilter } from '../shared/libs/rest/exception-filter/index.js';
 import { ParseTokenMiddleware } from '../shared/libs/rest/middleware/index.js';
 import { OfferService } from '../shared/libs/modules/offer/index.js';
+import { HttpErrorExceptionFilter, ValidationExceptionFilter } from '../shared/libs/rest/exception-filter/index.js'
 
 @injectable()
 export class RestApplication {
