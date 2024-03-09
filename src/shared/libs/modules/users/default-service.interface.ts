@@ -9,6 +9,7 @@ import { Logger } from '../../../libs/logger/index.js';
 import { UpdateUserDto } from './dto/update-user.dto.js';
 import { HttpError } from '../../rest/errors/http-error.js';
 import { StatusCodes } from 'http-status-codes';
+import { DEFAULT_AVATAR } from '../../../../const/const.js';
 
 @injectable()
 export class DefaultUserService implements UserService {
@@ -34,7 +35,7 @@ export class DefaultUserService implements UserService {
   }
 
   public async create(dto: CreateUserDto, salt: string): Promise<DocumentType<UserEntity>> {
-    const user = new UserEntity(dto);
+    const user = new UserEntity({ ...dto, avatar: DEFAULT_AVATAR });
     user.setPassword(dto.password, salt);
     const result = this.userModel.create(user);
     this.logger.info(`New user created: ${user.email}`);
