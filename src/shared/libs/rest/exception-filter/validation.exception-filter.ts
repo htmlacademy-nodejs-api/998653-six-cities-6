@@ -5,6 +5,8 @@ import { Logger } from '../../logger/index.js';
 import { Component } from '../../../types/index.js';
 import { ValidationError } from '../errors/index.js';
 import { StatusCodes } from 'http-status-codes';
+import { createErrorObject } from '../../../helpers/common.js';
+import { ApplicationError } from '../../../types/index.js';
 
 @injectable()
 export class ValidationExceptionFilter implements ExceptionFilter {
@@ -25,7 +27,7 @@ export class ValidationExceptionFilter implements ExceptionFilter {
 
     res
       .status(StatusCodes.BAD_REQUEST)
-      .json
+      .json(createErrorObject(ApplicationError.ValidationError, err.message, err.details));
   }
 
 
