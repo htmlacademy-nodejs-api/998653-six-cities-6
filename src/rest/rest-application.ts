@@ -3,7 +3,7 @@ import { Logger } from '../shared/libs/logger/index.js';
 import { injectable, inject } from 'inversify';
 import { Component } from '../shared/types/index.js';
 import { DatabaseClient } from '../shared/libs/database-client/index.js';
-import { getMongoURI } from '../shared/helpers/database.js';
+import { getMongoURI, getFullServerPath } from '../shared/helpers/index.js';
 import express, { Express } from 'express';
 import { Controller } from '../shared/libs/rest/controller/index.js';
 import { ExceptionFilter } from '../shared/libs/rest/exception-filter/index.js';
@@ -98,7 +98,7 @@ export class RestApplication {
 
     this.logger.info('Try to init server…');
     await this._initServer();
-    this.logger.info(`🚀 Server started on http://localhost:${this.config.get('PORT')}`);
+    this.logger.info(`🚀 Server started on ${getFullServerPath(this.config.get('HOST'), this.config.get('PORT'))}`);
 
     const premium = this.offerService.findPremiumByCity('Paris');
     console.log(premium);
