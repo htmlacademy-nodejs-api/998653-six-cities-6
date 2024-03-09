@@ -55,6 +55,10 @@ export class RestApplication {
     this.server.use('/comments/{offerId}', this.commentController.router);
     this.server.use('/offers', this.offerController.router);
     this.server.use('/users', this.userController.router);
+    this.server.use(
+      '/static',
+      express.static(this.config.get('STATIC_DIRECTORY_PATH'))
+    );
   }
 
   public async _initMiddleware() {
