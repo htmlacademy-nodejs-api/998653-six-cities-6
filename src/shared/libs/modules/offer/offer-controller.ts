@@ -85,7 +85,20 @@ export class OfferController extends BaseController {
       ]
     });
 
-    this.addRoute({ path: '/:city/premium', method: HttpMethod.Get, handler: this.getPremium,
+    this.addRoute({
+      path: '/:city/premium',
+      method: HttpMethod.Get,
+      handler: this.getPremium,
+    });
+
+    this.addRoute({
+      path: '/:offerId/prevImg',
+      method: HttpMethod.Post,
+      handler: this.uploadImage,
+      middlewares: [
+        new PrivateRouteMiddleware(),
+        new ValidateObjectIdMiddleware('offerId'),
+      ]
     });
 
   }
@@ -184,5 +197,9 @@ export class OfferController extends BaseController {
   public async getFavorites(_req:Request, res: Response): Promise<void>{
     const offers = await this.offerService.findFavorites();
     this.ok(res, fillDTO(OfferRdo, offers));
+  }
+
+  public uploadImage() {
+
   }
 }
