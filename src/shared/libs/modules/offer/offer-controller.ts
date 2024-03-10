@@ -7,7 +7,7 @@ import { OfferService, CreateOfferRequest, UpdateOfferRequest } from './index.js
 import { HttpMethod } from '../../rest/types/http-method.enum.js';
 import { Request, Response } from 'express';
 import { fillDTO } from '../../../helpers/index.js';
-import { OfferRdo } from './rdo/offer.rdo.js';
+import { OfferRdo, UploadImagesRdo } from './rdo/offer.rdo.js';
 import { CommentRdo } from '../comment/index.js';
 import { StatusCodes } from 'http-status-codes';
 import { ParamOfferId, ParamCityName } from '../../rest/types/index.js';
@@ -104,7 +104,7 @@ export class OfferController extends BaseController {
       middlewares: [
         new PrivateRouteMiddleware(),
         new ValidateObjectIdMiddleware('offerId'),
-        new UploadFileMiddleware(this.conf)
+        new UploadFileMiddleware(this.configService.get('UPLOAD_DIRECTORY'),'images')
       ]
     });
 
@@ -206,7 +206,10 @@ export class OfferController extends BaseController {
     this.ok(res, fillDTO(OfferRdo, offers));
   }
 
-  public uploadImage() {
-
+  public async uploadImage({ params, file } : Request<ParamOfferId>, res: Response) {
+    const { offerId } = params;
+    const updateDto = { prevImg: file?.filename };
+    await this.offerService.updateById(offerId, updateDto);
+    this.created(res, fillDTO(UploadImagesRdo, updateDto));
   }
 }
