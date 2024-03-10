@@ -7,7 +7,8 @@ import { OfferService, CreateOfferRequest, UpdateOfferRequest } from './index.js
 import { HttpMethod } from '../../rest/types/http-method.enum.js';
 import { Request, Response } from 'express';
 import { fillDTO } from '../../../helpers/index.js';
-import { OfferRdo, UploadImagesRdo } from './rdo/offer.rdo.js';
+import { OfferRdo } from './rdo/offer.rdo.js';
+import { UploadImagesRdo } from './rdo/upload-images.rdo.js';
 import { CommentRdo } from '../comment/index.js';
 import { StatusCodes } from 'http-status-codes';
 import { ParamOfferId, ParamCityName } from '../../rest/types/index.js';
