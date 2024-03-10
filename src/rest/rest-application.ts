@@ -11,6 +11,7 @@ import { ParseTokenMiddleware } from '../shared/libs/rest/middleware/index.js';
 import { OfferService } from '../shared/libs/modules/offer/index.js';
 import { STATIC_UPLOAD_ROUTE, STATIC_FILES_ROUTE } from './index.js';
 
+
 @injectable()
 export class RestApplication {
   private readonly server: Express;
