@@ -9,6 +9,7 @@ import { Controller } from '../shared/libs/rest/controller/index.js';
 import { ExceptionFilter } from '../shared/libs/rest/exception-filter/index.js';
 import { ParseTokenMiddleware } from '../shared/libs/rest/middleware/index.js';
 import { OfferService } from '../shared/libs/modules/offer/index.js';
+import { STATIC_UPLOAD_ROUTE, STATIC_FILES_ROUTE } from './index.js';
 
 @injectable()
 export class RestApplication {
@@ -56,7 +57,7 @@ export class RestApplication {
     this.server.use('/offers', this.offerController.router);
     this.server.use('/users', this.userController.router);
     this.server.use(
-      '/static',
+      STATIC_FILES_ROUTE,
       express.static(this.config.get('STATIC_DIRECTORY_PATH'))
     );
   }
@@ -65,7 +66,7 @@ export class RestApplication {
     const authenticateMiddleware = new ParseTokenMiddleware(this.config.get('JWT_SECRET'));
     this.server.use(express.json());
     this.server.use(
-      '/upload',
+      STATIC_UPLOAD_ROUTE,
       express.static(this.config.get('UPLOAD_DIRECTORY')),
     );
     this.server.use(authenticateMiddleware.execute.bind(authenticateMiddleware));
@@ -112,4 +113,3 @@ export class RestApplication {
 
   }
 }
-
