@@ -4,6 +4,7 @@ import { Component } from '../shared/types/index.js';
 import { Logger, PinoLogger } from '../shared/libs/logger/index.js';
 import { Config, RestConfig, RestSchema } from '../shared/libs/config/index.js';
 import { DatabaseClient, MongoDatabaseClient } from '../shared/libs/database-client/index.js';
+import { PathTransformer } from '../shared/libs/rest/transform/path-transformer.js';
 import {
   AppExceptionFilter,
   ExceptionFilter,
