@@ -12,10 +12,15 @@ import { CommentRdo } from '../comment/index.js';
 import { StatusCodes } from 'http-status-codes';
 import { ParamOfferId, ParamCityName } from '../../rest/types/index.js';
 import { CommentService } from '../comment/index.js';
-import { ValidateObjectIdMiddleware } from '../../rest/middleware/index.js';
-import { ValidateDtoMiddleware, PrivateRouteMiddleware } from '../../rest/middleware/index.js';
+import {
+  ValidateDtoMiddleware,
+  PrivateRouteMiddleware,
+  UploadFileMiddleware,
+  ValidateObjectIdMiddleware
+} from '../../rest/middleware/index.js';
 import { CreateOfferDto, UpdateOfferDto } from './index.js';
 import { DocumentExistsMiddleware } from '../../rest/middleware/document-exists.middleware.js';
+import { Config, RestSchema } from '../../config/index.js';
 
 
 @injectable()
@@ -23,7 +28,8 @@ export class OfferController extends BaseController {
   constructor(
     @inject(Component.Logger) protected readonly logger: Logger,
     @inject(Component.OfferService) private readonly offerService: OfferService,
-    @inject(Component.CommentService) private readonly commentService: CommentService
+    @inject(Component.CommentService) private readonly commentService: CommentService,
+    @inject(Component.Config) private readonly configService: Config<RestSchema>,
   ){
     super(logger);
 
@@ -98,6 +104,7 @@ export class OfferController extends BaseController {
       middlewares: [
         new PrivateRouteMiddleware(),
         new ValidateObjectIdMiddleware('offerId'),
+        new UploadFileMiddleware(this.conf)
       ]
     });
 
