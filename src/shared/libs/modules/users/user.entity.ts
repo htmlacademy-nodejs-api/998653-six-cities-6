@@ -25,7 +25,7 @@ export class UserEntity extends defaultClasses.TimeStamps implements User {
       'Email is incorrect'
     ]
   })
-    email!: string;
+  public email!: string;
 
   @prop({
     required: true,
@@ -33,7 +33,7 @@ export class UserEntity extends defaultClasses.TimeStamps implements User {
     maxlength: [NameLength.Max, `Max length for name is ${NameLength.Max}`],
     default: '',
   })
-    author!: string;
+  public author!: string;
 
   @prop({
     required: false,
@@ -44,44 +44,44 @@ export class UserEntity extends defaultClasses.TimeStamps implements User {
     ],
     default: DEFAULT_AVATAR,
   })
-    avatar!: string;
+  public avatar!: string;
 
   @prop({
     enum: StatusType,
     required: true
   })
-    status: StatusType;
+  public status: StatusType;
 
   @prop({ required: true, default: '' })
-    password?: string;
+  public password?: string;
 
-    @prop({
-      ref: 'OfferEntity',
-      default: [],
-    })
-      favoriteOffers: Ref<OfferEntity>[];
+  @prop({
+    ref: 'OfferEntity',
+    default: [],
+  })
+  public favoriteOffers: Ref<OfferEntity>[];
 
-    constructor(UserData: User) {
-      super();
+  constructor(data: User) {
+    super();
 
-      this.email = UserData.email;
-      this.author = UserData.author;
-      this.avatar = UserData.avatar;
-      this.status = UserData.status;
-    }
+    this.email = data.email;
+    this.author = data.author;
+    this.avatar = data.avatar;
+    this.status = data.status;
+  }
 
-    public setPassword(password: string, salt: string) {
-      this.password = createSHA256(password, salt);
-    }
+  public setPassword(password: string, salt: string) {
+    this.password = createSHA256(password, salt);
+  }
 
-    public getPassword() {
-      return this.password;
-    }
+  public getPassword() {
+    return this.password;
+  }
 
-    public verifyPassword(password: string, salt: string) {
-      const hashPassword = createSHA256(password, salt);
-      return hashPassword === this.password;
-    }
+  public verifyPassword(password: string, salt: string) {
+    const hashPassword = createSHA256(password, salt);
+    return hashPassword === this.password;
+  }
 }
 
 export const UserModel = getModelForClass(UserEntity);

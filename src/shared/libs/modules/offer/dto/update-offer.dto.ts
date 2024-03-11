@@ -8,8 +8,6 @@ import {
   IsEnum,
   IsInt,
   IsOptional,
-  IsUrl,
-  Matches,
   Max,
   MaxLength,
   Min,
@@ -32,9 +30,6 @@ export class UpdateOfferDto {
   @IsEnum(CityType, { message: CreateOfferValidationMessage.city.invalidFormat })
   public city?: CityType;
 
-  @IsOptional()
-  @IsUrl({}, { message: CreateOfferValidationMessage.imagePreview.isUrl })
-  @Matches(/\.(jpg|png)(\?.*)?$/i, { message: CreateOfferValidationMessage.imagePreview.matches })
   public prevImg?: string;
 
   @IsOptional()

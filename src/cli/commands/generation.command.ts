@@ -1,4 +1,3 @@
-//--generate <n> <filepath> <url>
 import got from 'got';
 import { CommandInterface } from './command.interface.js';
 import { TMocksServerData } from '../../shared/types/index.js';

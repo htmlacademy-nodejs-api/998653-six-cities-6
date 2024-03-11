@@ -6,12 +6,14 @@ import { Logger } from '../../logger/index.js';
 import { Component } from '../../../types/index.js';
 import { DEFAULT_PREMIUM_OFFER_COUNT, DEFAULT_OFFER_AMOUNT } from '../../../../const/const.js';
 import { SortType } from '../../../types/index.js';
+import { UserEntity } from '../users/index.js';
 
 @injectable()
 export class DefaultOfferService implements OfferService {
   constructor(
     @inject(Component.Logger) private readonly logger: Logger,
     @inject(Component.OfferModel) private readonly offerModel: types.ModelType<OfferEntity>,
+    @inject(Component.UserModel) private readonly userModel: types.ModelType<UserEntity>,
   ) {
   }
 
@@ -85,18 +87,47 @@ export class DefaultOfferService implements OfferService {
   public async findPremiumByCity(city: string): Promise<DocumentType<OfferEntity>[]> {
     const limit = DEFAULT_PREMIUM_OFFER_COUNT;
     return this.offerModel
-      .find({ city, premium: true }, {}, { limit })
+      .find({ city, isPremium: true }, {}, { limit })
       .sort({ date: SortType.Down })
       .populate(['userId'])
       .exec();
   }
 
-  public async findFavorites(): Promise<DocumentType<OfferEntity>[]> {
+  public async findFavorites(userId: string): Promise<DocumentType<OfferEntity>[] | null> {
+    const user = await this.userModel.findById(userId);
+    if (!user) {
+      return null;
+    }
     return this.offerModel
-      .find({ favorites: true })
+      .find({
+        _id: {
+          $in: user.favoriteOffers
+        }
+      })
       .sort({ createdAt: SortType.Down })
       .populate(['userId'])
       .exec();
+  }
+
+  public async addOfferToFavorites(userId: string, offerId: string) {
+    const user = await this.userModel.findOne(
+      { _id: userId },
+    ).exec();
+    if (!user) {
+      return;
+    }
+    const offers = user.favoriteOffers;
+    const idx = offers.findIndex((el) => el._id.toString() === offerId);
+    if (idx !== -1) {
+      return;
+    }
+    const offer = await this.offerModel.findById(offerId);
+    if (!offer) {
+      return;
+    }
+    offers.push(offer);
+    user.favoriteOffers = offers;
+    await user.save();
   }
 
   public async incCommentCount(offerId: string): Promise<DocumentType<OfferEntity> | null> {

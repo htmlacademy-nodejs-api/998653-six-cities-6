@@ -6,14 +6,15 @@ import { HttpMethod, RequestBody, RequestParams } from '../../rest/types/index.j
 import { CreateUserRequest } from './create-user-request.type.js';
 import { Request, Response } from 'express';
 import { Config, RestSchema } from '../../config/index.js';
-import {CreateUserDto, UserService, LoginUserDto } from './index.js';
+import { CreateUserDto, UserService, LoginUserDto } from './index.js';
 import { StatusCodes } from 'http-status-codes';
 import { fillDTO } from '../../../helpers/index.js';
 import { UserRdo } from './rdo/user.rdo.js';
-// import { OfferRdo } from '../offer/rdo/offer.rdo.js';
+import { OfferRdo } from '../offer/rdo/offer.rdo.js';
 import { AuthService } from '../auth/index.js';
 import { LoggedUserRdo } from '../users/dto/index.js';
 import { UploadUserAvatarRdo } from './rdo/upload-user-avatar.rdo.js';
+import { OfferService } from '../offer/offer-service.interface.js';
 
 import {
   ValidateDtoMiddleware,
@@ -21,16 +22,16 @@ import {
   ValidateObjectIdMiddleware,
   PrivateRouteMiddleware
 } from '../../rest/middleware/index.js';
-// import { OfferService } from '../offer/offer-service.interface.js';
+
 
 export type LoginUserRequest = Request<RequestParams, RequestBody, LoginUserDto>;
 
 @injectable()
-export class UserController extends BaseController{
+export class UserController extends BaseController {
   constructor(
     @inject(Component.Logger) protected readonly logger: Logger,
     @inject(Component.UserService) private readonly userService: UserService,
-    // @inject(Component.OfferService) private readonly offerService: OfferService,
+    @inject(Component.OfferService) private readonly offerService: OfferService,
     @inject(Component.Config) private readonly configService: Config<RestSchema>,
     @inject(Component.AuthService) private readonly authService: AuthService
   ) {
@@ -68,15 +69,15 @@ export class UserController extends BaseController{
       middlewares: [new PrivateRouteMiddleware()]
     });
 
-    this.addRoute({path: '/logout', method: HttpMethod.Post, handler: this.logout});
-    this.addRoute({path: '/check_auth', method: HttpMethod.Get, handler: this.checkAuth});
+    this.addRoute({ path: '/logout', method: HttpMethod.Post, handler: this.logout });
+    this.addRoute({ path: '/check_auth', method: HttpMethod.Get, handler: this.checkAuth });
 
-    // this.addRoute({
-    //   path: '/favorite-offers',
-    //   method: HttpMethod.Post,
-    //   handler: this.addFavoriteOffer,
-    //   middlewares: [new PrivateRouteMiddleware()]
-    // });
+    this.addRoute({
+      path: '/favorite-offers',
+      method: HttpMethod.Post,
+      handler: this.addFavoriteOffer,
+      middlewares: [new PrivateRouteMiddleware()]
+    });
 
     this.addRoute({
       path: '/favorite-offers',
@@ -115,11 +116,8 @@ export class UserController extends BaseController{
   ): Promise<void> {
     const user = await this.authService.verify(body);
     const token = await this.authService.authenticate(user);
-    const responseData = fillDTO(LoggedUserRdo, {
-      email: user.email,
-      token,
-    });
-    this.ok(res, responseData);
+    const responseData = fillDTO(LoggedUserRdo, user);
+    this.ok(res, Object.assign(responseData, { token }));
   }
 
   public async logout(_req: Request, _res: Response): Promise<void> {
@@ -144,12 +142,12 @@ export class UserController extends BaseController{
     this.ok(res, fillDTO(LoggedUserRdo, foundedUser));
   }
 
-  // public async addFavoriteOffer(req: Request<RequestParams, RequestBody, { offerId: string, userId: s}>, res: Response) {
-  //   const { tokenPayload, body: { offerId } } = req;
-  //   await this.userService.addFavoriteOfferToUser(tokenPayload.id, offerId);
-  //   const offer = await this.offerService.findById({ offerId, userId: tokenPayload.id });
-  //   this.ok(res, fillDTO(OfferRdo, { ...offer, isFavorite: true }));
-  // }
+  public async addFavoriteOffer(req: Request<RequestParams, RequestBody, { offerId: string }>, res: Response) {
+    const { tokenPayload, body: { offerId } } = req;
+    await this.userService.addFavoriteOfferToUser(tokenPayload.id, offerId);
+    const offer = await this.offerService.findById(offerId, tokenPayload.id);
+    this.ok(res, fillDTO(OfferRdo, { ...offer }));
+  }
 
   public async removeFavoriteOffer(req: Request<RequestParams, RequestBody, { offerId: string }>, res: Response) {
     const { tokenPayload, body: { offerId } } = req;

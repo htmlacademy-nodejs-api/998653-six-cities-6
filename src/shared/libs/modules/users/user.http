@@ -5,7 +5,7 @@ POST http://localhost:4000/users/register HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "toransss@overlook.net",
+  "email": "torrrr@overlook.net",
   "author": "Jack",
   "avatar": "torrance.png",
   "status": "Standard",
@@ -19,18 +19,32 @@ POST http://localhost:4000/users/login HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "toransss@overlook.net",
+  "email": "torrrr@overlook.net",
   "password": "shining"
 }
 
 ###
 
-## Проверка состояния пользователя.
+###
+## Отправить изображение
 
+POST http://localhost:4000/users/65e4a3c4982152359baaad52/avatar HTTP/1.1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="avatar"; filename="avatar.jpg"
+Content-Type: image/jpeg
+
+< /Users/erbetnataly/Desktop/6:03-six-cities-6 2/upload/avatar.jpeg
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+###
+
+## Проверка состояния пользователя.
 
 GET  http://localhost:5000/users/login HTTP/1.1
 Content-Type: application/json
-Authorization:  Bearer eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiSmFjayIsImVtYWlsIjoidG9yYW5zc3NAb3Zlcmxvb2submV0IiwiaWQiOiI2NWU4M2U0YWMxOGQ5NjBkZWEzNWE0ZWUiLCJpYXQiOjE3MDk3NTMyNzcsImV4cCI6MTcwOTkyNjA3N30.OefhEtPjHxzwNGYeQsH4BN0D8OJ7UOgdufgF9ztTaIc
+Authorization:  Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRvcnJyckBvdmVybG9vay5uZXQiLCJpZCI6IjY1ZWRmMTMzNjgyYWZmZmJmM2Y3ZDcyMiIsImF1dGhvciI6IkphY2siLCJpYXQiOjE3MTAwOTI1OTksImV4cCI6MTcxMDI2NTM5OX0.MRB3WXNosuNBJt7pR01ZNLve8cHSf2QMm5Ozegv7De4
 
 ###
 
@@ -38,11 +52,11 @@ Authorization:  Bearer eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiSmFjayIsImVtYWlsIjoidG9y
 
 ## Добавить в любимый оффер
 POST http://localhost:4000/users/favorite-offers HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiSmFjayIsImVtYWlsIjoidG9yYW5zc3NAb3Zlcmxvb2submV0IiwiaWQiOiI2NWU4M2U0YWMxOGQ5NjBkZWEzNWE0ZWUiLCJpYXQiOjE3MDk3NDM1NjAsImV4cCI6MTcwOTkxNjM2MH0.7KY8N8cv9yzwS_Osd4A6nmJpq5lQCtOH3k9x5qvKkeU
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRvcnJyQG92ZXJsb29rLm5ldCIsImlkIjoiNjVlZGYwNTQ2ODJhZmZmYmYzZjdkNzFlIiwiYXV0aG9yIjoiSmFjayIsImlhdCI6MTcxMDA5MjM3NywiZXhwIjoxNzEwMjY1MTc3fQ.3tFxUlC9STLXiX-i5cn0v2qPI9Gvh94N8L1Gc5pQJpk
 Content-Type: application/json
 
 {
-  "offerId": "65e4a3c4982152359baaad4"
+  "offerId": "65e4a3c4982152359baaad5c"
 }
 
 ###
@@ -56,17 +70,3 @@ Content-Type: application/json
   "offerId": "65e4a3c4982152359baaad4"
 }
 
-###
-## Отправить изображение
-
-POST http://localhost:4000/users/65e4967a787680a02aaf4956/avatar HTTP/1.1
-Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
-
-------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="avatar"; filename="avatar.jpg"
-Content-Type: image/jpeg
-
-< /Users/erbetnataly/Desktop/6:03-six-cities-6 2/markup/img/avatar-max.jpg
-------WebKitFormBoundary7MA4YWxkTrZu0gW--
-
-###

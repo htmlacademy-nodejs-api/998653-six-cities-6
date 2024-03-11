@@ -25,7 +25,7 @@ class ImportCommand implements CommandInterface {
 
     this.logger = new ConsoleLogger();
     this.userService = new DefaultUserService(this.logger, UserModel, OfferModel);
-    this.offerService = new DefaultOfferService(this.logger, OfferModel);
+    this.offerService = new DefaultOfferService(this.logger, OfferModel, UserModel);
     this.databaseClient = new MongoDatabaseClient(this.logger);
   }
 
@@ -63,7 +63,6 @@ class ImportCommand implements CommandInterface {
       prevImg: offer.prevImg,
       photos: offer.photos,
       isPremium: offer.isPremium,
-      isFavorite: offer.isFavorite,
       rating: offer.rating,
       flat: offer.flat,
       inside: offer.inside,
