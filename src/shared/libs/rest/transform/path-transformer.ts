@@ -2,7 +2,7 @@ import { injectable, inject } from 'inversify';
 import { Logger } from '../../../libs/logger/index.js';
 import { Component } from '../../../types/index.js';
 import { Config, RestSchema } from '../../config/index.js';
-import { DEFAULT_STATIC_IMAGES, STATIC_RESOURCE_FIELDS } from './path-transformer.constant.js'
+import { DEFAULT_STATIC_IMAGES, STATIC_RESOURCE_FIELDS } from './path-transformer.constant.js';
 import { getFullServerPath } from '../../../helpers/index.js';
 import { STATIC_FILES_ROUTE, STATIC_UPLOAD_ROUTE } from '../../../../rest/index.js';
 

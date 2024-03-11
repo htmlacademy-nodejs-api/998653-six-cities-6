@@ -3,7 +3,7 @@ import { Middleware } from './middleware.interface.js';
 import { validate } from 'class-validator';
 import { ClassConstructor, plainToInstance } from 'class-transformer';
 import { ValidationError } from '../errors/index.js';
-import { reduceValidationErrors } from '../../../helpers/common.js'
+import { reduceValidationErrors } from '../../../helpers/common.js';
 
 
 export class ValidateDtoMiddleware implements Middleware{

@@ -54,7 +54,7 @@ export class RestApplication {
 
 
   public async _initControllers() {
-    this.server.use('/comments/{offerId}', this.commentController.router);
+    this.server.use('/comments', this.commentController.router);
     this.server.use('/offers', this.offerController.router);
     this.server.use('/users', this.userController.router);
     this.server.use(
@@ -108,9 +108,6 @@ export class RestApplication {
 
     const premium = this.offerService.findPremiumByCity('Paris');
     console.log(premium);
-
-    const favorites = this.offerService.findFavorites();
-    console.log(favorites);
 
   }
 }

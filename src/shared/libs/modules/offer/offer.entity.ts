@@ -66,12 +66,6 @@ export class OfferEntity extends defaultClasses.TimeStamps {
 
   @prop({
     require: true,
-    default: false,
-  })
-  public isFavorite!: boolean;
-
-  @prop({
-    require: true,
     min: OfferMap.RATING_MIN,
     max: OfferMap.RATING_MAX
   })

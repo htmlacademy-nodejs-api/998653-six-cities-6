@@ -42,7 +42,7 @@ export abstract class BaseController implements Controller {
     res
       .type(DEFAULT_CONTENT_TYPE)
       .status(statusCode)
-      .json(modifiedData );
+      .json(modifiedData);
   }
 
   public ok<T>(res: Response, data: T): void {
